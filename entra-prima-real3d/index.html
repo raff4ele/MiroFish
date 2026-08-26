@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f2e9">
+  <meta name="description" content="ENTRA PRIMA — experience design, 3D interattivo, scroll storytelling, UI/UX e crescita internazionale.">
+  <title>ENTRA PRIMA — Il cliente entra prima di arrivare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script defer src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
+</head>
+<body>
+  <div class="page-progress" aria-hidden="true"><span></span></div>
+  <header class="topbar">
+    <a class="brand" href="#hero" aria-label="ENTRA PRIMA, torna all'inizio">
+      <span class="brand-mark">EP</span>
+      <span class="brand-copy"><strong>ENTRA PRIMA</strong><small>Il cliente entra prima di arrivare.</small></span>
+    </a>
+    <nav aria-label="Navigazione principale">
+      <a href="#before-after">Prima / Dopo</a>
+      <a href="#difference">Differenza</a>
+      <a href="#services">Cosa creo</a>
+      <a href="#ads-world">ADS estero</a>
+      <a href="#portfolio">Demo</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Experience design · Real-time 3D · Milano → World</p>
+        <h1>Non costruisco pagine.<br><em>Costruisco il primo incontro.</em></h1>
+        <p class="lede">Trasformo l'identità reale di un'attività in un'esperienza digitale che <strong>si muove, reagisce, racconta e guida all'azione</strong>. Il 3D non è una decorazione: è parte del modo in cui il brand viene percepito.</p>
+        <div class="hero-actions">
+          <a class="cta cta-primary" href="#before-after"><span>Guarda la trasformazione</span><b>↓</b></a>
+          <a class="cta cta-secondary" href="#ads-world"><span>Milano → World</span><b>↗</b></a>
+        </div>
+        <div class="hero-signals" aria-label="Competenze principali">
+          <span>3D PBR</span><span>Scroll camera</span><span>UI/UX</span><span>Booking</span><span>ADS IT/EN</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="canvas-shell hero-canvas-shell" data-scene="hero">
+          <canvas id="hero3d" aria-label="Smartphone tridimensionale interattivo ENTRA PRIMA"></canvas>
+          <div class="scene-caption scene-caption-a"><span>01</span><strong>INTERAZIONE REALE</strong><small>Muovilo col dito.</small></div>
+          <div class="scene-caption scene-caption-b"><span>02</span><strong>SCROLL = CAMERA</strong><small>La scena cambia mentre scorri.</small></div>
+          <div class="scene-caption scene-caption-c"><span>03</span><strong>UI IN PROFONDITÀ</strong><small>I layer escono dallo schermo.</small></div>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#before-after"><span>SCORRI</span><i></i></a>
+    </section>
+
+    <section class="intro section-pad">
+      <p class="eyebrow">La differenza è percepibile</p>
+      <div>
+        <h2>Un sito normale <em>mostra.</em><br>ENTRA PRIMA <em>fa vivere.</em></h2>
+        <p class="intro-copy">Ogni elemento ha un ruolo: immagine, profondità, movimento, testo, grafici e CTA lavorano insieme. Se un effetto non spiega nulla o non porta avanti l'esperienza, viene eliminato.</p>
+      </div>
+    </section>
+
+    <section class="comparison section-pad" id="before-after">
+      <div class="section-head">
+        <div><p class="eyebrow">Prima / Dopo</p><h2>Stesso brand.<br><em>Un'altra percezione.</em></h2></div>
+        <p>Trascina il confine. Il “dopo” non è un altro template: la stessa identità acquista profondità, ritmo, gerarchia e un percorso verso l'azione.</p>
+      </div>
+      <div class="compare" data-compare role="slider" tabindex="0" aria-label="Confronto tra sito tradizionale ed esperienza ENTRA PRIMA" aria-valuemin="6" aria-valuemax="94" aria-valuenow="50">
+        <div class="compare-layer before">
+          <div class="flat-site">
+            <div class="browser-bar"><span></span><span></span><span></span></div>
+            <div class="flat-body"><small>ATELIER / MILANO</small><h3>Qualità e tradizione</h3><p>Scopri i nostri servizi e contattaci.</p><div class="flat-photo"></div><button type="button">SCOPRI DI PIÙ</button></div>
+          </div>
+          <div class="compare-tag"><span>PRIMA</span><strong>Presenza</strong></div>
+        </div>
+        <div class="compare-layer after">
+          <div class="depth-stage" data-depth-stage>
+            <div class="depth-photo"></div>
+            <div class="depth-glass d1"><small>STORIA</small><strong>Il gesto diventa racconto.</strong></div>
+            <div class="depth-glass d2"><small>DETTAGLIO</small><strong>Esplora il prodotto ↗</strong></div>
+            <div class="depth-glass d3"><small>AZIONE</small><strong>Prenota l'esperienza</strong></div>
+            <div class="depth-trace"></div>
+          </div>
+          <div class="compare-tag"><span>DOPO</span><strong>Esperienza</strong></div>
+        </div>
+        <div class="divider" aria-hidden="true"><span>‹</span><span>›</span></div>
+      </div>
+      <div class="metrics" data-scroll-chart>
+        <article><span class="metric-symbol">◉</span><div><strong>Attenzione</strong><small>Il contenuto si scopre, non si subisce.</small></div><svg viewBox="0 0 220 60" aria-hidden="true"><path class="chart-line" d="M2 53 C35 53,45 48,68 42 S106 37,128 28 S168 22,218 5"/></svg></article>
+        <article><span class="metric-symbol">↗</span><div><strong>Intenzione</strong><small>Il percorso conduce verso la CTA.</small></div><svg viewBox="0 0 220 60" aria-hidden="true"><path class="chart-line" d="M2 54 C40 50,48 52,78 40 S124 32,143 22 S184 18,218 7"/></svg></article>
+        <article><span class="metric-symbol">◇</span><div><strong>Memoria</strong><small>Il brand diventa riconoscibile.</small></div><svg viewBox="0 0 220 60" aria-hidden="true"><path class="chart-line" d="M2 55 C28 52,42 44,66 46 S96 37,121 31 S157 15,218 8"/></svg></article>
+      </div>
+      <p class="metric-note">Grafici concettuali: i risultati reali vengono misurati sul progetto, non inventati prima.</p>
+    </section>
+
+    <section class="difference" id="difference">
+      <div class="difference-copy"><p class="eyebrow">Cosa faccio di diverso</p><h2>Non parto da un template.<br><em>Parto da ciò che ti rende unico.</em></h2><p>Il progetto unisce identità, esperienza, conversione e distribuzione. La tecnologia arriva dopo il brand, non prima.</p></div>
+      <div class="difference-flow">
+        <div class="flow-row standard"><strong>Approccio standard</strong><div><span>Template</span><i>→</i><span>Contenuti</span><i>→</i><span>Pubblicazione</span></div></div>
+        <div class="flow-row entra"><strong>ENTRA PRIMA</strong><div><span>Identità</span><i>→</i><span>Emozione</span><i>→</i><span>3D + Motion</span><i>→</i><span>Azione</span><i>→</i><span>Crescita</span></div><b class="flow-trace"></b></div>
+      </div>
+    </section>
+
+    <section class="services section-pad" id="services">
+      <div class="section-head">
+        <div><p class="eyebrow">Cosa creo</p><h2>Oggetti che <em>spiegano.</em><br>Non forme decorative.</h2></div>
+        <p>Ogni oggetto tridimensionale rappresenta una parte precisa del progetto e si muove secondo la funzione che racconta.</p>
+      </div>
+      <div class="service-stage" data-scene="services">
+        <canvas id="services3d" aria-label="Quattro oggetti 3D che rappresentano i servizi ENTRA PRIMA"></canvas>
+        <div class="service-label s1"><span>01</span><strong>3D INTERATTIVO</strong><small>Un prodotto fisico reso esplorabile.</small></div>
+        <div class="service-label s2"><span>02</span><strong>SCROLL STORYTELLING</strong><small>Le pagine diventano un percorso.</small></div>
+        <div class="service-label s3"><span>03</span><strong>UI / UX</strong><small>Interazioni leggibili e tangibili.</small></div>
+        <div class="service-label s4"><span>04</span><strong>BOOKING / CTA</strong><small>Un'azione concreta alla fine del percorso.</small></div>
+      </div>
+    </section>
+
+    <section class="ads-world" id="ads-world">
+      <div class="ads-copy"><p class="eyebrow">ADS + Internazionalizzazione</p><h2>Da Milano<br><em>al pubblico giusto.</em></h2><p>Posso costruire anche il percorso con cui il brand viene presentato fuori dall'Italia: creatività ADS, messaggi localizzati, inglese e una landing coerente con il mercato di destinazione.</p></div>
+      <div class="globe-wrap" data-scene="globe">
+        <canvas id="globe3d" aria-label="Globo terrestre tridimensionale con rotte da Milano verso mercati internazionali"></canvas>
+        <span class="city milan">MILANO</span><span class="city london">LONDRA</span><span class="city dubai">DUBAI</span><span class="city ny">NEW YORK</span>
+      </div>
+      <div class="ads-steps">
+        <article><span>01</span><strong>Creatività ADS</strong><p>Video e visual costruiti per fermare l'attenzione senza perdere l'identità del brand.</p></article>
+        <article><span>02</span><strong>Target internazionale</strong><p>Lingua, messaggio e percezione vengono adattati al mercato.</p></article>
+        <article><span>03</span><strong>Esperienza → prenotazione</strong><p>Il click entra in un percorso coerente fino all'azione.</p></article>
+      </div>
+      <div class="funnel" aria-label="Percorso illustrativo ADS, esperienza, interesse, prenotazione"><strong>ADS</strong><i></i><strong>ESPERIENZA</strong><i></i><strong>INTERESSE</strong><i></i><strong>PRENOTAZIONE</strong></div>
+    </section>
+
+    <section class="portfolio section-pad" id="portfolio">
+      <div class="section-head"><div><p class="eyebrow">Demo reali</p><h2>Non devi immaginarlo.<br><em>Puoi entrarci.</em></h2></div><p>Ogni esperienza cambia linguaggio visivo in base all'attività. Questi sono esempi reali da aprire.</p></div>
+      <div class="works">
+        <a class="work tailor" href="https://luigi-monza-luxe-62xdg6p2u-agent25.vercel.app" target="_blank" rel="noreferrer"><span>01</span><div><small>SARTORIA SU MISURA</small><h3>Luigi Monza</h3><b>Apri esperienza ↗</b></div></a>
+        <a class="work jewel" href="https://gm-gioielli-higgsfield-5rhsqc1bh-agent25.vercel.app" target="_blank" rel="noreferrer"><span>02</span><div><small>GIOIELLERIA</small><h3>GM Gioielli</h3><b>Apri esperienza ↗</b></div></a>
+        <a class="work flower" href="https://domenico-tesoro-entra-prima-flnv8bclf-agent25.vercel.app" target="_blank" rel="noreferrer"><span>03</span><div><small>ATELIER FLOREALE</small><h3>Domenico Tesoro</h3><b>Apri esperienza ↗</b></div></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand"><span class="brand-mark">EP</span><span class="brand-copy"><strong>ENTRA PRIMA</strong><small>Experience design · Milano → World</small></span></div>
+    <span class="footer-note">3D · Motion · UI/UX · ADS</span>
+  </footer>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
