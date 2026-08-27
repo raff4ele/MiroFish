@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f6f2e9">
+  <meta name="description" content="ENTRA PRIMA — siti immersivi, creatività, ADS internazionali e conversione.">
+  <title>ENTRA PRIMA — Experience before arrival</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+  {"imports":{
+    "three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+  }}
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="ENTRA PRIMA">
+      <span class="brand-mark">EP</span>
+      <span class="brand-name">ENTRA PRIMA</span>
+    </a>
+    <div class="topbar-note"><span>DIGITAL EXPERIENCE</span><i></i><span>MILANO → WORLD</span></div>
+    <button class="menu-dots" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Apri indice">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <aside class="menu-panel" id="menu-panel" aria-hidden="true">
+    <div class="menu-head"><span>INDICE</span><span>ENTRA PRIMA / 2026</span></div>
+    <nav class="menu-links">
+      <a href="#top"><span>00</span><strong>Overview</strong><small>Il sistema completo</small></a>
+      <a href="#web"><span>01</span><strong>Siti immersivi</strong><small>UI/UX, motion, 3D, booking</small></a>
+      <a href="#attention"><span>02</span><strong>Attenzione</strong><small>Hook, creative, visual direction</small></a>
+      <a href="#global"><span>03</span><strong>ADS mondiali</strong><small>Localizzazione e mercati</small></a>
+      <a href="#conversion"><span>04</span><strong>Conversione</strong><small>Dall'interesse all'azione</small></a>
+      <a href="#process"><span>05</span><strong>Metodo</strong><small>Come costruisco l'esperienza</small></a>
+    </nav>
+    <div class="menu-foot">
+      <p>Non un template adattato.<br>Un sistema costruito intorno al brand.</p>
+      <button type="button" data-menu-close>CHIUDI <span>×</span></button>
+    </div>
+  </aside>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy" data-reveal>
+        <p class="kicker">DIGITAL EXPERIENCE / CREATIVE SYSTEMS</p>
+        <h1>Fai entrare<br>il cliente <em>prima.</em></h1>
+        <p class="hero-intro">Progetto esperienze digitali che fanno percepire il valore di un brand prima dell'incontro fisico: sito, interazione, creatività, ADS e azione finale diventano un unico sistema.</p>
+        <a class="text-link" href="#engine">ESPLORA IL SISTEMA <span>↘</span></a>
+      </div>
+
+      <div class="hero-side" data-reveal>
+        <div class="hero-side-index"><span>01</span><span>EXPERIENCE ENGINE</span></div>
+        <p>Una sola esperienza interattiva mostra come lavoro. Muovila, tocca i moduli, cambia modalità.</p>
+      </div>
+    </section>
+
+    <section class="engine-section" id="engine">
+      <div class="engine-copy" data-reveal>
+        <p class="kicker light">INTERACTIVE CORE</p>
+        <h2>Un sistema.<br><em>Quattro funzioni.</em></h2>
+        <p id="mode-description">Il sito non è il contenitore finale: è il punto in cui identità, profondità e interazione diventano esperienza.</p>
+        <div class="engine-mode-copy">
+          <span id="mode-index">01 / 04</span>
+          <strong id="mode-title">SITO IMMERSIVO</strong>
+        </div>
+      </div>
+
+      <div class="engine-stage" data-engine-stage aria-label="Esperienza tridimensionale interattiva ENTRA PRIMA">
+        <canvas id="experience-canvas"></canvas>
+        <div class="engine-ui">
+          <div class="engine-status"><i></i><span>REAL-TIME WEBGL</span></div>
+          <div class="engine-hint">DRAG / TOUCH TO MOVE</div>
+        </div>
+        <div class="engine-modes" role="tablist" aria-label="Modalità esperienza">
+          <button class="is-active" type="button" role="tab" data-mode="site"><span>01</span>SITO</button>
+          <button type="button" role="tab" data-mode="ads"><span>02</span>ADS</button>
+          <button type="button" role="tab" data-mode="global"><span>03</span>GLOBAL</button>
+          <button type="button" role="tab" data-mode="action"><span>04</span>AZIONE</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="explainer web-section" id="web">
+      <div class="section-label" data-reveal><span>01</span><b>SITI IMMERSIVI</b></div>
+      <div class="section-heading" data-reveal>
+        <h2>Il sito deve far<br><em>sentire il brand.</em></h2>
+        <p>Non parto da un template. Parto dall'identità reale dell'attività e costruisco attorno a quella una presenza digitale riconoscibile.</p>
+      </div>
+      <div class="detail-grid">
+        <article data-reveal>
+          <span class="detail-no">A</span>
+          <h3>UI / UX</h3>
+          <p>Gerarchia, ritmo, navigazione e interazioni progettate per rendere naturale capire chi sei e cosa fare dopo.</p>
+        </article>
+        <article data-reveal>
+          <span class="detail-no">B</span>
+          <h3>3D + Motion</h3>
+          <p>Oggetti real-time, profondità e movimento solo quando aggiungono significato. Non effetti messi per riempire.</p>
+        </article>
+        <article data-reveal>
+          <span class="detail-no">C</span>
+          <h3>Booking + Action</h3>
+          <p>Prenotazioni, richieste, WhatsApp o acquisto vengono integrati nel percorso, non aggiunti come bottone finale.</p>
+        </article>
+        <article data-reveal>
+          <span class="detail-no">D</span>
+          <h3>IT / EN</h3>
+          <p>La struttura può nascere già bilingue, pronta a presentare il brand a chi lo scopre anche fuori dall'Italia.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="attention-section" id="attention">
+      <div class="attention-number" data-reveal><strong>0.8</strong><span>SEC</span></div>
+      <div class="attention-copy" data-reveal>
+        <p class="kicker">02 / ATTENZIONE</p>
+        <h2>Prima del clic,<br>devi meritare <em>lo sguardo.</em></h2>
+        <p>Creatività, visual e copy devono creare una domanda immediata. L'ADS non vive separato dal sito: deve sembrare l'inizio della stessa esperienza.</p>
+      </div>
+      <div class="attention-strip" data-reveal>
+        <div><span>01</span><strong>HOOK</strong><small>Interrompere lo scroll</small></div>
+        <i>→</i>
+        <div><span>02</span><strong>DESIDERIO</strong><small>Far volere il passo successivo</small></div>
+        <i>→</i>
+        <div><span>03</span><strong>BRIDGE</strong><small>Portare nella stessa identità</small></div>
+      </div>
+    </section>
+
+    <section class="global-section" id="global">
+      <div class="global-head" data-reveal>
+        <div>
+          <p class="kicker light">03 / ADS MONDIALI</p>
+          <h2>Stesso brand.<br><em>Contesti diversi.</em></h2>
+        </div>
+        <p>Localizzo messaggio, lingua e creative direction per mercati diversi mantenendo la stessa identità. Non è una traduzione parola per parola.</p>
+      </div>
+
+      <div class="market-lab" data-reveal>
+        <div class="market-tabs" role="tablist" aria-label="Mercati">
+          <button class="is-active" type="button" data-market="milano">MILANO</button>
+          <button type="button" data-market="london">LONDON</button>
+          <button type="button" data-market="newyork">NEW YORK</button>
+          <button type="button" data-market="dubai">DUBAI</button>
+        </div>
+        <div class="market-creative">
+          <div class="creative-meta"><span id="market-code">IT / MILANO</span><span>PAID SOCIAL / EXPERIENCE</span></div>
+          <div class="creative-body">
+            <small id="market-eyebrow">UN PRIMO INCONTRO DIGITALE</small>
+            <strong id="market-headline">Entra prima<br>di arrivare.</strong>
+            <p id="market-copy">Un'esperienza digitale pensata per far percepire il brand prima della visita.</p>
+          </div>
+          <div class="creative-cta" id="market-cta">SCOPRI L'ESPERIENZA <span>↗</span></div>
+        </div>
+        <div class="market-notes">
+          <div><span>LANGUAGE</span><b id="note-language">ITALIAN</b></div>
+          <div><span>TONE</span><b id="note-tone">EDITORIAL / DIRECT</b></div>
+          <div><span>GOAL</span><b id="note-goal">DISCOVERY → BOOKING</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="conversion-section" id="conversion">
+      <div class="conversion-copy" data-reveal>
+        <p class="kicker">04 / CONVERSIONE</p>
+        <h2>Bello non basta.<br><em>Deve far agire.</em></h2>
+        <p>Ogni scelta visiva deve accompagnare verso un'azione reale: prenotare, chiedere informazioni, entrare in showroom, acquistare o iniziare una conversazione.</p>
+      </div>
+      <div class="conversion-flow" data-reveal>
+        <div><span>01</span><strong>ATTENZIONE</strong><small>Mi fermo.</small></div>
+        <b>→</b>
+        <div><span>02</span><strong>INTERESSE</strong><small>Voglio capire.</small></div>
+        <b>→</b>
+        <div><span>03</span><strong>DESIDERIO</strong><small>Voglio viverlo.</small></div>
+        <b>→</b>
+        <div><span>04</span><strong>AZIONE</strong><small>Faccio il passo.</small></div>
+      </div>
+    </section>
+
+    <section class="process-section" id="process">
+      <div class="process-title" data-reveal>
+        <p class="kicker light">05 / METODO</p>
+        <h2>Costruito intorno<br><em>a ciò che sei.</em></h2>
+      </div>
+      <div class="process-steps">
+        <article data-reveal><span>01</span><h3>LEGGERE</h3><p>Identità, spazio, prodotto, pubblico e differenze reali del brand.</p></article>
+        <article data-reveal><span>02</span><h3>DIRIGERE</h3><p>Definire il concetto visivo e ciò che deve catturare l'attenzione.</p></article>
+        <article data-reveal><span>03</span><h3>COSTRUIRE</h3><p>UI, interaction, 3D, motion, booking e struttura internazionale.</p></article>
+        <article data-reveal><span>04</span><h3>PORTARE FUORI</h3><p>Creatività e ADS coerenti con la stessa esperienza digitale.</p></article>
+      </div>
+      <div class="end-statement" data-reveal>
+        <small>ENTRA PRIMA / DIGITAL EXPERIENCE</small>
+        <strong>Prima di incontrarti,<br>devono già <em>sentirti.</em></strong>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
