@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+
+const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const css = fs.readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
+const js = fs.readFileSync(new URL('../script.js', import.meta.url), 'utf8');
+
+assert.match(html, /id="selected-work"/);
+assert.match(html, /id="transformation"/);
+assert.match(html, /id="method"/);
+assert.match(html, /id="international"/);
+assert.match(html, /data-project-video="luigi"/);
+assert.match(html, /data-project-video="jewel"/);
+assert.match(html, /data-project-video="flower"/);
+assert.match(html, /id="browser3d"/);
+assert.doesNotMatch(html, /id="contact"|class="contact/);
+assert.doesNotMatch(html, /id="globe3d"/);
+assert.doesNotMatch(html, /service-label/);
+assert.match(html, /luigi-monza-luxe\.vercel\.app/);
+assert.match(html, /gm-gioielli-higgsfield\.vercel\.app/);
+assert.match(html, /domenico-tesoro-entra-prima\.vercel\.app/);
+assert.match(html, /3e105ba2-0e5e-46e5-95b9-153f1c27ad4e\.mp4/);
+assert.match(html, /a45b0bcb-a136-4c74-8bc1-25d7f366922e\.mp4/);
+assert.match(html, /484e0b26-42d2-4164-bdee-c9cf990aa2fc\.mp4/);
+assert.match(css, /--paper:\s*#F4F1EA/i);
+assert.match(css, /--violet:\s*#6C63FF/i);
+assert.match(js, /prefers-reduced-motion/);
+assert.match(js, /IntersectionObserver/);
+assert.match(js, /ScrollTrigger/);
+assert.match(js, /initBrowserScene/);
+assert.match(js, /initProjectVideos/);
+console.log('editorial portfolio structure: PASS');
