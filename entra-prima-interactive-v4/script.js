@@ -33,25 +33,29 @@ const modes={
     index:'01 / 04',
     title:'SITO IMMERSIVO',
     description:"Uno spazio digitale costruito come un ambiente: fotografia, tipografia, profondità e interazione fanno percepire il brand prima della visita.",
-    accent:0xb58b57
+    accent:0xb58b57,
+    status:'INTERACTIVE WEBSITE'
   },
   ads:{
     index:'02 / 04',
     title:'ADS / ATTENTION',
     description:"Creatività e campagna vengono progettate nello stesso linguaggio del brand, così l'annuncio non sembra separato dall'esperienza che viene dopo.",
-    accent:0xc78042
+    accent:0xc78042,
+    status:'CAMPAIGN EXPERIENCE'
   },
   global:{
     index:'03 / 04',
     title:'GLOBAL PRESENCE',
     description:"La stessa identità viene adattata a lingua, tono e contesto dei diversi mercati, mantenendo coerenza e riconoscibilità.",
-    accent:0xa89362
+    accent:0xa89362,
+    status:'GLOBAL PRESENCE'
   },
   action:{
     index:'04 / 04',
     title:'AZIONE / BOOKING',
     description:"L'esperienza porta naturalmente a un gesto reale: prenotare, chiedere informazioni, visitare lo showroom o iniziare una conversazione.",
-    accent:0xd5bd8b
+    accent:0xd5bd8b,
+    status:'BOOKING EXPERIENCE'
   }
 };
 
@@ -72,6 +76,8 @@ function setMode(mode){
   document.getElementById('mode-index').textContent=d.index;
   document.getElementById('mode-title').textContent=d.title;
   document.getElementById('mode-description').textContent=d.description;
+  const statusLabel=document.getElementById('engine-status-label');
+  if(statusLabel) statusLabel.textContent=d.status;
   engine.accentTarget.setHex(d.accent);
   for(const [key,group] of Object.entries(engine.sceneGroups)){
     const active=key===mode;
