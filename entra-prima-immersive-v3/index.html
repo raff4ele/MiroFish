@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f2f0e9">
+  <meta name="description" content="ENTRA PRIMA — siti immersivi, motion, real-time 3D, creatività e ADS internazionali.">
+  <title>ENTRA PRIMA — From attention to action</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header" aria-label="Navigazione ENTRA PRIMA">
+    <a class="wordmark" href="#hero" aria-label="ENTRA PRIMA, torna all'inizio">
+      <span class="wordmark-mark">EP</span>
+      <span class="wordmark-name">ENTRA PRIMA</span>
+    </a>
+    <div class="header-meta"><span>MILANO</span><span>→</span><span>WORLD</span></div>
+    <button class="menu-index" type="button" aria-label="Indice sezioni" aria-expanded="false"><i></i><i></i></button>
+  </header>
+
+  <aside class="scene-index" aria-label="Indice esperienza">
+    <a href="#websites"><span>01</span><b>SITI</b></a>
+    <a href="#motion"><span>02</span><b>MOTION</b></a>
+    <a href="#three-d"><span>03</span><b>3D</b></a>
+    <a href="#attention"><span>04</span><b>ATTENZIONE</b></a>
+    <a href="#world"><span>05</span><b>ADS</b></a>
+    <a href="#conversion"><span>06</span><b>AZIONE</b></a>
+  </aside>
+
+  <main>
+    <section class="scroll-scene hero-scene" id="hero" data-scene="hero">
+      <div class="scene-sticky hero-sticky">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-kicker"><span>DIGITAL EXPERIENCE STUDIO</span><span>2026</span></div>
+        <h1 class="hero-title" aria-label="ENTRA PRIMA">
+          <span class="hero-line hero-line-a">ENTRA</span>
+          <span class="hero-line hero-line-b">PRIMA</span>
+        </h1>
+        <p class="hero-manifesto">Trasformo un brand fisico in un'esperienza digitale che <strong>attira, reagisce e porta all'azione.</strong></p>
+        <div class="hero-stage" data-pointer-stage>
+          <canvas id="hero-webgl" aria-label="Logo ENTRA PRIMA tridimensionale interattivo"></canvas>
+          <div class="hero-layer-label layer-label-a"><span>IDENTITÀ</span><i>01</i></div>
+          <div class="hero-layer-label layer-label-b"><span>MOTION</span><i>02</i></div>
+          <div class="hero-layer-label layer-label-c"><span>3D</span><i>03</i></div>
+          <div class="hero-layer-label layer-label-d"><span>CONVERSIONE</span><i>04</i></div>
+        </div>
+        <div class="hero-bottom">
+          <span>DAL PRIMO SGUARDO ALLA PRENOTAZIONE</span>
+          <a href="#websites">SCORRI <b>↓</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-scene websites-scene" id="websites" data-scene="websites">
+      <div class="scene-sticky websites-sticky">
+        <div class="scene-number">01</div>
+        <div class="scene-copy websites-copy">
+          <p class="eyebrow">SITI IMMERSIVI</p>
+          <h2>Non una pagina.<br><em>Un ingresso.</em></h2>
+          <p>Layout, immagini, profondità e interazioni vengono progettati come un unico percorso. Il visitatore non legge semplicemente: entra.</p>
+        </div>
+        <div class="site-builder" aria-label="Interfaccia che si costruisce con lo scroll">
+          <div class="site-frame frame-wire">
+            <div class="wire-nav"><span></span><span></span><span></span></div>
+            <div class="wire-title"></div><div class="wire-title short"></div>
+            <div class="wire-media"></div>
+          </div>
+          <div class="site-frame frame-design">
+            <nav><strong>ATELIER 01</strong><span>COLLECTION / BOOKING</span></nav>
+            <div class="design-hero"><small>MADE TO BE FELT</small><strong>Materia,<br>prima del luogo.</strong><i></i></div>
+            <div class="design-rail"><span>01 / STORY</span><span>02 / DETAIL</span><span>03 / ACTION</span></div>
+          </div>
+          <div class="site-depth depth-a"><span>STORY</span><b>01</b></div>
+          <div class="site-depth depth-b"><span>DETAIL</span><b>02</b></div>
+          <div class="site-depth depth-c"><span>BOOK</span><b>03</b></div>
+          <div class="site-cursor" aria-hidden="true"><span></span></div>
+        </div>
+        <div class="scene-caption"><span>BUILD</span><b>STRUCTURE → IDENTITY → DEPTH → ACTION</b></div>
+      </div>
+    </section>
+
+    <section class="scroll-scene motion-scene" id="motion" data-scene="motion">
+      <div class="scene-sticky motion-sticky">
+        <div class="scene-number">02</div>
+        <p class="eyebrow motion-eyebrow">SCROLL / MOTION</p>
+        <div class="motion-type" aria-label="Lo scroll diventa racconto">
+          <span class="motion-word word-scroll">SCROLL</span>
+          <span class="motion-word word-becomes">BECOMES</span>
+          <span class="motion-word word-story">STORY</span>
+        </div>
+        <div class="motion-mask"><div class="motion-mask-inner"><span>IL MOVIMENTO</span><strong>non decora.</strong><em>Dirige lo sguardo.</em></div></div>
+        <svg class="motion-path" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M25 425 C220 25 390 505 590 190 C760 -75 890 555 1175 95"/>
+        </svg>
+        <div class="motion-note note-a">TIMING / 240–700ms</div>
+        <div class="motion-note note-b">DEPTH / MASK / CAMERA</div>
+      </div>
+    </section>
+
+    <section class="scroll-scene object-scene" id="three-d" data-scene="three-d">
+      <div class="scene-sticky object-sticky">
+        <div class="scene-number">03</div>
+        <div class="scene-copy object-copy">
+          <p class="eyebrow">REAL-TIME 3D</p>
+          <h2>Non un render.<br><em>Un oggetto vivo.</em></h2>
+          <p>Materiali fisici, luce, profondità e gesture. L'oggetto reagisce al dito, si apre con lo scroll e mostra come l'esperienza è costruita.</p>
+          <div class="object-spec"><span>PBR</span><span>WEBGL</span><span>TOUCH</span><span>60 FPS TARGET</span></div>
+        </div>
+        <div class="object-stage" data-object-stage>
+          <canvas id="object-webgl" aria-label="Oggetto tridimensionale ENTRA PRIMA esplodibile e manipolabile"></canvas>
+          <div class="object-axis axis-x">X</div><div class="object-axis axis-y">Y</div><div class="object-axis axis-z">Z</div>
+          <div class="object-hint">DRAG TO MOVE <b>↗</b></div>
+        </div>
+        <div class="object-callout callout-a"><i></i><span>PHYSICAL MATERIAL</span></div>
+        <div class="object-callout callout-b"><i></i><span>INTERACTION LAYER</span></div>
+        <div class="object-callout callout-c"><i></i><span>ACTION LAYER</span></div>
+      </div>
+    </section>
+
+    <section class="scroll-scene attention-scene" id="attention" data-scene="attention">
+      <div class="scene-sticky attention-sticky">
+        <div class="scene-number">04</div>
+        <div class="attention-copy">
+          <p class="eyebrow">ATTENZIONE / CREATIVE</p>
+          <h2>Prima devi<br><em>fermare il dito.</em></h2>
+        </div>
+        <div class="attention-clock"><strong>0.8</strong><span>SEC</span></div>
+        <div class="creative-stage">
+          <div class="creative-frame creative-01"><span>HOOK</span><strong>NON<br>SCORRERE.</strong><small>Il primo frame deve meritare il secondo.</small></div>
+          <div class="creative-frame creative-02"><span>DESIRE</span><strong>FALLO<br>DESIDERARE.</strong><small>La creatività apre una domanda, non la chiude.</small></div>
+          <div class="creative-frame creative-03"><span>BRIDGE</span><strong>ORA<br>ENTRA.</strong><small>ADS e sito devono sembrare la stessa esperienza.</small></div>
+          <div class="creative-scan"></div>
+        </div>
+        <div class="attention-sequence"><span>HOOK</span><i></i><span>ATTENZIONE</span><i></i><span>INTERAZIONE</span></div>
+      </div>
+    </section>
+
+    <section class="scroll-scene world-scene" id="world" data-scene="world">
+      <div class="scene-sticky world-sticky">
+        <div class="scene-number">05</div>
+        <div class="world-copy">
+          <p class="eyebrow">ADS MONDIALI</p>
+          <h2>Un'identità.<br><em>Più mercati.</em></h2>
+          <p>Non traduco soltanto una frase: adatto creatività, tono, lingua e landing affinché il brand rimanga riconoscibile anche fuori dall'Italia.</p>
+        </div>
+        <div class="world-map" aria-label="Percorso internazionale Milano, London, New York, Dubai">
+          <svg viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <path class="map-land" d="M95 197 164 144 238 156 282 205 337 189 382 232 433 219 463 166 515 136 566 155 617 133 671 155 704 214 757 231 813 214 870 241 936 224 1010 255 1070 311 1037 357 976 367 920 345 862 378 797 367 746 398 685 382 623 420 565 401 523 433 460 408 401 428 344 393 289 414 239 376 184 389 143 350 96 330 70 269Z"/>
+            <path class="map-route route-london" d="M556 258 C526 220 506 199 485 187"/>
+            <path class="map-route route-ny" d="M556 258 C408 178 315 186 228 248"/>
+            <path class="map-route route-dubai" d="M556 258 C661 255 719 289 760 338"/>
+          </svg>
+          <span class="world-node node-milan"><b></b>MILANO</span>
+          <span class="world-node node-london"><b></b>LONDON</span>
+          <span class="world-node node-ny"><b></b>NEW YORK</span>
+          <span class="world-node node-dubai"><b></b>DUBAI</span>
+        </div>
+        <div class="localize-stage">
+          <div class="local-card card-it"><small>IT / MILANO</small><strong>Entra prima<br>di arrivare.</strong><span>SCOPRI L'ESPERIENZA ↗</span></div>
+          <div class="local-card card-uk"><small>EN / LONDON</small><strong>Feel the brand<br>before you arrive.</strong><span>ENTER EXPERIENCE ↗</span></div>
+          <div class="local-card card-us"><small>EN / NEW YORK</small><strong>Don't browse it.<br>Experience it.</strong><span>STEP INSIDE ↗</span></div>
+          <div class="local-card card-ae"><small>EN / DUBAI</small><strong>Italian identity.<br>Global presence.</strong><span>DISCOVER ↗</span></div>
+        </div>
+        <div class="world-flow"><span>AD</span><b>→</b><span>LOCALISE</span><b>→</b><span>EXPERIENCE</span><b>→</b><span>ACTION</span></div>
+      </div>
+    </section>
+
+    <section class="scroll-scene conversion-scene" id="conversion" data-scene="conversion">
+      <div class="scene-sticky conversion-sticky">
+        <div class="scene-number">06</div>
+        <div class="conversion-head">
+          <p class="eyebrow">FROM ATTENTION TO ACTION</p>
+          <h2>Tutto deve<br><em>portare qui.</em></h2>
+        </div>
+        <div class="conversion-path" aria-label="Attenzione, esperienza, desiderio, azione">
+          <svg viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true">
+            <path class="conversion-line" d="M55 290 C230 290 242 85 420 85 S610 334 785 245 S998 126 1140 126"/>
+          </svg>
+          <div class="conversion-node c1"><span>01</span><strong>ATTENZIONE</strong><small>Fermare.</small></div>
+          <div class="conversion-node c2"><span>02</span><strong>ESPERIENZA</strong><small>Coinvolgere.</small></div>
+          <div class="conversion-node c3"><span>03</span><strong>DESIDERIO</strong><small>Far volere.</small></div>
+          <div class="conversion-node c4"><span>04</span><strong>AZIONE</strong><small>Far agire.</small></div>
+        </div>
+        <div class="conversion-end">
+          <span class="end-small">QUESTO È ENTRA PRIMA.</span>
+          <strong class="end-word">ENTRA<br>PRIMA</strong>
+          <button class="replay" type="button" data-replay><span>RIVEDI L'ESPERIENZA</span><b>↑</b></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
