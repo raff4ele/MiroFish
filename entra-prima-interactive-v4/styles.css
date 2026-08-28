@@ -3030,3 +3030,432 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     overflow-x:auto;
   }
 }
+
+
+/* =========================================================
+   V20 — interactive 3D "DOPO ENTRA PRIMA"
+   ========================================================= */
+.ep3d-demo{
+  --ep3d-x:0deg;
+  --ep3d-y:0deg;
+  --ep3d-lx:50%;
+  --ep3d-ly:42%;
+  position:relative;
+  margin-top:10px;
+  overflow:hidden;
+  border:1px solid rgba(214,184,131,.34);
+  background:
+    radial-gradient(circle at var(--ep3d-lx) var(--ep3d-ly),rgba(202,145,86,.16),transparent 26%),
+    linear-gradient(160deg,#0b0908 0%,#15100d 56%,#080706 100%);
+  color:#f4eadf;
+  min-height:760px;
+  isolation:isolate;
+}
+
+.ep3d-demo:before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 78px,rgba(255,255,255,.025) 79px 80px),
+    repeating-linear-gradient(0deg,transparent 0 78px,rgba(255,255,255,.018) 79px 80px);
+  transform:perspective(700px) rotateX(64deg) translateY(38%);
+  transform-origin:center bottom;
+  opacity:.42;
+  z-index:0;
+}
+
+.ep3d-demo:after{
+  content:"";
+  position:absolute;
+  left:8%;
+  right:8%;
+  bottom:-11%;
+  height:28%;
+  background:radial-gradient(ellipse at center,rgba(202,145,86,.22),rgba(202,145,86,.04) 46%,transparent 72%);
+  filter:blur(22px);
+  pointer-events:none;
+  z-index:0;
+}
+
+.ep3d-topline{
+  position:relative;
+  z-index:8;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:16px 18px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  background:rgba(8,7,6,.38);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.ep3d-brand{display:flex;align-items:center;gap:10px}
+.ep3d-brand>span{
+  width:34px;height:34px;
+  display:grid;place-items:center;
+  border:1px solid rgba(214,184,131,.58);
+  color:var(--brass2);
+  font:500 9px DM Mono,monospace;
+}
+.ep3d-brand strong{
+  font:600 9px Manrope,sans-serif;
+  letter-spacing:.14em;
+}
+.ep3d-meta{
+  display:flex;align-items:center;gap:8px;
+  font:500 6px DM Mono,monospace;
+  letter-spacing:.13em;
+  color:rgba(255,255,255,.44);
+}
+.ep3d-meta i{width:24px;height:1px;background:rgba(214,184,131,.36)}
+
+.ep3d-head{
+  position:absolute;
+  z-index:7;
+  top:84px;
+  left:22px;
+  right:22px;
+  pointer-events:none;
+}
+.ep3d-head>span{
+  font:500 7px DM Mono,monospace;
+  letter-spacing:.16em;
+  color:var(--brass2);
+}
+.ep3d-head h3{
+  max-width:720px;
+  margin:10px 0 10px;
+  font:500 clamp(42px,5.2vw,78px)/.88 Instrument Serif,serif;
+  letter-spacing:-.035em;
+  color:#fff8ef;
+}
+.ep3d-head h3 em{color:#e3bd89;font-weight:400}
+.ep3d-head p{
+  width:min(100%,460px);
+  margin:0;
+  font-size:12px;
+  line-height:1.5;
+  color:rgba(255,255,255,.53);
+}
+
+.ep3d-viewport{
+  position:absolute;
+  z-index:2;
+  left:0;right:0;
+  top:0;
+  bottom:90px;
+  perspective:1100px;
+  perspective-origin:50% 47%;
+  overflow:hidden;
+  touch-action:pan-y;
+  cursor:grab;
+}
+.ep3d-viewport.is-dragging{cursor:grabbing}
+.ep3d-ambient{
+  position:absolute;
+  left:var(--ep3d-lx);
+  top:var(--ep3d-ly);
+  width:48%;
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(232,168,102,.22),rgba(232,168,102,.05) 40%,transparent 70%);
+  filter:blur(24px);
+  pointer-events:none;
+  transition:left .18s ease,top .18s ease;
+}
+.ep3d-world{
+  position:absolute;
+  left:0;right:0;
+  top:215px;
+  height:430px;
+  transform-style:preserve-3d;
+  transform:rotateX(var(--ep3d-x)) rotateY(var(--ep3d-y));
+  transition:transform .14s ease-out;
+  will-change:transform;
+}
+.ep3d-viewport.is-dragging .ep3d-world{transition:none}
+
+.ep3d-grid{
+  position:absolute;
+  left:-25%;right:-25%;
+  bottom:-42%;
+  height:60%;
+  transform:rotateX(74deg) translateZ(-120px);
+  transform-origin:center top;
+  background:
+    repeating-linear-gradient(90deg,rgba(214,184,131,.13) 0 1px,transparent 1px 46px),
+    repeating-linear-gradient(0deg,rgba(214,184,131,.09) 0 1px,transparent 1px 46px);
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent);
+  -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent);
+  pointer-events:none;
+}
+
+.ep3d-orbit{
+  position:absolute;
+  left:50%;top:48%;
+  border:1px solid rgba(214,184,131,.18);
+  border-radius:50%;
+  transform-style:preserve-3d;
+  pointer-events:none;
+}
+.ep3d-orbit--one{
+  width:440px;height:190px;
+  transform:translate(-50%,-50%) rotateX(72deg) translateZ(-130px);
+}
+.ep3d-orbit--two{
+  width:300px;height:300px;
+  transform:translate(-50%,-50%) rotateY(72deg) translateZ(-180px);
+  opacity:.55;
+}
+
+.ep3d-core{
+  position:absolute;
+  left:50%;top:52%;
+  width:108px;height:108px;
+  transform-style:preserve-3d;
+  transform:translate3d(-50%,-50%,-210px) rotateX(-12deg) rotateY(32deg);
+  pointer-events:none;
+  filter:drop-shadow(0 18px 40px rgba(0,0,0,.55));
+}
+.ep3d-core i{
+  position:absolute;inset:0;
+  border:1px solid rgba(214,184,131,.28);
+  background:linear-gradient(145deg,rgba(214,184,131,.13),rgba(255,255,255,.015));
+  box-shadow:inset 0 0 36px rgba(214,184,131,.05);
+}
+.ep3d-core__front{transform:translateZ(54px)}
+.ep3d-core__side{transform:rotateY(90deg) translateZ(54px)}
+.ep3d-core__top{transform:rotateX(90deg) translateZ(54px)}
+
+.ep3d-panel{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(64%,410px);
+  aspect-ratio:16/10;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#fff;
+  transform-style:preserve-3d;
+  transform-origin:center;
+  transition:
+    transform .65s cubic-bezier(.19,1,.22,1),
+    opacity .45s ease,
+    filter .45s ease;
+  will-change:transform,opacity,filter;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.ep3d-panel__frame{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  border:1px solid rgba(214,184,131,.34);
+  background:#100d0a;
+  box-shadow:
+    0 34px 80px rgba(0,0,0,.46),
+    0 0 0 1px rgba(255,255,255,.025) inset;
+}
+.ep3d-panel__frame:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(130deg,rgba(255,255,255,.13),transparent 24%,transparent 68%,rgba(202,145,86,.11)),
+    linear-gradient(180deg,transparent 62%,rgba(0,0,0,.42));
+  mix-blend-mode:screen;
+}
+.ep3d-panel img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  transform:scale(1.035);
+  transition:transform .7s cubic-bezier(.19,1,.22,1),filter .45s ease;
+}
+.ep3d-panel.is-active img{transform:scale(1)}
+.ep3d-panel small{
+  position:absolute;
+  z-index:3;
+  left:12px;
+  bottom:10px;
+  font:500 7px DM Mono,monospace;
+  letter-spacing:.13em;
+  color:rgba(255,255,255,.68);
+}
+.ep3d-panel.is-active .ep3d-panel__frame{
+  border-color:rgba(226,190,141,.64);
+  box-shadow:
+    0 44px 96px rgba(0,0,0,.54),
+    0 0 42px rgba(202,145,86,.11);
+}
+
+.ep3d-instruction{
+  position:absolute;
+  z-index:8;
+  right:18px;
+  bottom:104px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font:500 6px DM Mono,monospace;
+  letter-spacing:.14em;
+  color:rgba(255,255,255,.46);
+  pointer-events:none;
+}
+.ep3d-instruction i{width:34px;height:1px;background:rgba(214,184,131,.45)}
+
+.ep3d-controls{
+  position:absolute;
+  z-index:9;
+  left:18px;
+  right:18px;
+  bottom:54px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.ep3d-controls button{
+  min-width:34px;
+  height:28px;
+  padding:0 8px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.02);
+  color:rgba(255,255,255,.42);
+  font:500 7px DM Mono,monospace;
+  cursor:pointer;
+  transition:.25s ease;
+}
+.ep3d-controls button.is-active{
+  border-color:rgba(214,184,131,.62);
+  background:rgba(181,139,87,.12);
+  color:var(--brass2);
+  transform:translateY(-2px);
+}
+
+.ep3d-footer{
+  position:absolute;
+  z-index:9;
+  left:18px;right:18px;
+  bottom:13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.ep3d-footer>span{
+  font:500 6px DM Mono,monospace;
+  letter-spacing:.14em;
+  color:rgba(255,255,255,.38);
+}
+.ep3d-footer a{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  color:var(--brass2);
+  font:500 7px DM Mono,monospace;
+  letter-spacing:.11em;
+}
+.ep3d-footer a b{font-size:13px;font-weight:400}
+
+@media(max-width:720px){
+  .after-panel{padding:14px!important}
+  .ep3d-demo{
+    min-height:700px;
+    margin-top:4px;
+  }
+  .ep3d-topline{
+    padding:12px;
+  }
+  .ep3d-brand>span{
+    width:31px;height:31px;
+  }
+  .ep3d-brand strong{font-size:7px}
+  .ep3d-meta span:last-child,.ep3d-meta i{display:none}
+
+  .ep3d-head{
+    top:71px;
+    left:15px;
+    right:15px;
+  }
+  .ep3d-head h3{
+    font-size:clamp(38px,11vw,48px);
+    line-height:.88;
+    margin-top:8px;
+  }
+  .ep3d-head p{
+    max-width:90%;
+    font-size:11px;
+    line-height:1.45;
+  }
+
+  .ep3d-viewport{
+    bottom:82px;
+    perspective:820px;
+    touch-action:pan-y pinch-zoom;
+  }
+  .ep3d-world{
+    top:230px;
+    height:330px;
+  }
+  .ep3d-panel{
+    width:72%;
+    max-width:none;
+  }
+  .ep3d-orbit--one{
+    width:330px;height:150px;
+  }
+  .ep3d-orbit--two{
+    width:230px;height:230px;
+  }
+  .ep3d-core{
+    width:84px;height:84px;
+  }
+  .ep3d-core__front{transform:translateZ(42px)}
+  .ep3d-core__side{transform:rotateY(90deg) translateZ(42px)}
+  .ep3d-core__top{transform:rotateX(90deg) translateZ(42px)}
+
+  .ep3d-instruction{
+    right:12px;
+    bottom:92px;
+  }
+  .ep3d-controls{
+    left:12px;right:12px;
+    bottom:46px;
+    gap:5px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .ep3d-controls::-webkit-scrollbar{display:none}
+  .ep3d-controls button{
+    flex:0 0 30px;
+    min-width:30px;
+    height:26px;
+    padding:0;
+  }
+  .ep3d-footer{
+    left:12px;right:12px;
+    bottom:11px;
+  }
+  .ep3d-footer>span{display:none}
+  .ep3d-footer a{
+    margin-left:auto;
+    font-size:6px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ep3d-world,
+  .ep3d-panel,
+  .ep3d-panel img,
+  .ep3d-controls button{
+    transition:none!important;
+  }
+}
