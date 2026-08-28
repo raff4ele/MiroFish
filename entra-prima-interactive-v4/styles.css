@@ -2317,3 +2317,301 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     font-size:23.5vw!important;
   }
 }
+
+
+/* =========================================================
+   V19 — mobile cleanup for perception / difference / global / measurement
+   ========================================================= */
+
+.global-mobile-steps,
+.signal-mobile{
+  display:none;
+}
+
+@media(max-width:720px){
+
+  /* Header belongs to the hero only on mobile */
+  .topbar{
+    transition:transform .28s ease,opacity .22s ease,background .22s ease;
+  }
+  .topbar:not(.is-over-hero){
+    transform:translateY(-112%);
+    opacity:0;
+    pointer-events:none;
+  }
+  .topbar.is-over-hero{
+    transform:none;
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  /* Consistent mobile spacing */
+  .perception-section,
+  .difference-section,
+  .global-story-section,
+  .measurement-section{
+    padding-top:64px;
+    padding-bottom:64px;
+  }
+
+  .perception-intro h2,
+  .difference-head h2,
+  .global-story-copy h2,
+  .measurement-copy h2{
+    font-size:clamp(40px,11.4vw,50px)!important;
+    line-height:.94!important;
+    letter-spacing:-.055em!important;
+  }
+
+  .perception-intro>p:last-child,
+  .global-story-copy>p,
+  .measurement-copy>p{
+    font-size:14px!important;
+    line-height:1.58!important;
+  }
+
+  /* 02 / PERCEZIONE — no more invisible funnel occupying space */
+  .loss-model{
+    margin-top:32px!important;
+    border-color:rgba(255,255,255,.15);
+    background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+  }
+  .loss-copy{
+    padding:20px 18px!important;
+  }
+  .loss-copy strong{
+    font-size:31px!important;
+    line-height:1.02!important;
+    margin-bottom:12px!important;
+  }
+  .loss-copy p{
+    font-size:12px!important;
+    line-height:1.55!important;
+  }
+  .funnel-visual{
+    padding:14px!important;
+    gap:8px!important;
+  }
+  .funnel-stage{
+    position:relative;
+    overflow:hidden;
+    min-height:58px!important;
+    width:100%!important;
+    margin:0!important;
+    padding:9px 10px!important;
+    grid-template-columns:42px 72px 1fr!important;
+    gap:9px!important;
+    opacity:1!important;
+    transform:none!important;
+    border-color:rgba(214,184,131,.22)!important;
+    background:rgba(255,255,255,.018)!important;
+  }
+  .funnel-stage:before{
+    content:"";
+    position:absolute;
+    inset:0 auto 0 0;
+    width:var(--width);
+    background:linear-gradient(90deg,rgba(181,139,87,.18),rgba(181,139,87,.035));
+    pointer-events:none;
+  }
+  .funnel-stage>*{
+    position:relative;
+    z-index:1;
+  }
+  .funnel-count{
+    font-size:25px!important;
+  }
+  .funnel-stage b{
+    font-size:8px!important;
+  }
+  .funnel-stage small{
+    font-size:9px!important;
+    line-height:1.25!important;
+  }
+  .perception-statement{
+    margin-top:30px!important;
+    padding-top:16px!important;
+  }
+  .perception-statement p{
+    font-size:28px!important;
+    line-height:1.04!important;
+  }
+
+  /* 03 / PRIMA & DOPO — compact editorial cards */
+  .before-after{
+    margin-top:34px!important;
+    border:0!important;
+    gap:0!important;
+    background:transparent!important;
+  }
+  .before-panel,
+  .after-panel{
+    padding:18px!important;
+    border:1px solid var(--line);
+  }
+  .before-panel{
+    border-bottom:0;
+  }
+  .after-panel{
+    border-top:0;
+  }
+  .generic-screen,
+  .ep-screen{
+    aspect-ratio:1.32!important;
+  }
+  .before-panel p,
+  .after-panel p{
+    font-size:13px!important;
+    line-height:1.52!important;
+    margin-top:14px!important;
+  }
+  .ba-axis{
+    height:46px!important;
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+  }
+  .ba-axis span{
+    width:34px!important;
+    height:34px!important;
+    font-size:18px!important;
+  }
+  .ep-screen{
+    padding:9%!important;
+  }
+  .ep-screen strong{
+    font-size:31px!important;
+  }
+  .difference-line{
+    margin-top:28px!important;
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:8px!important;
+  }
+  .difference-line span{
+    min-height:44px;
+    display:grid;
+    place-items:center;
+    border:1px solid rgba(27,21,16,.16);
+    background:rgba(181,139,87,.07);
+    font-size:8px;
+  }
+  .difference-line i{
+    display:none!important;
+  }
+
+  /* 05 / GLOBALE — replace empty SVG space with 4 useful steps */
+  .global-story-section{
+    padding-top:62px!important;
+  }
+  .global-story-copy{
+    gap:18px!important;
+  }
+  .global-diagram{
+    margin-top:30px!important;
+    padding:18px 0!important;
+  }
+  .global-diagram svg,
+  .global-caption{
+    display:none!important;
+  }
+  .global-mobile-steps{
+    display:grid!important;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .global-mobile-steps article{
+    min-height:142px;
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border:1px solid rgba(27,21,16,.20);
+    background:rgba(255,247,234,.12);
+  }
+  .global-mobile-steps article>span{
+    font:500 8px DM Mono,monospace;
+    letter-spacing:.12em;
+    opacity:.52;
+  }
+  .global-mobile-steps strong{
+    font:600 13px/1.1 Manrope,sans-serif;
+    letter-spacing:.07em;
+  }
+  .global-mobile-steps small{
+    font-size:11px;
+    line-height:1.38;
+    color:#68584a;
+  }
+  .global-impact{
+    margin-top:30px!important;
+    gap:12px!important;
+  }
+  .global-impact p{
+    font-size:13px!important;
+  }
+  .global-impact strong{
+    font-size:34px!important;
+    line-height:1.02!important;
+  }
+
+  /* 06 / MISURAZIONE — mobile cards instead of an empty chart */
+  .measurement-copy{
+    gap:18px!important;
+  }
+  .signal-chart{
+    display:none!important;
+  }
+  .signal-mobile{
+    display:grid!important;
+    margin-top:30px;
+    border-top:1px solid rgba(255,255,255,.14);
+  }
+  .signal-mobile article{
+    position:relative;
+    min-height:92px;
+    display:grid;
+    grid-template-columns:34px 1fr;
+    gap:12px;
+    align-items:center;
+    padding:15px 2px 19px;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    overflow:hidden;
+  }
+  .signal-mobile article>span{
+    align-self:start;
+    padding-top:2px;
+    font:500 8px DM Mono,monospace;
+    color:var(--brass2);
+  }
+  .signal-mobile article>div{
+    display:grid;
+    gap:5px;
+  }
+  .signal-mobile strong{
+    font:600 12px/1 Manrope,sans-serif;
+    letter-spacing:.09em;
+  }
+  .signal-mobile small{
+    color:rgba(255,255,255,.56);
+    font-size:11px;
+    line-height:1.35;
+  }
+  .signal-mobile i{
+    position:absolute;
+    left:46px;
+    bottom:8px;
+    width:calc((100% - 46px) * var(--signal) / 100);
+    max-width:calc(100% - 46px);
+    height:2px;
+    background:linear-gradient(90deg,var(--brass2),rgba(214,184,131,.14));
+  }
+
+  /* keep all these sections visible even if TikTok's observer is unreliable */
+  .perception-section [data-reveal],
+  .difference-section [data-reveal],
+  .global-story-section [data-reveal],
+  .measurement-section [data-reveal]{
+    opacity:1!important;
+    transform:none!important;
+  }
+}
