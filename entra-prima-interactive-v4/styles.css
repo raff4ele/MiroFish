@@ -4004,3 +4004,116 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     pointer-events:none!important;
   }
 }
+
+
+/* =========================================================
+   V24 — native CSS tabs for SYSTEM ATLAS
+   No JS required: reliable on iOS / TikTok in-app browser
+   ========================================================= */
+.system-atlas--native .system-native-radio{
+  position:absolute;
+  inline-size:1px;
+  block-size:1px;
+  opacity:0;
+  pointer-events:none;
+}
+
+.system-atlas--native .system-node{
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+.system-atlas--native .system-node *{
+  pointer-events:none;
+}
+
+.system-atlas--native .system-native-panel{
+  display:none;
+  min-height:354px;
+  flex-direction:column;
+  position:relative;
+  z-index:2;
+  animation:systemNativeEnter .42s cubic-bezier(.19,1,.22,1) both;
+}
+
+#system-site:checked ~ .system-core .system-native-panel--site,
+#system-attention:checked ~ .system-core .system-native-panel--attention,
+#system-ads:checked ~ .system-core .system-native-panel--ads,
+#system-action:checked ~ .system-core .system-native-panel--action{
+  display:flex;
+}
+
+#system-site:checked ~ label[for="system-site"],
+#system-attention:checked ~ label[for="system-attention"],
+#system-ads:checked ~ label[for="system-ads"],
+#system-action:checked ~ label[for="system-action"]{
+  border-color:rgba(214,184,131,.72);
+  background:linear-gradient(145deg,rgba(181,139,87,.18),rgba(17,14,11,.92));
+  color:#f7e7d4;
+  box-shadow:0 24px 60px rgba(0,0,0,.30),0 0 40px rgba(181,139,87,.09);
+  transform:translateY(-5px);
+}
+
+#system-site:checked ~ label[for="system-site"]:before,
+#system-attention:checked ~ label[for="system-attention"]:before,
+#system-ads:checked ~ label[for="system-ads"]:before,
+#system-action:checked ~ label[for="system-action"]:before{
+  background:var(--brass2);
+  box-shadow:0 0 18px rgba(214,184,131,.55);
+}
+
+#system-site:checked ~ label[for="system-site"] small,
+#system-attention:checked ~ label[for="system-attention"] small,
+#system-ads:checked ~ label[for="system-ads"] small,
+#system-action:checked ~ label[for="system-action"] small{
+  color:rgba(255,255,255,.72);
+}
+
+@keyframes systemNativeEnter{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+    filter:blur(3px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+}
+
+@media(max-width:720px){
+  .system-atlas--native{
+    contain:layout paint;
+  }
+
+  .system-atlas--native .system-node{
+    z-index:30!important;
+    pointer-events:auto!important;
+  }
+
+  .system-atlas--native .system-core{
+    z-index:8!important;
+    pointer-events:none!important;
+  }
+
+  .system-atlas--native .system-native-panel{
+    min-height:356px;
+  }
+
+  #system-site:checked ~ label[for="system-site"],
+  #system-attention:checked ~ label[for="system-attention"],
+  #system-ads:checked ~ label[for="system-ads"],
+  #system-action:checked ~ label[for="system-action"]{
+    transform:translateY(-3px);
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .system-atlas--native .system-native-panel{
+    animation:none!important;
+  }
+}
