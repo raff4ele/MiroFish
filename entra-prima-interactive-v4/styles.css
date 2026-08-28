@@ -2615,3 +2615,16 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     transform:none!important;
   }
 }
+
+
+/* V19.1 — on mobile the hero header scrolls away instead of covering content */
+@media(max-width:720px){
+  .topbar{
+    position:absolute!important;
+  }
+  .topbar:not(.is-over-hero){
+    transform:none!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+  }
+}
