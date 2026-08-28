@@ -174,44 +174,49 @@ window.__ENTRA_PRIMA_V6__={
 
 
 /* =========================================================
-   V12 — final fitted photographic hero
+   V14 — layered immersive hero parallax
    ========================================================= */
-const floatingHero=document.querySelector('[data-floating-hero]');
-if(floatingHero){
-  const heroImage=floatingHero.querySelector('.floating-hero__picture img');
-  const backdrop=floatingHero.querySelector('.floating-hero__backdrop');
-  const continueHit=floatingHero.querySelector('.floating-hero__continue');
+const immersiveHero=document.querySelector('[data-immersive-hero]');
+if(immersiveHero){
+  const word=immersiveHero.querySelector('.immersive-hero__word');
+  const house=immersiveHero.querySelector('.immersive-hero__house');
+  const sky=immersiveHero.querySelector('.immersive-hero__sky');
+  const cue=immersiveHero.querySelector('.immersive-hero__scroll');
 
   let ticking=false;
   const clamp01=v=>Math.min(1,Math.max(0,v));
 
-  function updateFloatingHero(){
+  function updateImmersiveHero(){
     ticking=false;
-    const rect=floatingHero.getBoundingClientRect();
+    const rect=immersiveHero.getBoundingClientRect();
     const header=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header'))||0;
-    const progress=clamp01((header-rect.top)/Math.max(1,floatingHero.offsetHeight));
-    floatingHero.style.setProperty('--hero-scroll',progress.toFixed(4));
+    const progress=clamp01((header-rect.top)/Math.max(1,immersiveHero.offsetHeight));
+    immersiveHero.style.setProperty('--immersive-scroll',progress.toFixed(4));
 
-    if(heroImage){
-      heroImage.style.marginTop=`${(-5*progress).toFixed(2)}px`;
+    if(word){
+      word.style.marginTop=`${(-10*progress).toFixed(2)}px`;
     }
-    if(backdrop){
-      backdrop.style.transform=`scale(${(1.08+progress*.015).toFixed(4)}) translate3d(0,${(-3*progress).toFixed(2)}px,0)`;
+    if(house){
+      house.style.marginTop=`${(-16*progress).toFixed(2)}px`;
     }
-    if(continueHit){
-      continueHit.style.pointerEvents=progress>.92?'none':'auto';
+    if(sky){
+      sky.style.transform=`translate3d(0,${(-5*progress).toFixed(2)}px,0) scale(${(1+progress*.012).toFixed(4)})`;
+    }
+    if(cue){
+      cue.style.opacity=(1-progress*2.4).toFixed(3);
+      cue.style.pointerEvents=progress>.45?'none':'auto';
     }
   }
 
-  function requestFloatingHeroFrame(){
+  function requestImmersiveFrame(){
     if(ticking) return;
     ticking=true;
-    requestAnimationFrame(updateFloatingHero);
+    requestAnimationFrame(updateImmersiveHero);
   }
 
-  addEventListener('scroll',requestFloatingHeroFrame,{passive:true});
-  addEventListener('resize',requestFloatingHeroFrame,{passive:true});
-  requestFloatingHeroFrame();
+  addEventListener('scroll',requestImmersiveFrame,{passive:true});
+  addEventListener('resize',requestImmersiveFrame,{passive:true});
+  requestImmersiveFrame();
 
-  window.__ENTRA_PRIMA_FLOATING_HERO__={update:updateFloatingHero};
+  window.__ENTRA_PRIMA_IMMERSIVE_HERO__={update:updateImmersiveHero};
 }
