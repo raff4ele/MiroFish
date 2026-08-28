@@ -2178,3 +2178,95 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     animation:none!important;
   }
 }
+
+
+/* =========================================================
+   V17 — stronger ENTRA PRIMA wordmark
+   ========================================================= */
+.immersive-hero__word{
+  z-index:2!important;
+}
+
+.immersive-hero__house{
+  z-index:3!important;
+}
+
+/* brighter, clearer wordmark while remaining behind the house */
+.immersive-hero__word-float span{
+  color:rgba(247,232,214,.96)!important;
+  opacity:1!important;
+  filter:brightness(1.08) contrast(1.06)!important;
+  text-shadow:
+    0 5px 20px rgba(0,0,0,.18),
+    0 0 18px rgba(245,199,150,.22),
+    0 0 42px rgba(239,176,112,.14)!important;
+}
+
+/* soft halo behind the word only */
+.immersive-hero__word:before{
+  content:"";
+  position:absolute;
+  inset:-12% -8%;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255,222,190,.18) 0%,
+      rgba(241,181,121,.10) 35%,
+      rgba(241,181,121,.03) 58%,
+      transparent 76%
+    );
+  filter:blur(26px);
+  opacity:.88;
+}
+
+/* keep lighting dynamic but prevent the word from becoming too dim */
+@keyframes heroWordLightV17{
+  0%,100%{
+    color:rgba(244,228,209,.92);
+    text-shadow:
+      0 5px 20px rgba(0,0,0,.18),
+      0 0 18px rgba(245,199,150,.16),
+      0 0 34px rgba(239,176,112,.10);
+    filter:brightness(1.03) contrast(1.04);
+  }
+  50%{
+    color:rgba(255,239,219,.99);
+    text-shadow:
+      0 5px 20px rgba(0,0,0,.16),
+      0 0 22px rgba(255,211,164,.26),
+      0 0 52px rgba(239,176,112,.18);
+    filter:brightness(1.11) contrast(1.06);
+  }
+}
+
+.immersive-hero__word-float span{
+  animation:heroWordLightV17 8.2s ease-in-out infinite!important;
+}
+
+@media(max-width:720px){
+  .immersive-hero__word{
+    top:21%!important;
+    height:43%!important;
+  }
+
+  .immersive-hero__word-float span{
+    font-size:25.4vw!important;
+    line-height:.70!important;
+    letter-spacing:-.085em!important;
+    color:rgba(250,235,216,.98)!important;
+  }
+
+  .immersive-hero__word:before{
+    inset:-7% -4%;
+    filter:blur(20px);
+    opacity:.76;
+  }
+}
+
+@media(max-width:390px){
+  .immersive-hero__word-float span{
+    font-size:25vw!important;
+  }
+}
