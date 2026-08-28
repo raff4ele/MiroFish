@@ -174,37 +174,30 @@ window.__ENTRA_PRIMA_V6__={
 
 
 /* =========================================================
-   V11 — floating photographic hero
+   V12 — final fitted photographic hero
    ========================================================= */
 const floatingHero=document.querySelector('[data-floating-hero]');
 if(floatingHero){
-  const heroImage=floatingHero.querySelector('.floating-hero__media img');
-  const wordmark=floatingHero.querySelector('.floating-hero__wordmark');
+  const heroImage=floatingHero.querySelector('.floating-hero__picture img');
+  const backdrop=floatingHero.querySelector('.floating-hero__backdrop');
   const continueHit=floatingHero.querySelector('.floating-hero__continue');
 
   let ticking=false;
-
   const clamp01=v=>Math.min(1,Math.max(0,v));
 
   function updateFloatingHero(){
     ticking=false;
     const rect=floatingHero.getBoundingClientRect();
     const header=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header'))||0;
-    const travel=Math.max(1,floatingHero.offsetHeight);
-    const progress=clamp01((header-rect.top)/travel);
+    const progress=clamp01((header-rect.top)/Math.max(1,floatingHero.offsetHeight));
     floatingHero.style.setProperty('--hero-scroll',progress.toFixed(4));
 
     if(heroImage){
-      const y=(-18*progress).toFixed(2);
-      const scale=(1.015+progress*.025).toFixed(4);
-      heroImage.style.transform=`translate3d(0,${y}px,0) scale(${scale})`;
+      heroImage.style.marginTop=`${(-5*progress).toFixed(2)}px`;
     }
-
-    if(wordmark){
-      const y=(-10*progress).toFixed(2);
-      wordmark.style.marginTop=`${y}px`;
+    if(backdrop){
+      backdrop.style.transform=`scale(${(1.08+progress*.015).toFixed(4)}) translate3d(0,${(-3*progress).toFixed(2)}px,0)`;
     }
-
     if(continueHit){
       continueHit.style.pointerEvents=progress>.92?'none':'auto';
     }
@@ -220,7 +213,5 @@ if(floatingHero){
   addEventListener('resize',requestFloatingHeroFrame,{passive:true});
   requestFloatingHeroFrame();
 
-  window.__ENTRA_PRIMA_FLOATING_HERO__={
-    update:updateFloatingHero
-  };
+  window.__ENTRA_PRIMA_FLOATING_HERO__={update:updateFloatingHero};
 }
