@@ -3548,3 +3548,11 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     object-fit:cover;
   }
 }
+
+
+/* V22.1 — prevent desktop grid from stretching video panel */
+.after-panel--video-only{
+  align-self:start!important;
+  height:auto!important;
+  min-height:0!important;
+}
