@@ -2027,3 +2027,10 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     animation:none!important;
   }
 }
+
+
+/* V15.1 — hero lives behind the transparent header */
+.immersive-hero{
+  margin-top:calc(-1 * var(--header));
+  padding-top:var(--header);
+}
