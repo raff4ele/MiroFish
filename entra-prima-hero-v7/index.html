@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0d0b09">
+  <title>ENTRA PRIMA — Digital Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/raff4ele/MiroFish@entra-prima-strategy-v6/entra-prima-interactive-v4/styles.css">
+  <style>
+    html,body{margin:0;background:#0d0b09}
+    body.is-loading{overflow:hidden}
+    .hero-loader{position:fixed;inset:0;z-index:999;background:#0d0b09;display:grid;place-items:center;color:#d6b883;font:500 9px 'DM Mono',monospace;letter-spacing:.16em;transition:opacity .35s ease,visibility .35s ease}
+    body:not(.is-loading) .hero-loader{opacity:0;visibility:hidden;pointer-events:none}
+
+    .architectural-hero{--hero-progress:0;height:182svh;position:relative;background:#0d0b09;overflow:clip}
+    .architectural-hero-sticky{position:sticky;top:var(--header);height:calc(100svh - var(--header));overflow:hidden;background:#0d0b09;isolation:isolate}
+    .architectural-hero-image{position:absolute;z-index:1;left:0;top:-11%;width:100%;height:122%;object-fit:cover;object-position:center 58%;transform:scale(calc(1.075 - (var(--hero-progress) * .05))) translateY(calc(var(--hero-progress) * -1.5%));filter:brightness(calc(.68 + (var(--hero-progress) * .18))) saturate(.94) contrast(1.04);will-change:transform,filter}
+    .architectural-hero-tone{position:absolute;z-index:2;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,6,5,.52) 0%,rgba(8,6,5,.08) 34%,rgba(8,6,5,.02) 65%,rgba(8,6,5,.48) 100%);opacity:calc(.88 - (var(--hero-progress) * .34));will-change:opacity}
+    .architectural-hero-reveal{position:absolute;z-index:3;left:0;right:0;top:0;height:49%;pointer-events:none;background:linear-gradient(180deg,rgba(11,8,6,.72) 0%,rgba(11,8,6,.48) 44%,rgba(11,8,6,0) 100%);opacity:calc(.82 - (var(--hero-progress) * .82));transform:translateY(calc(var(--hero-progress) * -8%));will-change:opacity,transform}
+    .architectural-scroll{position:absolute;z-index:4;left:50%;bottom:22px;transform:translateX(-50%) translateY(calc(var(--hero-progress) * 14px));display:grid;justify-items:center;gap:8px;color:#f7f1e9;opacity:calc(1 - (var(--hero-progress) * 1.42));text-decoration:none}
+    .architectural-scroll-icon{width:42px;height:66px;border:1px solid rgba(255,255,255,.78);border-radius:23px;display:grid;place-items:center;position:relative;background:rgba(10,8,7,.08);backdrop-filter:blur(6px)}
+    .architectural-scroll-icon i{position:absolute;top:14px;width:5px;height:5px;border-radius:50%;background:#fff;animation:architecturalDot 1.6s ease-in-out infinite}
+    .architectural-scroll-icon b{position:absolute;bottom:8px;font:400 16px/1 Manrope,sans-serif}
+    .architectural-scroll small{font:500 8px 'DM Mono',monospace;letter-spacing:.12em}
+    @keyframes architecturalDot{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(11px);opacity:1}}
+
+    @media(min-width:901px){
+      .architectural-hero{height:168svh}
+      .architectural-hero-image{top:-20%;height:140%;object-position:center 58%}
+    }
+    @media(max-width:720px){
+      .architectural-hero{height:174svh}
+      .architectural-hero-image{top:-11%;height:122%;object-position:center 58%}
+      .architectural-scroll{bottom:18px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .architectural-hero{height:calc(100svh - var(--header))}
+      .architectural-hero-sticky{position:relative;top:0}
+      .architectural-hero-image{transform:none;filter:brightness(.84) saturate(.94) contrast(1.04)}
+      .architectural-hero-tone{opacity:.52}.architectural-hero-reveal{opacity:0;transform:none}.architectural-scroll-icon i{animation:none}
+    }
+  </style>
+</head>
+<body class="is-loading">
+  <div class="hero-loader">ENTRA PRIMA</div>
+  <script>
+  (async()=>{
+    const sourceBase='https://cdn.jsdelivr.net/gh/raff4ele/MiroFish@entra-prima-strategy-v6/entra-prima-interactive-v4/';
+    const heroImage='https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/527640ad-5708-4b15-ada8-cfd6ac887d43.jpg';
+
+    try{
+      const [sourceHtml,sourceJs]=await Promise.all([
+        fetch(sourceBase+'index.html',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('HTML '+r.status);return r.text()}),
+        fetch(sourceBase+'script.js',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('JS '+r.status);return r.text()})
+      ]);
+
+      const parsed=new DOMParser().parseFromString(sourceHtml,'text/html');
+      parsed.querySelectorAll('script').forEach(el=>el.remove());
+      parsed.querySelector('.hero-v6')?.remove();
+
+      const sourceBody=parsed.body.innerHTML;
+      document.body.innerHTML=sourceBody;
+      document.body.classList.add('is-loading');
+
+      const main=document.querySelector('main#top')||document.querySelector('main');
+      if(!main) throw new Error('main not found');
+
+      main.insertAdjacentHTML('afterbegin',`
+        <section class="architectural-hero" data-architectural-hero style="--hero-progress:0">
+          <div class="architectural-hero-sticky">
+            <img class="architectural-hero-image" src="${heroImage}" alt="ENTRA PRIMA — struttura architettonica in costruzione" fetchpriority="high" decoding="async">
+            <div class="architectural-hero-tone" aria-hidden="true"></div>
+            <div class="architectural-hero-reveal" aria-hidden="true"></div>
+            <a class="architectural-scroll" href="#engine" aria-label="Scorri per continuare">
+              <span class="architectural-scroll-icon"><i></i><b>↓</b></span>
+              <small>SCROLL</small>
+            </a>
+          </div>
+        </section>`);
+
+      const sourceScript=document.createElement('script');
+      sourceScript.textContent=sourceJs;
+      document.body.appendChild(sourceScript);
+
+      const architecturalHero=document.querySelector('[data-architectural-hero]');
+      const heroImg=document.querySelector('.architectural-hero-image');
+      const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let ticking=false;
+      const updateHero=()=>{
+        if(!architecturalHero||reduced){ticking=false;return}
+        const rect=architecturalHero.getBoundingClientRect();
+        const travel=Math.max(1,architecturalHero.offsetHeight-innerHeight);
+        const progress=Math.min(1,Math.max(0,-rect.top/travel));
+        architecturalHero.style.setProperty('--hero-progress',progress.toFixed(4));
+        ticking=false;
+      };
+      const requestHero=()=>{if(ticking)return;ticking=true;requestAnimationFrame(updateHero)};
+      addEventListener('scroll',requestHero,{passive:true});
+      addEventListener('resize',requestHero,{passive:true});
+      requestHero();
+
+      const ready=()=>document.body.classList.remove('is-loading');
+      if(heroImg?.complete) ready();
+      else { heroImg?.addEventListener('load',ready,{once:true}); setTimeout(ready,1400); }
+
+      window.__ENTRA_PRIMA_HERO_V7__={architecturalHero,heroImage,requestHero};
+    }catch(err){
+      console.error(err);
+      document.body.classList.remove('is-loading');
+      document.body.innerHTML='<main style="min-height:100vh;display:grid;place-items:center;background:#0d0b09;color:#eee;font-family:system-ui;padding:30px;text-align:center">ENTRA PRIMA<br><small style="opacity:.55;margin-top:10px">Errore temporaneo di caricamento</small></main>';
+    }
+  })();
+  </script>
+</body>
+</html>
