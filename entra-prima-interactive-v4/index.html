@@ -10,12 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
-  <script type="importmap">
-  {"imports":{
-    "three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
-    "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
-  }}
-  </script>
 </head>
 <body>
   <header class="topbar">
@@ -56,7 +50,7 @@
 
       <div class="hero-side" data-reveal>
         <div class="hero-side-index"><span>01</span><span>EXPERIENCE ENGINE</span></div>
-        <p>Una sola esperienza interattiva mostra come lavoro. Muovila, tocca i moduli, cambia modalità.</p>
+        <p>Quattro visual distinti mostrano cosa costruisco: uno alla volta, chiari, leggibili e pensati per far capire subito il valore.</p>
       </div>
     </section>
 
@@ -71,12 +65,17 @@
         </div>
       </div>
 
-      <div class="engine-stage" data-engine-stage aria-label="Esperienza tridimensionale interattiva ENTRA PRIMA">
-        <canvas id="experience-canvas"></canvas>
+      <div class="engine-stage flat-stage" data-engine-stage aria-label="Visual ENTRA PRIMA">
         <div class="engine-ui">
-          <div class="engine-status"><i></i><span id="engine-status-label">INTERACTIVE WEBSITE</span></div>
-          <div class="engine-hint">TOUCH / DRAG TO EXPLORE</div>
+          <div class="engine-status"><i></i><span id="engine-status-label">WEBSITE EXPERIENCE</span></div>
+          <div class="engine-hint">UN VISUAL ALLA VOLTA</div>
         </div>
+
+        <div class="flat-visual-frame">
+          <div class="visual-loader" id="visual-loader">CARICAMENTO VISUAL</div>
+          <img id="experience-image" alt="Visual Sito immersivo ENTRA PRIMA" decoding="async">
+        </div>
+
         <div class="engine-modes" role="tablist" aria-label="Modalità esperienza">
           <button class="is-active" type="button" role="tab" data-mode="site"><span>01</span>SITO</button>
           <button type="button" role="tab" data-mode="ads"><span>02</span>ADS</button>
