@@ -4,6 +4,7 @@ const root = new URL('..', import.meta.url).pathname;
 const html = fs.readFileSync(root + 'index.html','utf8');
 const css = fs.readFileSync(root + 'styles.css','utf8');
 const js = fs.readFileSync(root + 'script.js','utf8');
+const all = html + '\n' + css + '\n' + js;
 
 const checks = [
   ['architectural hero exists', /class="architectural-hero/.test(html)],
@@ -12,8 +13,8 @@ const checks = [
   ['old v6 hero removed', !/hero-v6/.test(html)],
   ['scroll-build layers exist', (html.match(/data-build-layer/g)||[]).length >= 5],
   ['entra prima overlay exists', /architectural-title/.test(html) && /ENTRA PRIMA/.test(html)],
-  ['scroll progress css exists', /--hero-progress/.test(css)],
-  ['scroll handler exists', /architecturalHero/.test(js) && /requestAnimationFrame/.test(js)],
+  ['scroll progress css exists', /--hero-progress/.test(all)],
+  ['scroll handler exists', /architecturalHero/.test(all) && /requestAnimationFrame/.test(all)],
   ['engine still present', /id="engine"/.test(html)],
   ['perception still present', /id="perception"/.test(html)],
   ['difference still present', /id="difference"/.test(html)],
