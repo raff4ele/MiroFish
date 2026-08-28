@@ -10,6 +10,159 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
+  <style>
+    .architectural-hero{
+      --hero-progress:0;
+      position:relative;
+      height:220svh;
+      background:#0c0a08;
+      color:#f4e8d7;
+      z-index:1;
+    }
+    .architectural-sticky{
+      position:sticky;
+      top:var(--header);
+      height:calc(100svh - var(--header));
+      overflow:hidden;
+      background:#0c0a08;
+      isolation:isolate;
+    }
+    .architectural-photo,
+    .architectural-photo>img,
+    .architectural-build-layer,
+    .architectural-build-layer>img,
+    .architectural-final-foreground,
+    .architectural-final-foreground>img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+    }
+    .architectural-photo{z-index:1;background:#0c0a08;overflow:hidden}
+    .architectural-photo>img,
+    .architectural-build-layer>img,
+    .architectural-final-foreground>img{
+      object-fit:cover;
+      object-position:center 59%;
+      transform:scale(1.025);
+    }
+    .architectural-photo>img{
+      filter:brightness(.53) saturate(.9) contrast(1.04);
+      transition:filter .12s linear;
+    }
+    .architectural-top-mask{
+      position:absolute;
+      inset:0;
+      z-index:2;
+      pointer-events:none;
+      background:
+        linear-gradient(180deg,rgba(7,7,7,.92) 0%,rgba(9,8,7,.73) 17%,rgba(9,8,7,.38) 41%,rgba(9,8,7,.06) 68%,transparent 83%);
+      opacity:1;
+      will-change:opacity;
+    }
+    .architectural-title{
+      position:absolute;
+      left:3.4vw;
+      right:2vw;
+      top:11%;
+      z-index:3;
+      margin:0;
+      color:#d4c5b2;
+      font:700 clamp(82px,13vw,212px)/.76 Manrope,sans-serif;
+      letter-spacing:-.08em;
+      text-transform:uppercase;
+      opacity:0;
+      transform:translateY(34px) scale(.985);
+      transform-origin:left top;
+      will-change:opacity,transform;
+      pointer-events:none;
+      text-shadow:0 1px 0 rgba(255,255,255,.06);
+    }
+    .architectural-build-layer,
+    .architectural-final-foreground{
+      z-index:4;
+      overflow:hidden;
+      pointer-events:none;
+      opacity:0;
+      will-change:opacity,transform,filter;
+    }
+    .architectural-build-layer.layer-1{clip-path:polygon(28% 30%,55% 24%,58% 35%,30% 41%)}
+    .architectural-build-layer.layer-2{clip-path:polygon(50% 28%,79% 32%,78% 43%,48% 38%)}
+    .architectural-build-layer.layer-3{clip-path:polygon(20% 39%,58% 34%,60% 48%,21% 51%)}
+    .architectural-build-layer.layer-4{clip-path:polygon(44% 43%,83% 42%,82% 55%,43% 56%)}
+    .architectural-build-layer.layer-5{clip-path:polygon(13% 48%,65% 45%,68% 62%,12% 64%)}
+    .architectural-final-foreground{
+      clip-path:polygon(0 55%,100% 49%,100% 100%,0 100%);
+      opacity:1;
+      z-index:5;
+    }
+    .architectural-final-foreground>img{
+      filter:brightness(.86) saturate(.96) contrast(1.05);
+    }
+    .architectural-vignette{
+      position:absolute;inset:0;z-index:6;pointer-events:none;
+      background:
+        linear-gradient(180deg,rgba(0,0,0,.24),transparent 22%,transparent 72%,rgba(0,0,0,.46)),
+        linear-gradient(90deg,rgba(0,0,0,.26),transparent 18%,transparent 82%,rgba(0,0,0,.20));
+    }
+    .architectural-scroll-cue{
+      position:absolute;
+      z-index:7;
+      left:50%;
+      bottom:24px;
+      transform:translateX(-50%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      color:#f6eee4;
+      font:500 8px DM Mono,monospace;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      text-shadow:0 2px 12px rgba(0,0,0,.4);
+      transition:opacity .2s ease;
+    }
+    .architectural-scroll-cue i{
+      width:32px;height:52px;border:1px solid rgba(255,255,255,.72);border-radius:18px;
+      display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px;
+    }
+    .architectural-scroll-cue i:after{
+      content:"";width:4px;height:4px;border-radius:50%;background:#fff;position:absolute;margin-top:-19px;
+      animation:architecturalDot 1.5s ease-in-out infinite;
+    }
+    @keyframes architecturalDot{
+      0%,100%{transform:translateY(0);opacity:.45}
+      50%{transform:translateY(13px);opacity:1}
+    }
+    @media(max-width:720px){
+      .architectural-hero{height:235svh}
+      .architectural-sticky{top:var(--header);height:calc(100svh - var(--header))}
+      .architectural-photo>img,
+      .architectural-build-layer>img,
+      .architectural-final-foreground>img{
+        width:118%;height:118%;left:-9%;top:-10%;object-position:center 58%;transform:none;
+      }
+      .architectural-title{
+        left:3.5vw;right:0;top:9.5%;
+        font-size:clamp(78px,25vw,118px);
+        line-height:.76;
+        letter-spacing:-.085em;
+      }
+      .architectural-build-layer.layer-1{clip-path:polygon(26% 29%,60% 25%,63% 36%,27% 40%)}
+      .architectural-build-layer.layer-2{clip-path:polygon(51% 31%,84% 34%,82% 45%,49% 41%)}
+      .architectural-build-layer.layer-3{clip-path:polygon(19% 39%,60% 35%,63% 49%,18% 52%)}
+      .architectural-build-layer.layer-4{clip-path:polygon(43% 44%,88% 43%,87% 57%,42% 58%)}
+      .architectural-build-layer.layer-5{clip-path:polygon(8% 51%,69% 47%,72% 65%,7% 66%)}
+      .architectural-final-foreground{clip-path:polygon(0 56%,100% 50%,100% 100%,0 100%)}
+      .architectural-scroll-cue{bottom:16px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .architectural-build-layer{opacity:1!important;transform:none!important}
+      .architectural-title{opacity:1!important;transform:none!important}
+      .architectural-top-mask{opacity:.45!important}
+      .architectural-scroll-cue i:after{animation:none}
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -40,26 +193,25 @@
   </aside>
 
   <main id="top">
-    <section class="hero hero-v6">
-      <div class="hero-copy" data-reveal>
-        <div class="hero-lockup">
-          <span class="hero-lockup-mark">EP</span>
-          <span><b>ENTRA PRIMA</b><small>DIGITAL EXPERIENCE</small></span>
+    <section class="architectural-hero" id="architectural-hero">
+      <div class="architectural-sticky">
+        <div class="architectural-photo">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt="Architettura ENTRA PRIMA al tramonto">
         </div>
-        <p class="kicker">PRIMA DI INCONTRARTI,</p>
-        <h1>devono già<br><em>sentirti.</em></h1>
-        <p class="hero-intro">Costruisco esperienze digitali che fanno percepire il valore del tuo brand prima ancora della visita: sito, creatività, ADS, presenza internazionale e azione finale diventano un unico percorso.</p>
-        <div class="hero-actions">
-          <a class="cta-primary" href="#engine"><span>SCOPRI COME FUNZIONA</span><i>→</i></a>
-          <a class="scroll-cue" href="#engine"><span>SCORRI PER SCOPRIRE</span><i>↓</i></a>
-        </div>
-      </div>
+        <div class="architectural-top-mask"></div>
 
-      <div class="hero-side hero-signature" data-reveal>
-        <span class="signature-line"></span>
-        <strong>NON UN SITO IN PIÙ.</strong>
-        <p>Un sistema pensato per trasformare <em>visibilità</em> in percezione, percezione in fiducia e fiducia in azione.</p>
-        <div class="signature-seal"><span>EP</span><small>EST. MILANO</small></div>
+        <h1 class="architectural-title" aria-label="ENTRA PRIMA">ENTRA<br>PRIMA</h1>
+
+        <div class="architectural-build-layer layer-1" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
+        <div class="architectural-build-layer layer-2" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
+        <div class="architectural-build-layer layer-3" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
+        <div class="architectural-build-layer layer-4" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
+        <div class="architectural-build-layer layer-5" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
+
+        <div class="architectural-final-foreground" aria-hidden="true"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
+        <div class="architectural-vignette"></div>
+
+        <a class="architectural-scroll-cue" href="#engine"><i>↓</i><span>SCROLL</span></a>
       </div>
     </section>
 
@@ -275,6 +427,69 @@
 
   </main>
 
+  <script>
+    (()=>{
+      const architecturalHero=document.getElementById('architectural-hero');
+      if(!architecturalHero) return;
+
+      const sticky=architecturalHero.querySelector('.architectural-sticky');
+      const title=architecturalHero.querySelector('.architectural-title');
+      const mask=architecturalHero.querySelector('.architectural-top-mask');
+      const basePhoto=architecturalHero.querySelector('.architectural-photo>img');
+      const cue=architecturalHero.querySelector('.architectural-scroll-cue');
+      const layers=[...architecturalHero.querySelectorAll('[data-build-layer]')];
+      const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let ticking=false;
+
+      const clamp=(n,a=0,b=1)=>Math.min(b,Math.max(a,n));
+      const local=(p,start,end)=>clamp((p-start)/(end-start));
+
+      function renderArchitecturalHero(){
+        ticking=false;
+        if(reduce){
+          architecturalHero.style.setProperty('--hero-progress','1');
+          return;
+        }
+        const rect=architecturalHero.getBoundingClientRect();
+        const total=Math.max(1,architecturalHero.offsetHeight-sticky.offsetHeight);
+        const p=clamp((-rect.top)/total);
+        architecturalHero.style.setProperty('--hero-progress',p.toFixed(4));
+
+        const starts=[0.03,0.12,0.21,0.30,0.39];
+        const ends=[0.27,0.36,0.45,0.54,0.63];
+        const shifts=[-110,-88,-72,-58,-44];
+        const rots=[-2.2,1.6,-1.25,1.1,-.7];
+
+        layers.forEach((layer,i)=>{
+          const lp=local(p,starts[i],ends[i]);
+          const eased=1-Math.pow(1-lp,3);
+          layer.style.opacity=eased.toFixed(3);
+          layer.style.transform=`translate3d(0,${((1-eased)*shifts[i]).toFixed(1)}px,0) rotate(${((1-eased)*rots[i]).toFixed(2)}deg)`;
+          layer.style.filter=`brightness(${(.72+eased*.25).toFixed(2)})`;
+        });
+
+        const textP=local(p,.57,.86);
+        const textEase=1-Math.pow(1-textP,3);
+        title.style.opacity=textEase.toFixed(3);
+        title.style.transform=`translateY(${((1-textEase)*34).toFixed(1)}px) scale(${(.985+textEase*.015).toFixed(4)})`;
+
+        const maskOpacity=.98-p*.46;
+        mask.style.opacity=clamp(maskOpacity,.5,1).toFixed(3);
+        basePhoto.style.filter=`brightness(${(.53+p*.25).toFixed(2)}) saturate(${(.9+p*.08).toFixed(2)}) contrast(1.04)`;
+        cue.style.opacity=clamp(1-p*2.2,0,1).toFixed(3);
+      }
+
+      function requestHeroFrame(){
+        if(ticking) return;
+        ticking=true;
+        requestAnimationFrame(renderArchitecturalHero);
+      }
+
+      window.addEventListener('scroll',requestHeroFrame,{passive:true});
+      window.addEventListener('resize',requestHeroFrame,{passive:true});
+      requestHeroFrame();
+    })();
+  </script>
   <script type="module" src="./script.js"></script>
 </body>
 </html>
