@@ -481,13 +481,19 @@ document.querySelectorAll('[data-system-atlas]').forEach(atlas=>{
   }
 
   let lastSystemActivation=0;
+  let lastSystemKey='';
 
   function activateSystemNode(node,event){
     if(!node) return;
 
+    const key=node.dataset.systemNode;
     const now=Date.now();
-    if(now-lastSystemActivation<280) return;
+
+    // Ignore only duplicate synthetic events for the SAME button.
+    // Different modules must remain instantly tappable.
+    if(key===lastSystemKey && now-lastSystemActivation<320) return;
     lastSystemActivation=now;
+    lastSystemKey=key;
 
     if(event?.cancelable && event.type==='touchend'){
       event.preventDefault();
@@ -496,7 +502,7 @@ document.querySelectorAll('[data-system-atlas]').forEach(atlas=>{
     userInteracted=true;
     clearInterval(autoTimer);
     autoTimer=null;
-    render(node.dataset.systemNode,true);
+    render(key,true);
   }
 
   nodes.forEach(node=>{
