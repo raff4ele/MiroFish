@@ -1273,3 +1273,97 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
   .floating-hero__wordmark{animation:none}
   .floating-hero__media img{transform:none!important}
 }
+
+
+/* =========================================================
+   V12 — final hero image, full composition visible
+   ========================================================= */
+.floating-hero{
+  --hero-scroll:0;
+  position:relative;
+  height:calc(100svh - var(--header));
+  min-height:620px;
+  overflow:hidden;
+  background:#15100c;
+  isolation:isolate;
+}
+.floating-hero__backdrop{
+  position:absolute;
+  inset:-7%;
+  z-index:1;
+  overflow:hidden;
+  opacity:.62;
+  filter:blur(26px) saturate(.92) brightness(.54);
+  transform:scale(1.08);
+}
+.floating-hero__backdrop img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+}
+.floating-hero__picture{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:grid;
+  place-items:center;
+  padding:clamp(8px,1.2vw,18px);
+  overflow:hidden;
+}
+.floating-hero__picture img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transform:translate3d(0,0,0);
+  animation:heroImageFloat 9s cubic-bezier(.45,.05,.3,1) infinite alternate;
+  will-change:transform;
+  backface-visibility:hidden;
+}
+.floating-hero__veil{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(8,7,6,.03),transparent 30%,transparent 72%,rgba(8,7,6,.08));
+}
+.floating-hero__continue{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:16%;
+  z-index:4;
+  font-size:0;
+  color:transparent;
+}
+.floating-hero__continue span,
+.floating-hero__continue i{display:none}
+@keyframes heroImageFloat{
+  0%{transform:translate3d(0,2px,0)}
+  50%{transform:translate3d(0,-5px,0)}
+  100%{transform:translate3d(0,3px,0)}
+}
+@media(max-width:900px){
+  .floating-hero{
+    min-height:560px;
+    height:calc(100svh - var(--header));
+  }
+  .floating-hero__picture{
+    padding:8px;
+  }
+  .floating-hero__backdrop{
+    inset:-12%;
+    filter:blur(24px) saturate(.88) brightness(.48);
+  }
+}
+@supports not (height:100svh){
+  .floating-hero{height:calc(100vh - var(--header))}
+}
+@media(prefers-reduced-motion:reduce){
+  .floating-hero__picture img{animation:none!important;transform:none!important}
+}
