@@ -9,23 +9,24 @@ const emptySite = '22063d22-a12a-4f3b-b74b-9b69455af66a';
 const finalHero = '527640ad-5708-4b15-ada8-cfd6ac887d43';
 
 assert.match(html, /data-build-hero/, 'hero must expose data-build-hero');
-assert.ok(html.includes(emptySite), 'hero must start from generated empty-site frame');
-assert.ok(html.includes(finalHero), 'hero must use approved final architectural reference');
-assert.ok((html.match(/data-build-piece/g) || []).length >= 6, 'hero must contain at least six construction pieces');
-assert.match(html, /data-final-scene/, 'hero must contain a final scene layer');
-assert.match(html, /data-final-wordmark/, 'hero must contain delayed ENTRA PRIMA wordmark');
-assert.ok(!html.includes('architectural-final-foreground" aria-hidden="true"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04'), 'old permanently visible foreground must be removed');
+assert.match(html, /data-build-canvas/, 'hero must contain a canvas controlled by scroll');
+assert.ok(html.includes(emptySite), 'hero must preload the empty-site frame');
+assert.ok(html.includes(finalHero), 'hero must preload the approved final architectural frame');
+assert.ok(!html.includes('data-build-piece'), 'DOM construction pieces must be removed');
+assert.ok(!html.includes('data-final-scene'), 'old final-scene layer must be removed');
 
-assert.match(css, /--build-progress/, 'CSS must expose build progress variable');
-assert.match(css, /\.build-piece/, 'CSS must style build pieces');
-assert.match(css, /\.final-scene/, 'CSS must style final scene');
-assert.match(js, /data-build-hero/, 'JS must bind the build hero');
-assert.match(js, /--build-progress/, 'JS must drive build progress');
-assert.match(js, /requestAnimationFrame/, 'scroll updates must be rAF-throttled');
+assert.match(css, /\.build-hero__canvas/, 'CSS must size the scroll canvas');
+assert.match(css, /\.build-stage-readout/, 'stage readout must remain');
+assert.match(js, /getContext\(['"]2d['"]/, 'JS must render using Canvas 2D');
+assert.match(js, /drawImage/, 'JS must draw the construction sequence');
+assert.match(js, /requestAnimationFrame/, 'scroll rendering must be rAF-throttled');
+assert.match(js, /applyCanvasBuildProgress/, 'JS must expose deterministic progress renderer');
+assert.match(js, /FONDAZIONI/, 'JS must include construction stages');
+assert.match(js, /ENTRA PRIMA/, 'JS must delay the final brand stage');
 
 assert.ok(html.includes('id="engine"'), 'engine section must remain');
 assert.ok(html.includes('id="perception"'), 'perception section must remain');
 assert.ok(html.includes('id="measurement"'), 'measurement section must remain');
 assert.ok(html.includes('id="finale"'), 'finale section must remain');
 
-console.log('hero-scroll-build test: PASS');
+console.log('hero-scroll-canvas test: PASS');
