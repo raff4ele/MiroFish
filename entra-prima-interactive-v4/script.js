@@ -161,6 +161,13 @@ function animateCounter(el){
   requestAnimationFrame(tick);
 }
 
+if(matchMedia('(max-width:720px)').matches){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const value=Number(el.dataset.count||0);
+    if(Number.isFinite(value)) el.textContent=String(value);
+  });
+}
+
 const storyObserver=new IntersectionObserver(entries=>{
   for(const entry of entries){
     if(!entry.isIntersecting || v6Animated.has(entry.target)) continue;
