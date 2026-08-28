@@ -171,3 +171,124 @@ window.__ENTRA_PRIMA_V6__={
   version:'strategy-v6',
   storySections:document.querySelectorAll('[data-funnel],[data-global-diagram],[data-chart]').length
 };
+
+
+/* =========================================================
+   V7 — reversible architectural construction scrub
+   ========================================================= */
+const buildHero=document.querySelector('[data-build-hero]');
+if(buildHero){
+  const pieces=[...buildHero.querySelectorAll('[data-build-piece]')];
+  const emptyScene=buildHero.querySelector('.build-empty-scene');
+  const finalScene=buildHero.querySelector('[data-final-scene]');
+  const shade=buildHero.querySelector('.build-hero__shade');
+  const cue=buildHero.querySelector('.build-hero__scroll');
+  const stageIndex=buildHero.querySelector('.build-stage-index');
+  const stageLabel=buildHero.querySelector('.build-stage-label');
+
+  const clamp01=v=>Math.min(1,Math.max(0,v));
+  const smooth=(a,b,v)=>{
+    const t=clamp01((v-a)/(b-a));
+    return t*t*(3-2*t);
+  };
+
+  const ranges=[
+    [0.08,0.22],
+    [0.18,0.35],
+    [0.30,0.48],
+    [0.43,0.62],
+    [0.56,0.75],
+    [0.69,0.86]
+  ];
+  const directions=[1,1,1,1,-1,1];
+
+  const stages=[
+    [0.00,'00','TERRENO'],
+    [0.10,'01','FONDAZIONI'],
+    [0.25,'02','STRUTTURA'],
+    [0.43,'03','VOLUMI'],
+    [0.60,'04','VETRI'],
+    [0.76,'05','FINITURE'],
+    [0.90,'06','ENTRA PRIMA']
+  ];
+
+  let ticking=false;
+  let lastProgress=-1;
+
+  function applyBuildProgress(progress){
+    buildHero.style.setProperty('--build-progress',progress.toFixed(4));
+
+    pieces.forEach((piece,i)=>{
+      const [start,end]=ranges[i]||[0,1];
+      const t=smooth(start,end,progress);
+      const direction=directions[i]||1;
+      const y=(1-t)*42*direction;
+      const scale=.994+(t*.006);
+      piece.style.opacity=t.toFixed(4);
+      piece.style.transform=`translate3d(0,${y.toFixed(2)}px,0) scale(${scale.toFixed(4)})`;
+      piece.style.filter=`brightness(${(.76+t*.18).toFixed(3)}) saturate(.95) contrast(1.04)`;
+    });
+
+    const finalT=smooth(.865,.985,progress);
+    if(finalScene){
+      finalScene.style.opacity=finalT.toFixed(4);
+      finalScene.style.transform=`scale(${(1.012-finalT*.012).toFixed(4)})`;
+      finalScene.style.filter=`brightness(${(.82+finalT*.16).toFixed(3)}) saturate(.98) contrast(1.05)`;
+    }
+
+    if(emptyScene){
+      const emptyFade=1-smooth(.82,.985,progress);
+      emptyScene.style.opacity=Math.max(.08,emptyFade).toFixed(4);
+      const emptyImg=emptyScene.querySelector('img');
+      if(emptyImg){
+        emptyImg.style.filter=`brightness(${(.72+progress*.10).toFixed(3)}) saturate(.91) contrast(1.04)`;
+      }
+    }
+
+    if(shade){
+      shade.style.opacity=(.78-(progress*.28)).toFixed(4);
+    }
+    if(cue){
+      cue.style.opacity=(1-smooth(.02,.16,progress)).toFixed(4);
+      cue.style.pointerEvents=progress>.2?'none':'auto';
+    }
+
+    let active=stages[0];
+    for(const stage of stages){
+      if(progress>=stage[0]) active=stage;
+    }
+    if(stageIndex) stageIndex.textContent=active[1];
+    if(stageLabel) stageLabel.textContent=active[2];
+
+    lastProgress=progress;
+  }
+
+  function computeBuildProgress(){
+    const rect=buildHero.getBoundingClientRect();
+    const header=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header'))||0;
+    const viewport=Math.max(1,innerHeight-header);
+    const travel=Math.max(1,buildHero.offsetHeight-viewport);
+    return clamp01((header-rect.top)/travel);
+  }
+
+  function updateBuildHero(){
+    ticking=false;
+    const progress=computeBuildProgress();
+    if(Math.abs(progress-lastProgress)>.0005) applyBuildProgress(progress);
+  }
+
+  function requestBuildUpdate(){
+    if(ticking) return;
+    ticking=true;
+    requestAnimationFrame(updateBuildHero);
+  }
+
+  addEventListener('scroll',requestBuildUpdate,{passive:true});
+  addEventListener('resize',requestBuildUpdate,{passive:true});
+  applyBuildProgress(computeBuildProgress());
+
+  window.__ENTRA_PRIMA_BUILD_HERO__={
+    get progress(){return computeBuildProgress()},
+    applyBuildProgress
+  };
+}
