@@ -199,7 +199,12 @@
         <p>Il lavoro non finisce nel sito. Identità, contenuti, distribuzione e azione devono sembrare parti della stessa esperienza.</p>
       </div>
 
-      <div class="system-atlas" data-system-atlas data-reveal>
+      <div class="system-atlas system-atlas--native" data-reveal>
+        <input class="system-native-radio" type="radio" name="system-native" id="system-site" checked>
+        <input class="system-native-radio" type="radio" name="system-native" id="system-attention">
+        <input class="system-native-radio" type="radio" name="system-native" id="system-ads">
+        <input class="system-native-radio" type="radio" name="system-native" id="system-action">
+
         <div class="system-atlas__ambient" aria-hidden="true"></div>
 
         <svg class="system-atlas__links" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
@@ -209,55 +214,82 @@
           <path d="M500 310 C620 410 755 458 885 505"/>
         </svg>
 
-        <button class="system-node system-node--site is-active" type="button" data-system-node="site" aria-pressed="true">
+        <label class="system-node system-node--site" for="system-site">
           <span>SITO</span>
           <small>ESPERIENZA DIGITALE</small>
-        </button>
+        </label>
 
-        <button class="system-node system-node--attention" type="button" data-system-node="attention" aria-pressed="false">
+        <label class="system-node system-node--attention" for="system-attention">
           <span>ATTENZIONE</span>
           <small>IMMAGINE & CONTENUTI</small>
-        </button>
+        </label>
 
-        <button class="system-node system-node--ads" type="button" data-system-node="ads" aria-pressed="false">
+        <label class="system-node system-node--ads" for="system-ads">
           <span>ADS</span>
           <small>DISTRIBUZIONE</small>
-        </button>
+        </label>
 
-        <button class="system-node system-node--action" type="button" data-system-node="action" aria-pressed="false">
+        <label class="system-node system-node--action" for="system-action">
           <span>AZIONE</span>
           <small>CONVERSIONE</small>
-        </button>
+        </label>
 
-        <article class="system-core" data-system-core>
-          <div class="system-core__head">
-            <span data-system-index>01 / EXPERIENCE</span>
-            <i></i>
-            <small>ENTRA PRIMA SYSTEM</small>
-          </div>
+        <div class="system-core system-core--native">
+          <article class="system-native-panel system-native-panel--site">
+            <div class="system-core__head">
+              <span>01 / EXPERIENCE</span><i></i><small>ENTRA PRIMA SYSTEM</small>
+            </div>
+            <h3>SITO IMMERSIVO</h3>
+            <p>Una presenza digitale costruita intorno al brand, non un template riempito di contenuti. Ogni sezione accompagna lo sguardo, rende immediatamente chiaro cosa offri e fa percepire più valore prima ancora del contatto.</p>
+            <div class="system-core__details">
+              <span>UX mobile-first</span><span>Motion & interazioni</span><span>Prenotazione integrata</span><span>Velocità & chiarezza</span>
+            </div>
+            <div class="system-core__outcome"><small>EFFETTO CERCATO</small><strong>Far percepire più valore prima ancora del contatto.</strong></div>
+          </article>
 
-          <h3 data-system-title>SITO IMMERSIVO</h3>
-          <p data-system-description>Una presenza digitale costruita intorno al brand, non un template riempito di contenuti. Ogni sezione accompagna lo sguardo e rende immediatamente chiaro perché scegliere proprio quell'attività.</p>
+          <article class="system-native-panel system-native-panel--attention">
+            <div class="system-core__head">
+              <span>02 / ATTENTION</span><i></i><small>ENTRA PRIMA SYSTEM</small>
+            </div>
+            <h3>ATTENZIONE CHE RESTA</h3>
+            <p>Creo una direzione visiva coerente tra sito, video, social e campagne. Hook, ritmo, immagini e tono devono fermare lo sguardo senza sembrare una pubblicità generica.</p>
+            <div class="system-core__details">
+              <span>Visual direction</span><span>Video & creative</span><span>Hook nei primi secondi</span><span>Coerenza cross-channel</span>
+            </div>
+            <div class="system-core__outcome"><small>EFFETTO CERCATO</small><strong>Essere riconosciuti prima ancora di leggere il nome del brand.</strong></div>
+          </article>
 
-          <div class="system-core__details" data-system-details>
-            <span>UX mobile-first</span>
-            <span>Motion & interazioni</span>
-            <span>Prenotazione integrata</span>
-            <span>Velocità & chiarezza</span>
-          </div>
+          <article class="system-native-panel system-native-panel--ads">
+            <div class="system-core__head">
+              <span>03 / DISTRIBUTION</span><i></i><small>ENTRA PRIMA SYSTEM</small>
+            </div>
+            <h3>ADS COERENTI</h3>
+            <p>Creatività, promessa, pubblico e landing devono parlare la stessa lingua. La distribuzione porta persone con un intento reale dentro un'esperienza già coerente, localmente o su mercati esteri.</p>
+            <div class="system-core__details">
+              <span>Target & intento</span><span>Creative testing</span><span>Landing coerente</span><span>Locale → internazionale</span>
+            </div>
+            <div class="system-core__outcome"><small>EFFETTO CERCATO</small><strong>Portare persone più adatte dentro un'esperienza già preparata a convertirle.</strong></div>
+          </article>
 
-          <div class="system-core__outcome">
-            <small>EFFETTO CERCATO</small>
-            <strong data-system-outcome>Far percepire più valore prima ancora del contatto.</strong>
-          </div>
+          <article class="system-native-panel system-native-panel--action">
+            <div class="system-core__head">
+              <span>04 / CONVERSION</span><i></i><small>ENTRA PRIMA SYSTEM</small>
+            </div>
+            <h3>AZIONE NATURALE</h3>
+            <p>Prenotare, chiedere informazioni o acquistare non deve sembrare un salto improvviso. CTA, percorso, messaggi e micro-interazioni riducono la frizione e trasformano l'interesse nel passo successivo.</p>
+            <div class="system-core__details">
+              <span>CTA contestuali</span><span>Booking & contatto</span><span>Riduzione frizione</span><span>Misurazione segnali</span>
+            </div>
+            <div class="system-core__outcome"><small>EFFETTO CERCATO</small><strong>Far sembrare il contatto la conclusione naturale dell'esperienza.</strong></div>
+          </article>
 
           <div class="system-core__pulse" aria-hidden="true"><i></i><i></i><i></i></div>
-        </article>
+        </div>
 
         <div class="system-atlas__hint" aria-hidden="true">
           <span>TOCCA PER ESPLORARE</span><i></i><span>04 MODULI / 01 SISTEMA</span>
         </div>
-      </div>
+      </div>>
     </section>
 
     <section class="global-story-section" id="global-story">
