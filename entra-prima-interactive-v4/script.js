@@ -237,3 +237,140 @@ if(immersiveHero){
     }
   };
 }
+
+
+/* =========================================================
+   V20 — interactive 3D reference experience
+   ========================================================= */
+document.querySelectorAll('[data-ep3d]').forEach(demo=>{
+  const viewport=demo.querySelector('[data-ep3d-viewport]');
+  const world=demo.querySelector('[data-ep3d-world]');
+  const panels=[...demo.querySelectorAll('[data-ep3d-panel]')];
+  const dots=[...demo.querySelectorAll('[data-ep3d-dot]')];
+  if(!viewport || !world || !panels.length) return;
+
+  let active=0;
+  let dragging=false;
+  let moved=false;
+  let startX=0;
+  let startY=0;
+  let lastX=0;
+
+  const wrapRel=(i)=>{
+    let rel=i-active;
+    const half=Math.floor(panels.length/2);
+    if(rel>half) rel-=panels.length;
+    if(rel<-half) rel+=panels.length;
+    return rel;
+  };
+
+  function layout(){
+    const vw=viewport.clientWidth||360;
+    const step=Math.min(138,Math.max(84,vw*.29));
+    const depth=Math.min(118,Math.max(72,vw*.24));
+
+    panels.forEach((panel,i)=>{
+      const rel=wrapRel(i);
+      const distance=Math.abs(rel);
+      const x=rel*step;
+      const y=distance*8;
+      const z=-distance*depth;
+      const rotate=rel*-11;
+      const scale=Math.max(.67,1-distance*.085);
+      const opacity=Math.max(.28,1-distance*.20);
+
+      panel.style.transform=
+        `translate3d(calc(-50% + ${x}px),calc(-50% + ${y}px),${z}px) rotateY(${rotate}deg) scale(${scale})`;
+      panel.style.opacity=String(opacity);
+      panel.style.filter=distance===0?'brightness(1) saturate(1)':
+        `brightness(${Math.max(.48,.82-distance*.09)}) saturate(.82)`;
+      panel.style.zIndex=String(20-distance);
+      panel.classList.toggle('is-active',distance===0);
+      panel.setAttribute('aria-pressed',distance===0?'true':'false');
+    });
+
+    dots.forEach((dot,i)=>dot.classList.toggle('is-active',i===active));
+  }
+
+  function setActive(next){
+    active=(next+panels.length)%panels.length;
+    layout();
+  }
+
+  function tiltFromPoint(clientX,clientY){
+    const rect=viewport.getBoundingClientRect();
+    const nx=Math.max(-1,Math.min(1,((clientX-rect.left)/rect.width-.5)*2));
+    const ny=Math.max(-1,Math.min(1,((clientY-rect.top)/rect.height-.5)*2));
+    demo.style.setProperty('--ep3d-y',`${(nx*6).toFixed(2)}deg`);
+    demo.style.setProperty('--ep3d-x',`${(-ny*3.5).toFixed(2)}deg`);
+    demo.style.setProperty('--ep3d-lx',`${(50+nx*18).toFixed(1)}%`);
+    demo.style.setProperty('--ep3d-ly',`${(43+ny*10).toFixed(1)}%`);
+  }
+
+  function resetTilt(){
+    demo.style.setProperty('--ep3d-y','0deg');
+    demo.style.setProperty('--ep3d-x','0deg');
+    demo.style.setProperty('--ep3d-lx','50%');
+    demo.style.setProperty('--ep3d-ly','42%');
+  }
+
+  viewport.addEventListener('pointerdown',e=>{
+    dragging=true;
+    moved=false;
+    startX=lastX=e.clientX;
+    startY=e.clientY;
+    viewport.classList.add('is-dragging');
+    viewport.setPointerCapture?.(e.pointerId);
+    tiltFromPoint(e.clientX,e.clientY);
+  });
+
+  viewport.addEventListener('pointermove',e=>{
+    if(!dragging){
+      if(e.pointerType==='mouse') tiltFromPoint(e.clientX,e.clientY);
+      return;
+    }
+
+    const dx=e.clientX-startX;
+    const dy=e.clientY-startY;
+    lastX=e.clientX;
+    if(Math.abs(dx)>6) moved=true;
+
+    if(Math.abs(dx)>Math.abs(dy)){
+      e.preventDefault?.();
+      const dragTilt=Math.max(-10,Math.min(10,dx/18));
+      demo.style.setProperty('--ep3d-y',`${dragTilt.toFixed(2)}deg`);
+    }
+    tiltFromPoint(e.clientX,e.clientY);
+  },{passive:false});
+
+  const endDrag=e=>{
+    if(!dragging) return;
+    dragging=false;
+    viewport.classList.remove('is-dragging');
+    const dx=(e?.clientX ?? lastX)-startX;
+    if(Math.abs(dx)>38) setActive(active+(dx<0?1:-1));
+    resetTilt();
+    setTimeout(()=>{moved=false},0);
+  };
+
+  viewport.addEventListener('pointerup',endDrag);
+  viewport.addEventListener('pointercancel',endDrag);
+  viewport.addEventListener('pointerleave',e=>{
+    if(dragging) endDrag(e);
+    else resetTilt();
+  });
+
+  panels.forEach((panel,i)=>{
+    panel.addEventListener('click',e=>{
+      if(moved){e.preventDefault();return}
+      setActive(i);
+    });
+  });
+
+  dots.forEach((dot,i)=>dot.addEventListener('click',()=>setActive(i)));
+
+  addEventListener('resize',layout,{passive:true});
+  layout();
+
+  demo.__ep3d={setActive,get active(){return active}};
+});
