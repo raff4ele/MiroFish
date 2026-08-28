@@ -287,6 +287,18 @@ document.querySelectorAll('[data-ep3d]').forEach(demo=>{
       panel.style.zIndex=String(20-distance);
       panel.classList.toggle('is-active',distance===0);
       panel.setAttribute('aria-pressed',distance===0?'true':'false');
+
+      const video=panel.querySelector('video');
+      if(video){
+        video.muted=true;
+        video.playsInline=true;
+        if(distance===0){
+          const playPromise=video.play();
+          playPromise?.catch?.(()=>{});
+        }else{
+          video.pause();
+        }
+      }
     });
 
     dots.forEach((dot,i)=>dot.classList.toggle('is-active',i===active));
@@ -370,6 +382,22 @@ document.querySelectorAll('[data-ep3d]').forEach(demo=>{
   dots.forEach((dot,i)=>dot.addEventListener('click',()=>setActive(i)));
 
   addEventListener('resize',layout,{passive:true});
+
+  const demoVideo=demo.querySelector('video');
+  if(demoVideo && 'IntersectionObserver' in window){
+    const videoObserver=new IntersectionObserver(entries=>{
+      const entry=entries[0];
+      if(!entry) return;
+      if(entry.isIntersecting && active===0){
+        demoVideo.muted=true;
+        demoVideo.play()?.catch?.(()=>{});
+      }else{
+        demoVideo.pause();
+      }
+    },{threshold:.12});
+    videoObserver.observe(demo);
+  }
+
   layout();
 
   demo.__ep3d={setActive,get active(){return active}};
