@@ -135,3 +135,39 @@ if(!reducedMotion){
   requestIdleCallback?.(()=>Promise.allSettled(['ads','global','action'].map(getImage)),{timeout:2500});
 }
 window.__ENTRA_PRIMA_V5__={modes,setMode,getImage};
+
+/* V6 — viewport-bound storytelling animations */
+const v6Animated = new WeakSet();
+
+function animateCounter(el){
+  const target=Number(el.dataset.count||0);
+  if(!Number.isFinite(target)) return;
+  const duration=720;
+  const start=performance.now();
+  const tick=(now)=>{
+    const p=Math.min(1,(now-start)/duration);
+    const eased=1-Math.pow(1-p,3);
+    el.textContent=String(Math.round(target*eased));
+    if(p<1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+const storyObserver=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+    if(!entry.isIntersecting || v6Animated.has(entry.target)) continue;
+    v6Animated.add(entry.target);
+    entry.target.classList.add('is-active');
+    entry.target.querySelectorAll?.('[data-count]').forEach(animateCounter);
+    storyObserver.unobserve(entry.target);
+  }
+},{threshold:.24,rootMargin:'0px 0px -10% 0px'});
+
+document.querySelectorAll('[data-funnel],[data-global-diagram],[data-chart]').forEach(el=>{
+  storyObserver.observe(el);
+});
+
+window.__ENTRA_PRIMA_V6__={
+  version:'strategy-v6',
+  storySections:document.querySelectorAll('[data-funnel],[data-global-diagram],[data-chart]').length
+};
