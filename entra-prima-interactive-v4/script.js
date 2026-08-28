@@ -174,14 +174,13 @@ window.__ENTRA_PRIMA_V6__={
 
 
 /* =========================================================
-   V8 — canvas architectural construction scrub
+   V9 — DOM architectural construction scrub
    ========================================================= */
 const buildHero=document.querySelector('[data-build-hero]');
 if(buildHero){
-  const canvas=buildHero.querySelector('[data-build-canvas]');
-  const ctx=canvas?.getContext('2d',{alpha:false,desynchronized:true});
-  const emptyImg=buildHero.querySelector('[data-build-empty-source]');
-  const finalImg=buildHero.querySelector('[data-build-final-source]');
+  const pieces=[...buildHero.querySelectorAll('[data-build-piece]')];
+  const finalImage=buildHero.querySelector('[data-build-final]');
+  const emptyImage=buildHero.querySelector('.build-empty-image');
   const shade=buildHero.querySelector('.build-hero__shade');
   const cue=buildHero.querySelector('.build-hero__scroll');
   const stageIndex=buildHero.querySelector('.build-stage-index');
@@ -193,6 +192,18 @@ if(buildHero){
     return t*t*(3-2*t);
   };
 
+  const ranges=[
+    [.05,.18],
+    [.12,.30],
+    [.20,.42],
+    [.30,.53],
+    [.43,.66],
+    [.56,.75],
+    [.64,.82]
+  ];
+  const enterY=[48,44,52,58,-52,38,30];
+  const enterX=[0,-18,18,0,0,12,-10];
+
   const stages=[
     [0.00,'00','TERRENO'],
     [0.06,'01','FONDAZIONI'],
@@ -203,165 +214,38 @@ if(buildHero){
     [0.88,'06','ENTRA PRIMA']
   ];
 
-  const pieces=[
-    {
-      range:[.05,.18],
-      shift:[0,.11],
-      points:[[.03,.73],[.97,.70],[.97,.88],[.03,.90]]
-    },
-    {
-      range:[.12,.30],
-      shift:[-.06,.08],
-      points:[[.03,.58],[.43,.54],[.46,.82],[.03,.84]]
-    },
-    {
-      range:[.20,.42],
-      shift:[.05,.10],
-      points:[[.36,.50],[.98,.49],[.98,.83],[.34,.82]]
-    },
-    {
-      range:[.30,.53],
-      shift:[0,.10],
-      points:[[.23,.48],[.69,.44],[.73,.80],[.23,.81]]
-    },
-    {
-      range:[.43,.66],
-      shift:[0,-.10],
-      points:[[.16,.43],[.83,.42],[.88,.62],[.14,.64]]
-    },
-    {
-      range:[.56,.75],
-      shift:[-.04,-.13],
-      points:[[.22,.33],[.54,.29],[.58,.46],[.19,.50]]
-    },
-    {
-      range:[.62,.81],
-      shift:[.05,-.13],
-      points:[[.55,.35],[.86,.36],[.84,.50],[.53,.48]]
-    }
-  ];
-
-  let width=0;
-  let height=0;
-  let dpr=1;
   let ticking=false;
   let lastProgress=-1;
-  let ready=false;
 
-  function resizeCanvas(){
-    if(!canvas||!ctx) return;
-    const rect=canvas.getBoundingClientRect();
-    width=Math.max(1,Math.round(rect.width));
-    height=Math.max(1,Math.round(rect.height));
-    dpr=Math.min(2,Math.max(1,window.devicePixelRatio||1));
-    const targetW=Math.round(width*dpr);
-    const targetH=Math.round(height*dpr);
-    if(canvas.width!==targetW||canvas.height!==targetH){
-      canvas.width=targetW;
-      canvas.height=targetH;
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      ctx.imageSmoothingEnabled=true;
-      ctx.imageSmoothingQuality='high';
-    }
-  }
+  function applyDomBuildProgress(progress){
+    progress=clamp01(progress);
+    buildHero.style.setProperty('--build-progress',progress.toFixed(4));
 
-  function coverRect(img,focusY=.58){
-    const iw=img.naturalWidth||1;
-    const ih=img.naturalHeight||1;
-    const scale=Math.max(width/iw,height/ih);
-    const dw=iw*scale;
-    const dh=ih*scale;
-    return {
-      x:(width-dw)*.5,
-      y:(height-dh)*focusY,
-      w:dw,
-      h:dh
-    };
-  }
-
-  function drawCover(img,alpha=1,focusY=.58){
-    if(!img?.complete||!img.naturalWidth) return;
-    const r=coverRect(img,focusY);
-    ctx.save();
-    ctx.globalAlpha=clamp01(alpha);
-    ctx.drawImage(img,r.x,r.y,r.w,r.h);
-    ctx.restore();
-  }
-
-  function drawFinalPolygon(points,t,shift){
-    if(t<=0||!finalImg?.complete||!finalImg.naturalWidth) return;
-    const eased=1-Math.pow(1-t,3);
-    const dx=(shift?.[0]||0)*width*(1-eased);
-    const dy=(shift?.[1]||0)*height*(1-eased);
-    const r=coverRect(finalImg,.58);
-
-    ctx.save();
-    ctx.beginPath();
-    points.forEach((point,i)=>{
-      const x=point[0]*width;
-      const y=point[1]*height;
-      if(i===0) ctx.moveTo(x,y);
-      else ctx.lineTo(x,y);
-    });
-    ctx.closePath();
-    ctx.clip();
-    ctx.globalAlpha=Math.min(1,eased*1.08);
-    ctx.translate(dx,dy);
-    ctx.drawImage(finalImg,r.x,r.y,r.w,r.h);
-    ctx.restore();
-  }
-
-  function drawConstructionGlow(progress){
-    const glow=smooth(.54,.82,progress)*(1-smooth(.90,1,progress));
-    if(glow<=0) return;
-    const gradient=ctx.createLinearGradient(0,height*.48,0,height*.88);
-    gradient.addColorStop(0,'rgba(216,178,125,0)');
-    gradient.addColorStop(.55,`rgba(216,178,125,${(.07*glow).toFixed(3)})`);
-    gradient.addColorStop(1,`rgba(216,178,125,${(.16*glow).toFixed(3)})`);
-    ctx.save();
-    ctx.globalCompositeOperation='screen';
-    ctx.fillStyle=gradient;
-    ctx.fillRect(0,height*.42,width,height*.48);
-    ctx.restore();
-  }
-
-  function renderCanvas(progress){
-    if(!ctx||!ready) return;
-    resizeCanvas();
-    ctx.save();
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    ctx.clearRect(0,0,width,height);
-
-    drawCover(emptyImg,1,.58);
-
-    pieces.forEach(piece=>{
-      const t=smooth(piece.range[0],piece.range[1],progress);
-      drawFinalPolygon(piece.points,t,piece.shift);
+    pieces.forEach((piece,i)=>{
+      const range=ranges[i]||[0,1];
+      const t=smooth(range[0],range[1],progress);
+      const eased=1-Math.pow(1-t,3);
+      const x=(1-eased)*(enterX[i]||0);
+      const y=(1-eased)*(enterY[i]||0);
+      const scale=.992+eased*.008;
+      piece.style.opacity=eased.toFixed(4);
+      piece.style.transform=`translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,0) scale(${scale.toFixed(4)})`;
+      piece.style.filter=`brightness(${(.78+eased*.18).toFixed(3)}) saturate(.97) contrast(1.04)`;
     });
 
-    const bodyLock=smooth(.69,.86,progress);
-    if(bodyLock>0){
-      const bodyPoints=[[.03,.43],[.98,.42],[.98,.88],[.03,.90]];
-      drawFinalPolygon(bodyPoints,bodyLock,[0,.025]);
+    const finalT=smooth(.875,.985,progress);
+    if(finalImage){
+      finalImage.style.opacity=finalT.toFixed(4);
+      finalImage.style.transform=`scale(${(1.008-finalT*.008).toFixed(4)})`;
     }
 
-    drawConstructionGlow(progress);
-
-    const finalT=smooth(.87,.985,progress);
-    if(finalT>0){
-      drawCover(finalImg,finalT,.58);
+    if(emptyImage){
+      const fade=1-smooth(.86,.99,progress)*.88;
+      emptyImage.style.opacity=Math.max(.12,fade).toFixed(4);
+      emptyImage.style.filter=`brightness(${(.84+progress*.08).toFixed(3)}) saturate(.94) contrast(1.03)`;
     }
 
-    const dark=ctx.createLinearGradient(0,0,0,height);
-    dark.addColorStop(0,'rgba(8,6,5,.30)');
-    dark.addColorStop(.34,'rgba(8,6,5,.02)');
-    dark.addColorStop(1,'rgba(8,6,5,.18)');
-    ctx.fillStyle=dark;
-    ctx.fillRect(0,0,width,height);
-
-    ctx.restore();
-
-    if(shade) shade.style.opacity=(.58-progress*.22).toFixed(3);
+    if(shade) shade.style.opacity=(.56-progress*.20).toFixed(3);
     if(cue){
       cue.style.opacity=(1-smooth(.015,.13,progress)).toFixed(3);
       cue.style.pointerEvents=progress>.14?'none':'auto';
@@ -374,7 +258,6 @@ if(buildHero){
     if(stageIndex) stageIndex.textContent=active[1];
     if(stageLabel) stageLabel.textContent=active[2];
 
-    buildHero.style.setProperty('--build-progress',progress.toFixed(4));
     lastProgress=progress;
   }
 
@@ -387,14 +270,10 @@ if(buildHero){
     return clamp01((scrollY-(docTop-header))/travel);
   }
 
-  function applyCanvasBuildProgress(progress){
-    renderCanvas(clamp01(progress));
-  }
-
   function updateBuildHero(){
     ticking=false;
     const progress=computeBuildProgress();
-    if(Math.abs(progress-lastProgress)>.0004) renderCanvas(progress);
+    if(Math.abs(progress-lastProgress)>.0004) applyDomBuildProgress(progress);
   }
 
   function requestBuildUpdate(){
@@ -403,40 +282,17 @@ if(buildHero){
     requestAnimationFrame(updateBuildHero);
   }
 
-  function markReady(){
-    if(!emptyImg?.naturalWidth||!finalImg?.naturalWidth) return;
-    ready=true;
-    resizeCanvas();
-    renderCanvas(computeBuildProgress());
-  }
-
-  [emptyImg,finalImg].forEach(img=>{
-    if(!img) return;
-    if(img.complete&&img.naturalWidth) return;
-    img.addEventListener('load',markReady,{once:true});
-    img.addEventListener('error',()=>console.error('ENTRA PRIMA hero image failed to load'),{once:true});
-  });
-
   addEventListener('scroll',requestBuildUpdate,{passive:true});
-  addEventListener('resize',()=>{
-    resizeCanvas();
-    requestBuildUpdate();
-  },{passive:true});
+  addEventListener('resize',requestBuildUpdate,{passive:true});
 
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    const reduced=()=>applyCanvasBuildProgress(1);
-    if(emptyImg?.complete&&finalImg?.complete) reduced();
-    else Promise.allSettled([emptyImg?.decode?.(),finalImg?.decode?.()]).then(reduced);
+    applyDomBuildProgress(1);
   }else{
-    if(emptyImg?.complete&&emptyImg.naturalWidth&&finalImg?.complete&&finalImg.naturalWidth){
-      markReady();
-    }else{
-      Promise.allSettled([emptyImg?.decode?.(),finalImg?.decode?.()]).then(markReady);
-    }
+    applyDomBuildProgress(computeBuildProgress());
   }
 
   window.__ENTRA_PRIMA_BUILD_HERO__={
     get progress(){return computeBuildProgress()},
-    applyCanvasBuildProgress
+    applyDomBuildProgress
   };
 }
