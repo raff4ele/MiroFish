@@ -3459,3 +3459,43 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     transition:none!important;
   }
 }
+
+
+/* V21 — clean looping video inside 3D reference panel */
+.ep3d-panel video{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  background:#0b0908;
+  transform:scale(1.012);
+  transition:transform .7s cubic-bezier(.19,1,.22,1),opacity .22s ease,filter .45s ease;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  pointer-events:none;
+}
+.ep3d-panel.is-active video{
+  transform:scale(1);
+}
+.ep3d-panel--video .ep3d-panel__frame:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(6,5,4,.02),transparent 64%,rgba(6,5,4,.16)),
+    linear-gradient(115deg,rgba(255,219,178,.055),transparent 24%);
+}
+.ep3d-panel--video small{
+  color:rgba(244,223,202,.82);
+}
+@media(max-width:720px){
+  .ep3d-panel video{
+    transform:scale(1.018);
+  }
+  .ep3d-panel.is-active video{
+    transform:scale(1.004);
+  }
+}
