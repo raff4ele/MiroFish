@@ -1367,3 +1367,98 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
 @media(prefers-reduced-motion:reduce){
   .floating-hero__picture img{animation:none!important;transform:none!important}
 }
+
+
+/* =========================================================
+   V13 — mobile-first hero + visible brand
+   ========================================================= */
+@media(max-width:720px){
+  :root{--header:64px}
+
+  .topbar{
+    height:var(--header);
+    grid-template-columns:minmax(0,1fr) auto;
+    padding:0 14px;
+    gap:12px;
+    background:rgba(246,242,233,.96);
+    border-bottom:1px solid rgba(27,21,16,.12);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+  }
+  .topbar-note{display:none}
+  .brand{
+    min-width:0;
+    gap:10px;
+    position:relative;
+    z-index:2;
+  }
+  .brand-mark{
+    width:38px;
+    height:38px;
+    flex:0 0 38px;
+    background:#17120e;
+    color:#fff;
+    font-size:10px;
+    border-radius:0;
+  }
+  .brand-name{
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-size:11px;
+    letter-spacing:.12em;
+    font-weight:700;
+  }
+  .menu-dots{
+    width:40px;
+    height:40px;
+    justify-self:end;
+  }
+
+  .floating-hero{
+    height:auto;
+    min-height:0;
+    background:#120e0b;
+    overflow:hidden;
+  }
+  .floating-hero__backdrop{
+    display:none;
+  }
+  .floating-hero__picture{
+    position:relative;
+    inset:auto;
+    width:100%;
+    aspect-ratio:4 / 3;
+    padding:0;
+    overflow:hidden;
+    display:block;
+    background:#120e0b;
+  }
+  .floating-hero__picture img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:contain;
+    object-position:center center;
+    margin:0!important;
+    animation:heroImageFloatMobile 8.5s cubic-bezier(.45,.05,.3,1) infinite alternate;
+  }
+  .floating-hero__veil{
+    display:none;
+  }
+  .floating-hero__continue{
+    display:none;
+  }
+
+  @keyframes heroImageFloatMobile{
+    0%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(0,-2px,0) scale(1.006)}
+    100%{transform:translate3d(0,1px,0) scale(1.002)}
+  }
+}
+
+@media(max-width:390px){
+  .brand-name{font-size:10px;letter-spacing:.1em}
+  .brand-mark{width:36px;height:36px;flex-basis:36px}
+}
