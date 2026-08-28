@@ -174,7 +174,7 @@ window.__ENTRA_PRIMA_V6__={
 
 
 /* =========================================================
-   V9 — DOM architectural construction scrub
+   V10 — SVG architectural construction scrub
    ========================================================= */
 const buildHero=document.querySelector('[data-build-hero]');
 if(buildHero){
@@ -193,16 +193,23 @@ if(buildHero){
   };
 
   const ranges=[
-    [.05,.18],
-    [.12,.30],
-    [.20,.42],
-    [.30,.53],
-    [.43,.66],
-    [.56,.75],
+    [.05,.17],
+    [.13,.29],
+    [.21,.41],
+    [.31,.52],
+    [.43,.65],
+    [.55,.74],
     [.64,.82]
   ];
-  const enterY=[48,44,52,58,-52,38,30];
-  const enterX=[0,-18,18,0,0,12,-10];
+  const svgShift=[
+    [0,7],
+    [-3,6],
+    [3,7],
+    [0,8],
+    [0,-8],
+    [2,5],
+    [-2,4]
+  ];
 
   const stages=[
     [0.00,'00','TERRENO'],
@@ -217,38 +224,37 @@ if(buildHero){
   let ticking=false;
   let lastProgress=-1;
 
-  function applyDomBuildProgress(progress){
+  function applySvgBuildProgress(progress){
     progress=clamp01(progress);
     buildHero.style.setProperty('--build-progress',progress.toFixed(4));
 
     pieces.forEach((piece,i)=>{
-      const range=ranges[i]||[0,1];
-      const t=smooth(range[0],range[1],progress);
+      const t=smooth(ranges[i][0],ranges[i][1],progress);
       const eased=1-Math.pow(1-t,3);
-      const x=(1-eased)*(enterX[i]||0);
-      const y=(1-eased)*(enterY[i]||0);
-      const scale=.992+eased*.008;
+      const shift=svgShift[i]||[0,0];
+      const x=((1-eased)*shift[0]).toFixed(3);
+      const y=((1-eased)*shift[1]).toFixed(3);
+
       piece.style.opacity=eased.toFixed(4);
-      piece.style.transform=`translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,0) scale(${scale.toFixed(4)})`;
-      piece.style.filter=`brightness(${(.78+eased*.18).toFixed(3)}) saturate(.97) contrast(1.04)`;
+      piece.setAttribute('transform',`translate(${x} ${y})`);
     });
 
-    const finalT=smooth(.875,.985,progress);
+    const finalT=smooth(.865,.985,progress);
     if(finalImage){
       finalImage.style.opacity=finalT.toFixed(4);
       finalImage.style.transform=`scale(${(1.008-finalT*.008).toFixed(4)})`;
     }
 
     if(emptyImage){
-      const fade=1-smooth(.86,.99,progress)*.88;
-      emptyImage.style.opacity=Math.max(.12,fade).toFixed(4);
-      emptyImage.style.filter=`brightness(${(.84+progress*.08).toFixed(3)}) saturate(.94) contrast(1.03)`;
+      const emptyFade=1-smooth(.84,.985,progress)*.88;
+      emptyImage.style.opacity=Math.max(.12,emptyFade).toFixed(4);
+      emptyImage.style.filter=`brightness(${(.86+progress*.06).toFixed(3)}) saturate(.95) contrast(1.03)`;
     }
 
-    if(shade) shade.style.opacity=(.56-progress*.20).toFixed(3);
+    if(shade) shade.style.opacity=(.50-progress*.18).toFixed(3);
     if(cue){
-      cue.style.opacity=(1-smooth(.015,.13,progress)).toFixed(3);
-      cue.style.pointerEvents=progress>.14?'none':'auto';
+      cue.style.opacity=(1-smooth(.015,.12,progress)).toFixed(3);
+      cue.style.pointerEvents=progress>.13?'none':'auto';
     }
 
     let active=stages[0];
@@ -273,7 +279,7 @@ if(buildHero){
   function updateBuildHero(){
     ticking=false;
     const progress=computeBuildProgress();
-    if(Math.abs(progress-lastProgress)>.0004) applyDomBuildProgress(progress);
+    if(Math.abs(progress-lastProgress)>.0004) applySvgBuildProgress(progress);
   }
 
   function requestBuildUpdate(){
@@ -286,13 +292,13 @@ if(buildHero){
   addEventListener('resize',requestBuildUpdate,{passive:true});
 
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    applyDomBuildProgress(1);
+    applySvgBuildProgress(1);
   }else{
-    applyDomBuildProgress(computeBuildProgress());
+    applySvgBuildProgress(computeBuildProgress());
   }
 
   window.__ENTRA_PRIMA_BUILD_HERO__={
     get progress(){return computeBuildProgress()},
-    applyDomBuildProgress
+    applySvgBuildProgress
   };
 }
