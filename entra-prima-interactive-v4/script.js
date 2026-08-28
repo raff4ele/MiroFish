@@ -179,7 +179,6 @@ window.__ENTRA_PRIMA_V6__={
 const immersiveHero=document.querySelector('[data-immersive-hero]');
 if(immersiveHero){
   const topbar=document.querySelector('.topbar');
-  const sky=immersiveHero.querySelector('.immersive-hero__sky');
   const cue=immersiveHero.querySelector('.immersive-hero__scroll');
 
   let ticking=false;
@@ -192,11 +191,6 @@ if(immersiveHero){
     const progress=clamp01((-rect.top)/Math.max(1,immersiveHero.offsetHeight));
     immersiveHero.style.setProperty('--immersive-scroll',progress.toFixed(4));
 
-    if(sky){
-      const y=(-7*progress).toFixed(2);
-      const scale=(1.02+progress*.015).toFixed(4);
-      sky.style.transform=`translate3d(0,${y}px,0) scale(${scale})`;
-    }
 
     if(cue){
       const opacity=Math.max(0,1-progress*2.5);
