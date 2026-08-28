@@ -10,159 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
-  <style>
-    .architectural-hero{
-      --hero-progress:0;
-      position:relative;
-      height:220svh;
-      background:#0c0a08;
-      color:#f4e8d7;
-      z-index:1;
-    }
-    .architectural-sticky{
-      position:sticky;
-      top:var(--header);
-      height:calc(100svh - var(--header));
-      overflow:hidden;
-      background:#0c0a08;
-      isolation:isolate;
-    }
-    .architectural-photo,
-    .architectural-photo>img,
-    .architectural-build-layer,
-    .architectural-build-layer>img,
-    .architectural-final-foreground,
-    .architectural-final-foreground>img{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-    }
-    .architectural-photo{z-index:1;background:#0c0a08;overflow:hidden}
-    .architectural-photo>img,
-    .architectural-build-layer>img,
-    .architectural-final-foreground>img{
-      object-fit:cover;
-      object-position:center 59%;
-      transform:scale(1.025);
-    }
-    .architectural-photo>img{
-      filter:brightness(.53) saturate(.9) contrast(1.04);
-      transition:filter .12s linear;
-    }
-    .architectural-top-mask{
-      position:absolute;
-      inset:0;
-      z-index:2;
-      pointer-events:none;
-      background:
-        linear-gradient(180deg,rgba(7,7,7,.92) 0%,rgba(9,8,7,.73) 17%,rgba(9,8,7,.38) 41%,rgba(9,8,7,.06) 68%,transparent 83%);
-      opacity:1;
-      will-change:opacity;
-    }
-    .architectural-title{
-      position:absolute;
-      left:3.4vw;
-      right:2vw;
-      top:11%;
-      z-index:3;
-      margin:0;
-      color:#d4c5b2;
-      font:700 clamp(82px,13vw,212px)/.76 Manrope,sans-serif;
-      letter-spacing:-.08em;
-      text-transform:uppercase;
-      opacity:0;
-      transform:translateY(34px) scale(.985);
-      transform-origin:left top;
-      will-change:opacity,transform;
-      pointer-events:none;
-      text-shadow:0 1px 0 rgba(255,255,255,.06);
-    }
-    .architectural-build-layer,
-    .architectural-final-foreground{
-      z-index:4;
-      overflow:hidden;
-      pointer-events:none;
-      opacity:0;
-      will-change:opacity,transform,filter;
-    }
-    .architectural-build-layer.layer-1{clip-path:polygon(28% 30%,55% 24%,58% 35%,30% 41%)}
-    .architectural-build-layer.layer-2{clip-path:polygon(50% 28%,79% 32%,78% 43%,48% 38%)}
-    .architectural-build-layer.layer-3{clip-path:polygon(20% 39%,58% 34%,60% 48%,21% 51%)}
-    .architectural-build-layer.layer-4{clip-path:polygon(44% 43%,83% 42%,82% 55%,43% 56%)}
-    .architectural-build-layer.layer-5{clip-path:polygon(13% 48%,65% 45%,68% 62%,12% 64%)}
-    .architectural-final-foreground{
-      clip-path:polygon(0 55%,100% 49%,100% 100%,0 100%);
-      opacity:1;
-      z-index:5;
-    }
-    .architectural-final-foreground>img{
-      filter:brightness(.86) saturate(.96) contrast(1.05);
-    }
-    .architectural-vignette{
-      position:absolute;inset:0;z-index:6;pointer-events:none;
-      background:
-        linear-gradient(180deg,rgba(0,0,0,.24),transparent 22%,transparent 72%,rgba(0,0,0,.46)),
-        linear-gradient(90deg,rgba(0,0,0,.26),transparent 18%,transparent 82%,rgba(0,0,0,.20));
-    }
-    .architectural-scroll-cue{
-      position:absolute;
-      z-index:7;
-      left:50%;
-      bottom:24px;
-      transform:translateX(-50%);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:8px;
-      color:#f6eee4;
-      font:500 8px DM Mono,monospace;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      text-shadow:0 2px 12px rgba(0,0,0,.4);
-      transition:opacity .2s ease;
-    }
-    .architectural-scroll-cue i{
-      width:32px;height:52px;border:1px solid rgba(255,255,255,.72);border-radius:18px;
-      display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px;
-    }
-    .architectural-scroll-cue i:after{
-      content:"";width:4px;height:4px;border-radius:50%;background:#fff;position:absolute;margin-top:-19px;
-      animation:architecturalDot 1.5s ease-in-out infinite;
-    }
-    @keyframes architecturalDot{
-      0%,100%{transform:translateY(0);opacity:.45}
-      50%{transform:translateY(13px);opacity:1}
-    }
-    @media(max-width:720px){
-      .architectural-hero{height:235svh}
-      .architectural-sticky{top:var(--header);height:calc(100svh - var(--header))}
-      .architectural-photo>img,
-      .architectural-build-layer>img,
-      .architectural-final-foreground>img{
-        width:118%;height:118%;left:-9%;top:-10%;object-position:center 58%;transform:none;
-      }
-      .architectural-title{
-        left:3.5vw;right:0;top:9.5%;
-        font-size:clamp(78px,25vw,118px);
-        line-height:.76;
-        letter-spacing:-.085em;
-      }
-      .architectural-build-layer.layer-1{clip-path:polygon(26% 29%,60% 25%,63% 36%,27% 40%)}
-      .architectural-build-layer.layer-2{clip-path:polygon(51% 31%,84% 34%,82% 45%,49% 41%)}
-      .architectural-build-layer.layer-3{clip-path:polygon(19% 39%,60% 35%,63% 49%,18% 52%)}
-      .architectural-build-layer.layer-4{clip-path:polygon(43% 44%,88% 43%,87% 57%,42% 58%)}
-      .architectural-build-layer.layer-5{clip-path:polygon(8% 51%,69% 47%,72% 65%,7% 66%)}
-      .architectural-final-foreground{clip-path:polygon(0 56%,100% 50%,100% 100%,0 100%)}
-      .architectural-scroll-cue{bottom:16px}
-    }
-    @media(prefers-reduced-motion:reduce){
-      .architectural-build-layer{opacity:1!important;transform:none!important}
-      .architectural-title{opacity:1!important;transform:none!important}
-      .architectural-top-mask{opacity:.45!important}
-      .architectural-scroll-cue i:after{animation:none}
-    }
-  </style>
 </head>
 <body>
   <header class="topbar">
@@ -193,25 +40,46 @@
   </aside>
 
   <main id="top">
-    <section class="architectural-hero" id="architectural-hero">
-      <div class="architectural-sticky">
-        <div class="architectural-photo">
-          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt="Architettura ENTRA PRIMA al tramonto">
+    <section class="build-hero" id="architectural-hero" data-build-hero aria-label="ENTRA PRIMA — costruzione guidata dallo scroll">
+      <div class="build-hero__sticky">
+        <div class="build-empty-scene" aria-hidden="true">
+          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/hf_20260828_063030_22063d22-a12a-4f3b-b74b-9b69455af66a.png" alt="">
         </div>
-        <div class="architectural-top-mask"></div>
 
-        <h1 class="architectural-title" aria-label="ENTRA PRIMA">ENTRA<br>PRIMA</h1>
+        <div class="build-piece build-piece--foundation" data-build-piece data-piece-index="0" aria-hidden="true">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/527640ad-5708-4b15-ada8-cfd6ac887d43.jpg" alt="">
+        </div>
+        <div class="build-piece build-piece--left-wing" data-build-piece data-piece-index="1" aria-hidden="true">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/527640ad-5708-4b15-ada8-cfd6ac887d43.jpg" alt="">
+        </div>
+        <div class="build-piece build-piece--right-frame" data-build-piece data-piece-index="2" aria-hidden="true">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/527640ad-5708-4b15-ada8-cfd6ac887d43.jpg" alt="">
+        </div>
+        <div class="build-piece build-piece--portal" data-build-piece data-piece-index="3" aria-hidden="true">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/527640ad-5708-4b15-ada8-cfd6ac887d43.jpg" alt="">
+        </div>
+        <div class="build-piece build-piece--roof" data-build-piece data-piece-index="4" aria-hidden="true">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/527640ad-5708-4b15-ada8-cfd6ac887d43.jpg" alt="">
+        </div>
+        <div class="build-piece build-piece--glass" data-build-piece data-piece-index="5" aria-hidden="true">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/527640ad-5708-4b15-ada8-cfd6ac887d43.jpg" alt="">
+        </div>
 
-        <div class="architectural-build-layer layer-1" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
-        <div class="architectural-build-layer layer-2" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
-        <div class="architectural-build-layer layer-3" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
-        <div class="architectural-build-layer layer-4" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
-        <div class="architectural-build-layer layer-5" data-build-layer><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
+        <div class="final-scene" data-final-scene data-final-wordmark aria-hidden="true">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/527640ad-5708-4b15-ada8-cfd6ac887d43.jpg" alt="">
+        </div>
 
-        <div class="architectural-final-foreground" aria-hidden="true"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/2db11e04-5b0f-4e12-bba0-acbcc9ea57f2.jpg" alt=""></div>
-        <div class="architectural-vignette"></div>
+        <div class="build-hero__shade" aria-hidden="true"></div>
 
-        <a class="architectural-scroll-cue" href="#engine"><i>↓</i><span>SCROLL</span></a>
+        <div class="build-stage-readout" aria-hidden="true">
+          <span class="build-stage-index">00</span>
+          <span class="build-stage-label">TERRENO</span>
+        </div>
+
+        <a class="build-hero__scroll" href="#engine" aria-label="Scorri per costruire ENTRA PRIMA">
+          <span class="build-scroll-mouse"><i></i><b>↓</b></span>
+          <small>SCROLL PER COSTRUIRE</small>
+        </a>
       </div>
     </section>
 
