@@ -402,3 +402,119 @@ document.querySelectorAll('[data-ep3d]').forEach(demo=>{
 
   demo.__ep3d={setActive,get active(){return active}};
 });
+
+
+/* =========================================================
+   V23 — interactive system atlas
+   ========================================================= */
+document.querySelectorAll('[data-system-atlas]').forEach(atlas=>{
+  const core=atlas.querySelector('[data-system-core]');
+  const nodes=[...atlas.querySelectorAll('[data-system-node]')];
+  const indexEl=atlas.querySelector('[data-system-index]');
+  const titleEl=atlas.querySelector('[data-system-title]');
+  const descriptionEl=atlas.querySelector('[data-system-description]');
+  const detailsEl=atlas.querySelector('[data-system-details]');
+  const outcomeEl=atlas.querySelector('[data-system-outcome]');
+
+  if(!core || !nodes.length) return;
+
+  const data={
+    site:{
+      index:'01 / EXPERIENCE',
+      title:'SITO IMMERSIVO',
+      description:'Una presenza digitale costruita intorno al brand, non un template riempito di contenuti. Ogni sezione accompagna lo sguardo, rende immediatamente chiaro cosa offri e fa percepire più valore prima ancora del contatto.',
+      details:['UX mobile-first','Motion & interazioni','Prenotazione integrata','Velocità & chiarezza'],
+      outcome:'Far percepire più valore prima ancora del contatto.'
+    },
+    attention:{
+      index:'02 / ATTENTION',
+      title:'ATTENZIONE CHE RESTA',
+      description:'Non basta pubblicare contenuti. Creo una direzione visiva coerente tra sito, video, social e campagne: hook, ritmo, immagini e tono devono far fermare lo sguardo senza sembrare una pubblicità generica.',
+      details:['Visual direction','Video & creative','Hook nei primi secondi','Coerenza cross-channel'],
+      outcome:'Essere riconosciuti prima ancora di leggere il nome del brand.'
+    },
+    ads:{
+      index:'03 / DISTRIBUTION',
+      title:'ADS COERENTI',
+      description:'La campagna non vive separata dal sito. Creatività, promessa, pubblico e landing devono parlare la stessa lingua. Distribuisco l’esperienza verso persone con un intento reale, localmente o su mercati esteri.',
+      details:['Target & intento','Creative testing','Landing coerente','Locale → internazionale'],
+      outcome:'Portare persone più adatte dentro un’esperienza già preparata a convertirle.'
+    },
+    action:{
+      index:'04 / CONVERSION',
+      title:'AZIONE NATURALE',
+      description:'Prenotare, chiedere informazioni o acquistare non deve sembrare un salto improvviso. CTA, percorso, messaggi e micro-interazioni riducono la frizione e trasformano l’interesse nel passo successivo.',
+      details:['CTA contestuali','Booking & contatto','Riduzione frizione','Misurazione segnali'],
+      outcome:'Far sembrare il contatto la conclusione naturale dell’esperienza.'
+    }
+  };
+
+  const order=['site','attention','ads','action'];
+  let active='site';
+  let userInteracted=false;
+  let autoTimer=null;
+
+  function render(key,fromUser=false){
+    const item=data[key];
+    if(!item || key===active && fromUser) return;
+
+    active=key;
+    if(fromUser) userInteracted=true;
+
+    nodes.forEach(node=>{
+      const isActive=node.dataset.systemNode===key;
+      node.classList.toggle('is-active',isActive);
+      node.setAttribute('aria-pressed',isActive?'true':'false');
+    });
+
+    core.classList.remove('is-changing');
+    void core.offsetWidth;
+    core.classList.add('is-changing');
+
+    if(indexEl) indexEl.textContent=item.index;
+    if(titleEl) titleEl.textContent=item.title;
+    if(descriptionEl) descriptionEl.textContent=item.description;
+    if(detailsEl){
+      detailsEl.innerHTML=item.details.map(v=>`<span>${v}</span>`).join('');
+    }
+    if(outcomeEl) outcomeEl.textContent=item.outcome;
+  }
+
+  nodes.forEach(node=>{
+    node.addEventListener('click',()=>render(node.dataset.systemNode,true));
+  });
+
+  atlas.addEventListener('pointermove',e=>{
+    if(matchMedia('(max-width:720px)').matches) return;
+    const r=atlas.getBoundingClientRect();
+    const x=((e.clientX-r.left)/r.width)*100;
+    const y=((e.clientY-r.top)/r.height)*100;
+    atlas.style.setProperty('--atlas-light-x',`${x.toFixed(1)}%`);
+    atlas.style.setProperty('--atlas-light-y',`${y.toFixed(1)}%`);
+  });
+
+  atlas.addEventListener('pointerleave',()=>{
+    atlas.style.setProperty('--atlas-light-x','50%');
+    atlas.style.setProperty('--atlas-light-y','50%');
+  });
+
+  if('IntersectionObserver' in window){
+    const observer=new IntersectionObserver(entries=>{
+      const visible=entries[0]?.isIntersecting;
+      if(visible && !userInteracted && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+        clearInterval(autoTimer);
+        autoTimer=setInterval(()=>{
+          if(userInteracted){clearInterval(autoTimer);return}
+          const next=(order.indexOf(active)+1)%order.length;
+          render(order[next],false);
+        },5200);
+      }else{
+        clearInterval(autoTimer);
+        autoTimer=null;
+      }
+    },{threshold:.35});
+    observer.observe(atlas);
+  }
+
+  render('site',false);
+});
