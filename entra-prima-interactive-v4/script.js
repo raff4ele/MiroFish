@@ -142,6 +142,14 @@ const v6Animated = new WeakSet();
 function animateCounter(el){
   const target=Number(el.dataset.count||0);
   if(!Number.isFinite(target)) return;
+
+  // Mobile/TikTok: show the real value immediately instead of leaving
+  // an empty/half-animated number when the in-app observer is throttled.
+  if(matchMedia('(max-width:720px)').matches){
+    el.textContent=String(target);
+    return;
+  }
+
   const duration=720;
   const start=performance.now();
   const tick=(now)=>{
