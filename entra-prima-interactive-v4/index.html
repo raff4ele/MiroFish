@@ -295,69 +295,6 @@
 
   </main>
 
-  <script>
-    (()=>{
-      const architecturalHero=document.getElementById('architectural-hero');
-      if(!architecturalHero) return;
-
-      const sticky=architecturalHero.querySelector('.architectural-sticky');
-      const title=architecturalHero.querySelector('.architectural-title');
-      const mask=architecturalHero.querySelector('.architectural-top-mask');
-      const basePhoto=architecturalHero.querySelector('.architectural-photo>img');
-      const cue=architecturalHero.querySelector('.architectural-scroll-cue');
-      const layers=[...architecturalHero.querySelectorAll('[data-build-layer]')];
-      const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      let ticking=false;
-
-      const clamp=(n,a=0,b=1)=>Math.min(b,Math.max(a,n));
-      const local=(p,start,end)=>clamp((p-start)/(end-start));
-
-      function renderArchitecturalHero(){
-        ticking=false;
-        if(reduce){
-          architecturalHero.style.setProperty('--hero-progress','1');
-          return;
-        }
-        const rect=architecturalHero.getBoundingClientRect();
-        const total=Math.max(1,architecturalHero.offsetHeight-sticky.offsetHeight);
-        const p=clamp((-rect.top)/total);
-        architecturalHero.style.setProperty('--hero-progress',p.toFixed(4));
-
-        const starts=[0.03,0.12,0.21,0.30,0.39];
-        const ends=[0.27,0.36,0.45,0.54,0.63];
-        const shifts=[-110,-88,-72,-58,-44];
-        const rots=[-2.2,1.6,-1.25,1.1,-.7];
-
-        layers.forEach((layer,i)=>{
-          const lp=local(p,starts[i],ends[i]);
-          const eased=1-Math.pow(1-lp,3);
-          layer.style.opacity=eased.toFixed(3);
-          layer.style.transform=`translate3d(0,${((1-eased)*shifts[i]).toFixed(1)}px,0) rotate(${((1-eased)*rots[i]).toFixed(2)}deg)`;
-          layer.style.filter=`brightness(${(.72+eased*.25).toFixed(2)})`;
-        });
-
-        const textP=local(p,.57,.86);
-        const textEase=1-Math.pow(1-textP,3);
-        title.style.opacity=textEase.toFixed(3);
-        title.style.transform=`translateY(${((1-textEase)*34).toFixed(1)}px) scale(${(.985+textEase*.015).toFixed(4)})`;
-
-        const maskOpacity=.98-p*.46;
-        mask.style.opacity=clamp(maskOpacity,.5,1).toFixed(3);
-        basePhoto.style.filter=`brightness(${(.53+p*.25).toFixed(2)}) saturate(${(.9+p*.08).toFixed(2)}) contrast(1.04)`;
-        cue.style.opacity=clamp(1-p*2.2,0,1).toFixed(3);
-      }
-
-      function requestHeroFrame(){
-        if(ticking) return;
-        ticking=true;
-        requestAnimationFrame(renderArchitecturalHero);
-      }
-
-      window.addEventListener('scroll',requestHeroFrame,{passive:true});
-      window.addEventListener('resize',requestHeroFrame,{passive:true});
-      requestHeroFrame();
-    })();
-  </script>
   <script type="module" src="./script.js"></script>
 </body>
 </html>
