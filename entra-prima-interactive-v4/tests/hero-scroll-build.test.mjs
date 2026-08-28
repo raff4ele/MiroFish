@@ -28,16 +28,13 @@ for(const id of ['engine','perception','difference','measurement','finale']){
 console.log('static-light-hero test: PASS');
 
 
-/* V20 — interactive 3D AFTER experience */
-assert.match(html,/data-ep3d/,'interactive 3D experience required');
-assert.equal((html.match(/data-ep3d-panel=/g)||[]).length,7,'7 3D visual panels required');
-assert.match(html,/ep3d-world/);
-assert.match(html,/ep3d-core/);
-assert.match(css,/perspective:1100px/);
-assert.match(css,/transform-style:preserve-3d/);
-assert.match(js,/data-ep3d-viewport/);
-assert.match(js,/pointerdown/);
-assert.match(js,/setPointerCapture/);
+/* V22 — AFTER panel is video only */
+assert.match(html,/after-panel--video-only/);
+assert.match(html,/after-video-only/);
+assert.ok(!html.includes('data-ep3d'),'3D overlays must be removed from AFTER panel');
+assert.ok(!html.includes('ep3d-head'),'3D title overlay must be removed');
+assert.ok(!html.includes('data-ep3d-dot'),'3D controls must be removed');
+assert.match(css,/\.after-video-only video/);
 
 const siteHtml=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const siteCss=fs.readFileSync(new URL('../styles.css',import.meta.url),'utf8');
