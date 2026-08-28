@@ -5,22 +5,22 @@ const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const css=fs.readFileSync(new URL('../styles.css',import.meta.url),'utf8');
 const js=fs.readFileSync(new URL('../script.js',import.meta.url),'utf8');
 
-const heroPhoto='3fe30ef8-2414-45d3-ad4f-b48aa9729c33.jpg';
+const finalHero='a6565366-11ca-42f3-a8ec-699c085b371e.png';
 
-assert.match(html,/data-floating-hero/,'floating hero required');
-assert.ok(html.includes(heroPhoto),'must use exact uploaded hero photo');
-assert.ok(!html.includes('data-build-hero'),'construction hero must be removed');
-assert.ok(!html.includes('data-build-piece'),'construction pieces must be removed');
-assert.match(html,/floating-hero__wordmark/,'independent floating wordmark required');
+assert.match(html,/data-floating-hero/);
+assert.ok(html.includes(finalHero),'must use the approved final hero image');
+assert.ok(!html.includes('floating-hero__wordmark'),'duplicate HTML wordmark must be removed');
+assert.match(html,/floating-hero__backdrop/);
+assert.match(html,/floating-hero__picture/);
 
-assert.match(css,/@keyframes heroHouseFloat/,'house animation required');
-assert.match(css,/@keyframes heroWordFloat/,'word animation required');
-assert.match(css,/\.floating-hero__media/);
-assert.match(css,/\.floating-hero__wordmark/);
+assert.match(css,/\.floating-hero__picture img/);
+assert.match(css,/object-fit:contain/,'foreground image must never crop');
+assert.match(css,/\.floating-hero__backdrop/);
+assert.match(css,/@keyframes heroImageFloat/);
 assert.match(js,/data-floating-hero/);
 assert.match(js,/--hero-scroll/);
 
 for(const id of ['engine','perception','difference','measurement','finale']){
   assert.ok(html.includes(`id="${id}"`),`${id} must remain`);
 }
-console.log('floating-hero test: PASS');
+console.log('final-fit-hero test: PASS');
