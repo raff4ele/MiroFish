@@ -3957,3 +3957,50 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     animation:none!important;
   }
 }
+
+
+/* =========================================================
+   V23.1 — iOS/TikTok touch reliability for SYSTEM ATLAS
+   ========================================================= */
+@media(max-width:720px){
+  .brand-system-section [data-reveal]{
+    opacity:1!important;
+    transform:none!important;
+  }
+
+  .system-atlas{
+    transform:none!important;
+    contain:layout paint;
+  }
+
+  .system-node{
+    z-index:20!important;
+    pointer-events:auto!important;
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-user-select:none;
+    user-select:none;
+    cursor:pointer;
+  }
+
+  .system-node *{
+    pointer-events:none;
+  }
+
+  .system-core{
+    z-index:8!important;
+    pointer-events:none;
+  }
+
+  .system-core a,
+  .system-core button{
+    pointer-events:auto;
+  }
+
+  .system-atlas__links,
+  .system-atlas__ambient,
+  .system-atlas:before,
+  .system-core__pulse{
+    pointer-events:none!important;
+  }
+}
