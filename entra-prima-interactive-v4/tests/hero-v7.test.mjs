@@ -7,11 +7,13 @@ const js = fs.readFileSync(root + 'script.js','utf8');
 
 const checks = [
   ['architectural hero exists', /class="architectural-hero/.test(html)],
-  ['exact hero image wired', /527640ad-5708-4b15-ada8-cfd6ac887d43\.jpg/.test(html)],
+  ['exact user hero image wired', /2db11e04-5b0f-4e12-bba0-acbcc9ea57f2\.jpg/.test(html)],
   ['hero appears before engine', html.indexOf('architectural-hero') >= 0 && html.indexOf('architectural-hero') < html.indexOf('engine-section')],
   ['old v6 hero removed', !/hero-v6/.test(html)],
-  ['hero scroll progress css', /--hero-progress/.test(css)],
-  ['hero scroll handler', /architecturalHero/.test(js) && /requestAnimationFrame/.test(js)],
+  ['scroll-build layers exist', (html.match(/data-build-layer/g)||[]).length >= 5],
+  ['entra prima overlay exists', /architectural-title/.test(html) && /ENTRA PRIMA/.test(html)],
+  ['scroll progress css exists', /--hero-progress/.test(css)],
+  ['scroll handler exists', /architecturalHero/.test(js) && /requestAnimationFrame/.test(js)],
   ['engine still present', /id="engine"/.test(html)],
   ['perception still present', /id="perception"/.test(html)],
   ['difference still present', /id="difference"/.test(html)],
