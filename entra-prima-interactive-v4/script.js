@@ -29,7 +29,7 @@ const modes={
     title:'SITO IMMERSIVO',
     description:"Un sito costruito intorno all'identità reale del brand: immagini, gerarchia, UI/UX e atmosfera lavorano insieme per far percepire valore prima ancora della visita.",
     status:'WEBSITE EXPERIENCE',
-    asset:'./assets/site.b64',
+    asset:'https://raw.githubusercontent.com/raff4ele/MiroFish/entra-prima-flat-visuals-v5/entra-prima-interactive-v4/assets/site.b64',
     alt:'Visual pulito di un sito immersivo ENTRA PRIMA'
   },
   ads:{
@@ -37,7 +37,7 @@ const modes={
     title:'ADS / ATTENTION',
     description:"Creative e campagne non vengono trattate come un elemento separato. L'annuncio apre la stessa storia che continua nel sito, con hook, visual e messaggio coerenti.",
     status:'CAMPAIGN EXPERIENCE',
-    asset:'./assets/ads.b64',
+    asset:'https://raw.githubusercontent.com/raff4ele/MiroFish/entra-prima-flat-visuals-v5/entra-prima-interactive-v4/assets/ads.b64',
     alt:'Visual pulito della sezione ADS ENTRA PRIMA'
   },
   global:{
@@ -45,7 +45,7 @@ const modes={
     title:'GLOBAL PRESENCE',
     description:"La stessa identità viene adattata a lingua, tono e mercato per presentare il brand fuori dall'Italia senza perdere coerenza, qualità percepita e riconoscibilità.",
     status:'GLOBAL PRESENCE',
-    asset:'./assets/global.b64',
+    asset:'https://raw.githubusercontent.com/raff4ele/MiroFish/entra-prima-flat-visuals-v5/entra-prima-interactive-v4/assets/global.b64',
     alt:'Visual pulito della presenza internazionale ENTRA PRIMA'
   },
   action:{
@@ -53,7 +53,7 @@ const modes={
     title:'AZIONE / BOOKING',
     description:"Il percorso porta a un gesto concreto: prenotare, chiedere informazioni, entrare in showroom o iniziare una conversazione. La conversione diventa parte naturale dell'esperienza.",
     status:'BOOKING EXPERIENCE',
-    asset:'./assets/action.b64',
+    asset:'https://raw.githubusercontent.com/raff4ele/MiroFish/entra-prima-flat-visuals-v5/entra-prima-interactive-v4/assets/action.b64',
     alt:'Visual pulito del booking e della conversione ENTRA PRIMA'
   }
 };
