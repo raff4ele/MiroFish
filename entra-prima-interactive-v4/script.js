@@ -480,9 +480,45 @@ document.querySelectorAll('[data-system-atlas]').forEach(atlas=>{
     if(outcomeEl) outcomeEl.textContent=item.outcome;
   }
 
+  let lastSystemActivation=0;
+
+  function activateSystemNode(node,event){
+    if(!node) return;
+
+    const now=Date.now();
+    if(now-lastSystemActivation<280) return;
+    lastSystemActivation=now;
+
+    if(event?.cancelable && event.type==='touchend'){
+      event.preventDefault();
+    }
+
+    userInteracted=true;
+    clearInterval(autoTimer);
+    autoTimer=null;
+    render(node.dataset.systemNode,true);
+  }
+
   nodes.forEach(node=>{
-    node.addEventListener('click',()=>render(node.dataset.systemNode,true));
+    node.addEventListener('pointerup',event=>{
+      activateSystemNode(node,event);
+    });
+
+    node.addEventListener('touchend',event=>{
+      activateSystemNode(node,event);
+    },{passive:false});
+
+    node.addEventListener('click',event=>{
+      activateSystemNode(node,event);
+    });
   });
+
+  // iOS/TikTok fallback: delegated touch handler in case the embedded
+  // browser loses the direct button listener during compositing.
+  atlas.addEventListener('touchend',event=>{
+    const node=event.target?.closest?.('[data-system-node]');
+    if(node) activateSystemNode(node,event);
+  },{passive:false,capture:true});
 
   atlas.addEventListener('pointermove',e=>{
     if(matchMedia('(max-width:720px)').matches) return;
