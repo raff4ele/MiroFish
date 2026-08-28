@@ -2270,3 +2270,50 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
     font-size:25vw!important;
   }
 }
+
+
+/* =========================================================
+   V18 — lift wordmark for clear partial occlusion
+   ========================================================= */
+
+/* Desktop: raise the word so only its lower area meets the roofline */
+.immersive-hero__word{
+  top:8%!important;
+  height:44%!important;
+}
+
+.immersive-hero__word-float span{
+  color:rgba(250,236,218,.98)!important;
+}
+
+/* Mobile: ENTRA PRIMA stays readable, with only the bottom edge behind the house */
+@media(max-width:720px){
+  .immersive-hero__word{
+    top:13.5%!important;
+    height:38%!important;
+    left:0!important;
+    right:0!important;
+  }
+
+  .immersive-hero__word-float span{
+    font-size:24vw!important;
+    line-height:.72!important;
+    letter-spacing:-.082em!important;
+    color:rgba(252,238,220,.99)!important;
+    text-shadow:
+      0 4px 18px rgba(0,0,0,.16),
+      0 0 16px rgba(255,211,166,.22),
+      0 0 38px rgba(239,176,112,.14)!important;
+  }
+}
+
+@media(max-width:390px){
+  .immersive-hero__word{
+    top:13%!important;
+    height:38%!important;
+  }
+
+  .immersive-hero__word-float span{
+    font-size:23.5vw!important;
+  }
+}
