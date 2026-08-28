@@ -44,3 +44,16 @@ for(const id of [
 ]) assert.ok(html.includes(id),`reference frame ${id} required`);
 assert.match(css,/@keyframes referenceFeatureBreath/);
 assert.match(css,/@keyframes referenceRail/);
+
+
+const siteHtml=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const siteCss=fs.readFileSync(new URL('../styles.css',import.meta.url),'utf8');
+const siteJs=fs.readFileSync(new URL('../script.js',import.meta.url),'utf8');
+
+assert.ok(siteHtml.includes('f4edb58c-a2a3-4638-a765-0e683483fbd3.mp4'),'clean loop video must be embedded');
+assert.match(siteHtml,/<video[^>]*autoplay[^>]*muted[^>]*loop[^>]*playsinline/i,'video must autoplay muted loop inline');
+assert.ok(!siteHtml.match(/<video[^>]*controls/i),'video controls must be absent');
+assert.match(siteCss,/\.ep3d-panel video/,'3D panel video styling required');
+assert.match(siteJs,/querySelector\('video'\)/,'3D video playback management required');
+
+console.log('3d-video-loop test: PASS');
