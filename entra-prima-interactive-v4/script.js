@@ -174,12 +174,11 @@ window.__ENTRA_PRIMA_V6__={
 
 
 /* =========================================================
-   V14 — layered immersive hero parallax
+   V15 — real layered immersive hero
    ========================================================= */
 const immersiveHero=document.querySelector('[data-immersive-hero]');
 if(immersiveHero){
-  const word=immersiveHero.querySelector('.immersive-hero__word');
-  const house=immersiveHero.querySelector('.immersive-hero__house');
+  const topbar=document.querySelector('.topbar');
   const sky=immersiveHero.querySelector('.immersive-hero__sky');
   const cue=immersiveHero.querySelector('.immersive-hero__scroll');
 
@@ -188,23 +187,26 @@ if(immersiveHero){
 
   function updateImmersiveHero(){
     ticking=false;
+
     const rect=immersiveHero.getBoundingClientRect();
-    const header=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header'))||0;
-    const progress=clamp01((header-rect.top)/Math.max(1,immersiveHero.offsetHeight));
+    const progress=clamp01((-rect.top)/Math.max(1,immersiveHero.offsetHeight));
     immersiveHero.style.setProperty('--immersive-scroll',progress.toFixed(4));
 
-    if(word){
-      word.style.marginTop=`${(-10*progress).toFixed(2)}px`;
-    }
-    if(house){
-      house.style.marginTop=`${(-16*progress).toFixed(2)}px`;
-    }
     if(sky){
-      sky.style.transform=`translate3d(0,${(-5*progress).toFixed(2)}px,0) scale(${(1+progress*.012).toFixed(4)})`;
+      const y=(-7*progress).toFixed(2);
+      const scale=(1.02+progress*.015).toFixed(4);
+      sky.style.transform=`translate3d(0,${y}px,0) scale(${scale})`;
     }
+
     if(cue){
-      cue.style.opacity=(1-progress*2.4).toFixed(3);
+      const opacity=Math.max(0,1-progress*2.5);
+      cue.style.opacity=opacity.toFixed(3);
       cue.style.pointerEvents=progress>.45?'none':'auto';
+    }
+
+    if(topbar){
+      const overHero=rect.bottom>Math.max(86,window.innerHeight*.12);
+      topbar.classList.toggle('is-over-hero',overHero);
     }
   }
 
@@ -218,5 +220,11 @@ if(immersiveHero){
   addEventListener('resize',requestImmersiveFrame,{passive:true});
   requestImmersiveFrame();
 
-  window.__ENTRA_PRIMA_IMMERSIVE_HERO__={update:updateImmersiveHero};
+  window.__ENTRA_PRIMA_IMMERSIVE_HERO__={
+    update:updateImmersiveHero,
+    get progress(){
+      const rect=immersiveHero.getBoundingClientRect();
+      return clamp01((-rect.top)/Math.max(1,immersiveHero.offsetHeight));
+    }
+  };
 }
