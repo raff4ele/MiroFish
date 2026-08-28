@@ -2034,3 +2034,147 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
   margin-top:calc(-1 * var(--header));
   padding-top:var(--header);
 }
+
+
+/* =========================================================
+   V16 — static hero with light effects
+   ========================================================= */
+
+/* House and word stay completely still */
+.immersive-hero__word,
+.immersive-hero__house{
+  transform:none!important;
+  will-change:auto;
+}
+
+.immersive-hero__word-float,
+.immersive-hero__house-float{
+  animation:none!important;
+  transform:none!important;
+  opacity:1!important;
+  will-change:auto;
+}
+
+/* No drifting clouds: ambience stays fixed */
+.immersive-hero__cloud--one,
+.immersive-hero__cloud--two{
+  animation:none!important;
+  transform:none!important;
+}
+
+/* Warm facade light breathes without moving the house */
+.immersive-hero__house-float img{
+  animation:heroFacadeLightV16 6.4s ease-in-out infinite!important;
+  will-change:filter;
+}
+
+/* The word remains fixed; only its light changes */
+.immersive-hero__word-float span{
+  animation:heroWordLightV16 7.8s ease-in-out infinite;
+  will-change:color,text-shadow,filter;
+}
+
+/* Ambient backlight pulse */
+.immersive-hero__glow{
+  animation:heroAmbientLightV16 8.6s ease-in-out infinite!important;
+  transform:translate(-50%,-50%)!important;
+}
+
+/* A subtle moving light reflection across the architecture */
+.immersive-hero__foreground:before{
+  content:"";
+  position:absolute;
+  z-index:1;
+  top:36%;
+  bottom:7%;
+  left:-45%;
+  width:62%;
+  pointer-events:none;
+  background:linear-gradient(
+    104deg,
+    transparent 0%,
+    rgba(255,211,164,0) 34%,
+    rgba(255,211,164,.14) 48%,
+    rgba(255,235,204,.22) 52%,
+    rgba(255,211,164,.08) 58%,
+    transparent 74%
+  );
+  filter:blur(18px);
+  mix-blend-mode:screen;
+  opacity:.62;
+  animation:heroLightSweepV16 8.8s cubic-bezier(.42,0,.28,1) infinite;
+  will-change:transform,opacity;
+}
+
+@keyframes heroFacadeLightV16{
+  0%,100%{
+    filter:saturate(1.01) contrast(1.03) brightness(.975);
+  }
+  48%{
+    filter:saturate(1.05) contrast(1.035) brightness(1.035);
+  }
+  72%{
+    filter:saturate(1.03) contrast(1.03) brightness(1.005);
+  }
+}
+
+@keyframes heroWordLightV16{
+  0%,100%{
+    color:rgba(236,218,198,.72);
+    text-shadow:0 8px 28px rgba(0,0,0,.12),0 0 0 rgba(232,166,104,0);
+    filter:brightness(.98);
+  }
+  50%{
+    color:rgba(244,224,204,.83);
+    text-shadow:0 8px 28px rgba(0,0,0,.12),0 0 34px rgba(232,166,104,.16);
+    filter:brightness(1.045);
+  }
+}
+
+@keyframes heroAmbientLightV16{
+  0%,100%{opacity:.60}
+  50%{opacity:.94}
+}
+
+@keyframes heroLightSweepV16{
+  0%,12%{
+    transform:translate3d(0,0,0) skewX(-8deg);
+    opacity:0;
+  }
+  24%{opacity:.30}
+  52%{opacity:.66}
+  78%{opacity:.28}
+  100%{
+    transform:translate3d(235%,0,0) skewX(-8deg);
+    opacity:0;
+  }
+}
+
+@media(max-width:720px){
+  .immersive-hero__foreground:before{
+    top:39%;
+    bottom:9%;
+    left:-60%;
+    width:76%;
+    opacity:.50;
+    filter:blur(16px);
+    animation-duration:9.6s;
+  }
+
+  .immersive-hero__house-float img{
+    animation-duration:7s!important;
+  }
+
+  .immersive-hero__word-float span{
+    animation-duration:8.4s;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .immersive-hero__house-float img,
+  .immersive-hero__word-float span,
+  .immersive-hero__glow,
+  .immersive-hero__foreground:before{
+    animation:none!important;
+  }
+}
