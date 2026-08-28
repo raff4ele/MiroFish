@@ -26,3 +26,21 @@ for(const id of ['engine','perception','difference','measurement','finale']){
   assert.ok(html.includes(`id="${id}"`),`${id} must remain`);
 }
 console.log('static-light-hero test: PASS');
+
+
+/* V20 — rich reference mini-site inside AFTER panel */
+assert.match(html,/reference-site-demo/,'reference mini-site required');
+assert.match(html,/reference-site-hero/,'reference hero required');
+assert.match(html,/reference-media-track/,'reference media rail required');
+assert.equal((html.match(/<figure>/g)||[]).length,14,'7 references duplicated for seamless rail');
+assert.ok(html.includes('be488eb2-cbd8-4aac-aded-7aa5c5a203ac.jpg'),'reference photo required');
+for(const id of [
+  '9d268ed4-da7b-4636-a37d-09d96cd34391',
+  'a76c6f4a-19ef-4711-a479-3699915ebf30',
+  '76125208-c2c9-441e-a7d9-573d7f93276a',
+  '24b1ef3d-8455-4ad3-8d69-67c955e0ece6',
+  '143ecce7-438b-4a6f-871f-fa55a7c69d5a',
+  '66fcbdf0-5381-4ef5-b118-4772cb9653fb'
+]) assert.ok(html.includes(id),`reference frame ${id} required`);
+assert.match(css,/@keyframes referenceFeatureBreath/);
+assert.match(css,/@keyframes referenceRail/);
