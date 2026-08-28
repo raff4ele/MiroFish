@@ -174,131 +174,53 @@ window.__ENTRA_PRIMA_V6__={
 
 
 /* =========================================================
-   V10 — SVG architectural construction scrub
+   V11 — floating photographic hero
    ========================================================= */
-const buildHero=document.querySelector('[data-build-hero]');
-if(buildHero){
-  const pieces=[...buildHero.querySelectorAll('[data-build-piece]')];
-  const finalImage=buildHero.querySelector('[data-build-final]');
-  const emptyImage=buildHero.querySelector('.build-empty-image');
-  const shade=buildHero.querySelector('.build-hero__shade');
-  const cue=buildHero.querySelector('.build-hero__scroll');
-  const stageIndex=buildHero.querySelector('.build-stage-index');
-  const stageLabel=buildHero.querySelector('.build-stage-label');
-
-  const clamp01=v=>Math.min(1,Math.max(0,v));
-  const smooth=(a,b,v)=>{
-    const t=clamp01((v-a)/(b-a));
-    return t*t*(3-2*t);
-  };
-
-  const ranges=[
-    [.05,.17],
-    [.13,.29],
-    [.21,.41],
-    [.31,.52],
-    [.43,.65],
-    [.55,.74],
-    [.64,.82]
-  ];
-  const svgShift=[
-    [0,7],
-    [-3,6],
-    [3,7],
-    [0,8],
-    [0,-8],
-    [2,5],
-    [-2,4]
-  ];
-
-  const stages=[
-    [0.00,'00','TERRENO'],
-    [0.06,'01','FONDAZIONI'],
-    [0.18,'02','STRUTTURA'],
-    [0.34,'03','VOLUMI'],
-    [0.52,'04','VETRI'],
-    [0.68,'05','FINITURE'],
-    [0.88,'06','ENTRA PRIMA']
-  ];
+const floatingHero=document.querySelector('[data-floating-hero]');
+if(floatingHero){
+  const heroImage=floatingHero.querySelector('.floating-hero__media img');
+  const wordmark=floatingHero.querySelector('.floating-hero__wordmark');
+  const continueHit=floatingHero.querySelector('.floating-hero__continue');
 
   let ticking=false;
-  let lastProgress=-1;
 
-  function applySvgBuildProgress(progress){
-    progress=clamp01(progress);
-    buildHero.style.setProperty('--build-progress',progress.toFixed(4));
+  const clamp01=v=>Math.min(1,Math.max(0,v));
 
-    pieces.forEach((piece,i)=>{
-      const t=smooth(ranges[i][0],ranges[i][1],progress);
-      const eased=1-Math.pow(1-t,3);
-      const shift=svgShift[i]||[0,0];
-      const x=((1-eased)*shift[0]).toFixed(3);
-      const y=((1-eased)*shift[1]).toFixed(3);
-
-      piece.style.opacity=eased.toFixed(4);
-      piece.setAttribute('transform',`translate(${x} ${y})`);
-    });
-
-    const finalT=smooth(.865,.985,progress);
-    if(finalImage){
-      finalImage.style.opacity=finalT.toFixed(4);
-      finalImage.style.transform=`scale(${(1.008-finalT*.008).toFixed(4)})`;
-    }
-
-    if(emptyImage){
-      const emptyFade=1-smooth(.84,.985,progress)*.88;
-      emptyImage.style.opacity=Math.max(.12,emptyFade).toFixed(4);
-      emptyImage.style.filter=`brightness(${(.86+progress*.06).toFixed(3)}) saturate(.95) contrast(1.03)`;
-    }
-
-    if(shade) shade.style.opacity=(.50-progress*.18).toFixed(3);
-    if(cue){
-      cue.style.opacity=(1-smooth(.015,.12,progress)).toFixed(3);
-      cue.style.pointerEvents=progress>.13?'none':'auto';
-    }
-
-    let active=stages[0];
-    for(const stage of stages){
-      if(progress>=stage[0]) active=stage;
-    }
-    if(stageIndex) stageIndex.textContent=active[1];
-    if(stageLabel) stageLabel.textContent=active[2];
-
-    lastProgress=progress;
-  }
-
-  function computeBuildProgress(){
-    const header=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header'))||0;
-    const viewport=Math.max(1,innerHeight-header);
-    const rect=buildHero.getBoundingClientRect();
-    const docTop=rect.top+scrollY;
-    const travel=Math.max(1,buildHero.offsetHeight-viewport);
-    return clamp01((scrollY-(docTop-header))/travel);
-  }
-
-  function updateBuildHero(){
+  function updateFloatingHero(){
     ticking=false;
-    const progress=computeBuildProgress();
-    if(Math.abs(progress-lastProgress)>.0004) applySvgBuildProgress(progress);
+    const rect=floatingHero.getBoundingClientRect();
+    const header=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header'))||0;
+    const travel=Math.max(1,floatingHero.offsetHeight);
+    const progress=clamp01((header-rect.top)/travel);
+    floatingHero.style.setProperty('--hero-scroll',progress.toFixed(4));
+
+    if(heroImage){
+      const y=(-18*progress).toFixed(2);
+      const scale=(1.015+progress*.025).toFixed(4);
+      heroImage.style.transform=`translate3d(0,${y}px,0) scale(${scale})`;
+    }
+
+    if(wordmark){
+      const y=(-10*progress).toFixed(2);
+      wordmark.style.marginTop=`${y}px`;
+    }
+
+    if(continueHit){
+      continueHit.style.pointerEvents=progress>.92?'none':'auto';
+    }
   }
 
-  function requestBuildUpdate(){
+  function requestFloatingHeroFrame(){
     if(ticking) return;
     ticking=true;
-    requestAnimationFrame(updateBuildHero);
+    requestAnimationFrame(updateFloatingHero);
   }
 
-  addEventListener('scroll',requestBuildUpdate,{passive:true});
-  addEventListener('resize',requestBuildUpdate,{passive:true});
+  addEventListener('scroll',requestFloatingHeroFrame,{passive:true});
+  addEventListener('resize',requestFloatingHeroFrame,{passive:true});
+  requestFloatingHeroFrame();
 
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    applySvgBuildProgress(1);
-  }else{
-    applySvgBuildProgress(computeBuildProgress());
-  }
-
-  window.__ENTRA_PRIMA_BUILD_HERO__={
-    get progress(){return computeBuildProgress()},
-    applySvgBuildProgress
+  window.__ENTRA_PRIMA_FLOATING_HERO__={
+    update:updateFloatingHero
   };
 }
