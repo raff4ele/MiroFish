@@ -714,3 +714,199 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
   .route-line,.chart-line{stroke-dashoffset:0}
   .route-node,.chart-dot{opacity:1;transform:none}
 }
+
+
+/* =========================================================
+   V7 — scroll-build architectural hero
+   ========================================================= */
+.build-hero{
+  --build-progress:0;
+  position:relative;
+  height:340svh;
+  background:#0b0907;
+  color:#f7efe5;
+  isolation:isolate;
+}
+.build-hero__sticky{
+  position:sticky;
+  top:var(--header);
+  height:calc(100svh - var(--header));
+  overflow:hidden;
+  background:#0b0907;
+  isolation:isolate;
+}
+.build-empty-scene,
+.build-empty-scene>img,
+.build-piece,
+.build-piece>img,
+.final-scene,
+.final-scene>img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.build-empty-scene{z-index:1;overflow:hidden}
+.build-empty-scene>img,
+.build-piece>img,
+.final-scene>img{
+  object-fit:cover;
+  object-position:center 58%;
+  transform:scale(1.02);
+  transform-origin:center center;
+}
+.build-empty-scene>img{
+  filter:brightness(.72) saturate(.91) contrast(1.04);
+  will-change:filter,opacity;
+}
+.build-piece{
+  z-index:3;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:0;
+  transform:translate3d(0,42px,0) scale(.995);
+  transform-origin:center center;
+  will-change:opacity,transform,filter;
+  filter:brightness(.8) saturate(.93) contrast(1.04);
+}
+.build-piece--foundation{
+  clip-path:polygon(4% 71%,96% 69%,96% 88%,4% 90%);
+}
+.build-piece--left-wing{
+  clip-path:polygon(4% 56%,39% 50%,43% 82%,4% 84%);
+}
+.build-piece--right-frame{
+  clip-path:polygon(35% 47%,98% 46%,98% 84%,34% 82%);
+}
+.build-piece--portal{
+  clip-path:polygon(27% 41%,70% 36%,74% 78%,27% 80%);
+}
+.build-piece--roof{
+  clip-path:polygon(18% 25%,79% 24%,88% 52%,15% 55%);
+}
+.build-piece--glass{
+  clip-path:polygon(28% 48%,95% 45%,95% 79%,24% 81%);
+  mix-blend-mode:normal;
+}
+.final-scene{
+  z-index:4;
+  opacity:0;
+  pointer-events:none;
+  will-change:opacity,transform,filter;
+  transform:scale(1.012);
+  filter:brightness(.91) saturate(.97) contrast(1.05);
+}
+.build-hero__shade{
+  position:absolute;
+  z-index:5;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(6,5,4,.52) 0%,rgba(6,5,4,.18) 24%,transparent 58%,rgba(6,5,4,.28) 100%),
+    radial-gradient(circle at 50% 56%,transparent 42%,rgba(0,0,0,.24) 100%);
+  opacity:.78;
+  will-change:opacity;
+}
+.build-stage-readout{
+  position:absolute;
+  z-index:6;
+  left:22px;
+  bottom:24px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  color:rgba(255,255,255,.78);
+  text-shadow:0 2px 14px rgba(0,0,0,.45);
+  pointer-events:none;
+}
+.build-stage-index{
+  font:500 8px DM Mono,monospace;
+  letter-spacing:.14em;
+  color:var(--brass2);
+}
+.build-stage-label{
+  font:500 9px DM Mono,monospace;
+  letter-spacing:.13em;
+}
+.build-hero__scroll{
+  position:absolute;
+  z-index:7;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  display:grid;
+  place-items:center;
+  gap:7px;
+  color:#f8f2ea;
+  text-shadow:0 2px 12px rgba(0,0,0,.55);
+  transition:opacity .18s ease;
+}
+.build-scroll-mouse{
+  position:relative;
+  width:38px;
+  height:58px;
+  border:1px solid rgba(255,255,255,.7);
+  border-radius:21px;
+  display:grid;
+  place-items:end center;
+  padding-bottom:7px;
+  background:rgba(10,8,6,.08);
+  backdrop-filter:blur(5px);
+}
+.build-scroll-mouse i{
+  position:absolute;
+  top:12px;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#fff;
+  animation:buildScrollDot 1.55s ease-in-out infinite;
+}
+.build-scroll-mouse b{
+  font:400 14px/1 Manrope,sans-serif;
+}
+.build-hero__scroll small{
+  font:500 7px DM Mono,monospace;
+  letter-spacing:.13em;
+}
+@keyframes buildScrollDot{
+  0%,100%{transform:translateY(0);opacity:.45}
+  50%{transform:translateY(13px);opacity:1}
+}
+
+@media(min-width:901px){
+  .build-hero{height:300svh}
+  .build-empty-scene>img,
+  .build-piece>img,
+  .final-scene>img{
+    object-position:center 58%;
+  }
+  .build-stage-readout{left:32px;bottom:28px}
+}
+@media(max-width:720px){
+  .build-hero{height:340svh}
+  .build-empty-scene>img,
+  .build-piece>img,
+  .final-scene>img{
+    width:112%;
+    height:112%;
+    left:-6%;
+    top:-6%;
+    object-position:center 58%;
+    transform:none;
+  }
+  .build-stage-readout{left:14px;bottom:18px}
+  .build-stage-label{font-size:7px}
+  .build-hero__scroll{bottom:14px}
+  .build-scroll-mouse{width:34px;height:52px}
+}
+@media(prefers-reduced-motion:reduce){
+  .build-hero{height:calc(100svh - var(--header))}
+  .build-hero__sticky{position:relative;top:0}
+  .build-empty-scene{opacity:0}
+  .build-piece{display:none}
+  .final-scene{opacity:1!important;transform:none!important}
+  .build-hero__shade{opacity:.42!important}
+  .build-hero__scroll{display:none}
+  .build-scroll-mouse i{animation:none}
+}
