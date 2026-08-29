@@ -392,16 +392,124 @@
       </div>
     </section>
 
-    <section class="measurement-section measurement-section--visual" id="measurement" aria-label="Misurazione e ottimizzazione">
-      <figure class="measurement-poster" data-reveal>
-        <img
-          src="https://d2ol7oe51mr4n9.cloudfront.net/user_39aFzNjMLgKsNfI0IjCLA8xTUEc/c187876a-8ba1-4f03-b08a-3870cea462c4.jpg"
-          alt="Dopo il lancio guardo cosa succede davvero: panoramica, engagement, conversioni e percorso da scoperta ad azione."
-          loading="lazy"
-          decoding="async"
-        >
-        <span class="measurement-poster__light" aria-hidden="true"></span>
-      </figure>
+    <section class="measurement-section measurement-section--interactive" id="measurement" aria-label="Misurazione e ottimizzazione">
+      <div class="measurement-live-copy" data-reveal>
+        <p class="kicker light">06 / MISURAZIONE</p>
+        <h2>Dopo il lancio,<br><em>guardo cosa succede davvero.</em></h2>
+        <p>Niente numeri inventati. Osservo i segnali reali e li trasformo in decisioni: cosa attira, cosa trattiene, cosa convince e cosa porta all'azione.</p>
+      </div>
+
+      <div class="measurement-live" data-measurement-live data-reveal>
+        <input class="measurement-tab-input" type="radio" name="measurement-step" id="measure-discovery" checked>
+        <input class="measurement-tab-input" type="radio" name="measurement-step" id="measure-interest">
+        <input class="measurement-tab-input" type="radio" name="measurement-step" id="measure-intent">
+        <input class="measurement-tab-input" type="radio" name="measurement-step" id="measure-action">
+
+        <div class="measurement-live__scene">
+          <span class="measurement-live__glow" aria-hidden="true"></span>
+          <span class="measurement-live__grid" aria-hidden="true"></span>
+
+          <article class="metric-card metric-card--overview">
+            <div class="metric-card__head">
+              <span>PANORAMICA</span>
+              <small><i></i> LIVE</small>
+            </div>
+            <svg class="metric-line-chart" viewBox="0 0 320 130" preserveAspectRatio="none" aria-hidden="true">
+              <path class="metric-grid-line" d="M0 32 H320 M0 65 H320 M0 98 H320"/>
+              <path class="metric-line-path" d="M8 103 C26 92 34 76 50 85 S78 112 92 69 S118 56 129 73 153 98 168 61 190 38 204 63 230 92 244 57 268 72 284 46 312 50"/>
+              <circle class="metric-line-dot" cx="312" cy="50" r="4"/>
+            </svg>
+            <div class="metric-card__value"><strong data-metric-count="1248">1.248</strong><span>EVENTI TRACCIATI</span></div>
+            <b class="metric-card__delta">↑ 16%</b>
+          </article>
+
+          <article class="metric-card metric-card--engagement">
+            <div class="metric-card__head">
+              <span>ENGAGEMENT</span><b>↑ 9%</b>
+            </div>
+            <div class="metric-ring" aria-label="68% coinvolgimento">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="metric-ring__track" cx="60" cy="60" r="48"/>
+                <circle class="metric-ring__progress" cx="60" cy="60" r="48"/>
+              </svg>
+              <div><strong>68%</strong><small>COINVOLGIMENTO</small></div>
+            </div>
+          </article>
+
+          <article class="metric-card metric-card--conversion">
+            <div class="metric-card__head"><span>CONVERSIONI</span></div>
+            <strong class="metric-card__big">4,31%</strong>
+            <span class="metric-card__sub">TASSO DI CONVERSIONE</span>
+            <b class="metric-card__delta">↑ 12%</b>
+          </article>
+
+          <div class="metric-data-core" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <i></i>
+          </div>
+
+          <div class="measurement-flow-line" aria-hidden="true">
+            <svg viewBox="0 0 1000 180" preserveAspectRatio="none">
+              <path d="M20 94 C150 20 250 150 380 85 S620 25 710 95 845 154 980 78"/>
+            </svg>
+          </div>
+
+          <div class="measurement-steps" role="tablist" aria-label="Percorso misurato">
+            <label class="measurement-step measurement-step--discovery" for="measure-discovery">
+              <span class="measurement-step__icon">⌕</span>
+              <strong>SCOPERTA</strong>
+              <small>Ti trovano. Inizia il viaggio.</small>
+            </label>
+            <label class="measurement-step measurement-step--interest" for="measure-interest">
+              <span class="measurement-step__icon">♡</span>
+              <strong>INTERESSE</strong>
+              <small>Si incuriosiscono. Vogliono sapere di più.</small>
+            </label>
+            <label class="measurement-step measurement-step--intent" for="measure-intent">
+              <span class="measurement-step__icon">◉</span>
+              <strong>INTENTO</strong>
+              <small>Valutano. Confrontano.</small>
+            </label>
+            <label class="measurement-step measurement-step--action" for="measure-action">
+              <span class="measurement-step__icon">◎</span>
+              <strong>AZIONE</strong>
+              <small>Agiscono. Diventano clienti.</small>
+            </label>
+          </div>
+        </div>
+
+        <div class="measurement-insights">
+          <article class="measurement-insight measurement-insight--discovery">
+            <span>01 / SCOPERTA</span>
+            <strong>Capisco da dove arriva l'attenzione.</strong>
+            <p>Canale, pagina di ingresso, profondità di scroll e permanenza mostrano se il primo impatto sta funzionando.</p>
+            <small>OSSERVO → TRAFFICO / TEMPO / SCROLL</small>
+          </article>
+          <article class="measurement-insight measurement-insight--interest">
+            <span>02 / INTERESSE</span>
+            <strong>Misuro cosa fa fermare davvero.</strong>
+            <p>Interazioni, visualizzazioni, tap e passaggi tra sezioni rivelano quali elementi generano curiosità reale.</p>
+            <small>OSSERVO → CLICK / VIDEO / INTERAZIONI</small>
+          </article>
+          <article class="measurement-insight measurement-insight--intent">
+            <span>03 / INTENTO</span>
+            <strong>Distinguo curiosità da intenzione.</strong>
+            <p>Visite ripetute, apertura dei contatti, consultazione di prezzi o servizi indicano che l'utente sta valutando.</p>
+            <small>OSSERVO → RITORNI / CTA / RICHIESTE</small>
+          </article>
+          <article class="measurement-insight measurement-insight--action">
+            <span>04 / AZIONE</span>
+            <strong>Ottimizzo ciò che porta risultati.</strong>
+            <p>Prenotazioni, richieste e acquisti diventano il segnale finale per capire cosa rafforzare e cosa cambiare.</p>
+            <small>OSSERVO → LEAD / BOOKING / VENDITE</small>
+          </article>
+        </div>
+
+        <div class="measurement-live__footer">
+          <span class="measurement-orbit" aria-hidden="true"><i></i><i></i><i></i></span>
+          <p><strong>Misuro. Capisco. Ottimizzo.</strong><em>Così ogni decisione è basata sulla realtà, non su ipotesi.</em></p>
+        </div>
+      </div>
     </section>
     <section class="finale-section" id="finale">
       <div class="finale-logo" data-reveal>
