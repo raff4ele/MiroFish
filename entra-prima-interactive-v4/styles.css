@@ -4282,3 +4282,85 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
 @media(prefers-reduced-motion:reduce){
   .global-step-line em{animation:none!important}
 }
+
+
+/* =========================================================
+   V26 — approved measurement visual
+   ========================================================= */
+.measurement-section--visual{
+  padding:0!important;
+  background:#050505!important;
+  overflow:hidden;
+}
+
+.measurement-poster{
+  position:relative;
+  width:min(100%,980px);
+  margin:0 auto;
+  overflow:hidden;
+  background:#050505;
+}
+
+.measurement-poster img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  object-position:center;
+  background:#050505;
+}
+
+.measurement-poster__light{
+  position:absolute;
+  inset:-12% -30%;
+  pointer-events:none;
+  background:linear-gradient(
+    112deg,
+    transparent 0 38%,
+    rgba(236,191,126,0) 43%,
+    rgba(236,191,126,.08) 48%,
+    rgba(255,232,196,.13) 50%,
+    rgba(236,191,126,.05) 54%,
+    transparent 60% 100%
+  );
+  mix-blend-mode:screen;
+  transform:translateX(-38%);
+  animation:measurementLightSweep 10s ease-in-out infinite;
+  opacity:.55;
+}
+
+@keyframes measurementLightSweep{
+  0%,16%{transform:translateX(-42%);opacity:0}
+  28%{opacity:.28}
+  50%{opacity:.55}
+  72%{opacity:.24}
+  100%{transform:translateX(42%);opacity:0}
+}
+
+@media(min-width:900px){
+  .measurement-section--visual{
+    padding:72px 0!important;
+  }
+  .measurement-poster{
+    border:1px solid rgba(214,184,131,.10);
+    box-shadow:0 40px 120px rgba(0,0,0,.36);
+  }
+}
+
+@media(max-width:720px){
+  .measurement-section--visual{
+    padding:0!important;
+  }
+  .measurement-poster{
+    width:100%;
+    margin:0;
+    border:0;
+  }
+  .measurement-poster img{
+    width:100%;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .measurement-poster__light{animation:none!important}
+}
