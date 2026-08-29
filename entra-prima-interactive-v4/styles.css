@@ -4364,3 +4364,813 @@ linear-gradient(180deg,#1a1511 0%,#0e0b09 100%);touch-action:pan-y}
 @media(prefers-reduced-motion:reduce){
   .measurement-poster__light{animation:none!important}
 }
+
+
+/* =========================================================
+   V27 — interactive measurement / 3D analytics experience
+   ========================================================= */
+.measurement-section--interactive{
+  position:relative;
+  padding:88px 5vw 96px!important;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 38%,rgba(181,139,87,.08),transparent 30%),
+    #080706!important;
+  color:#f8f1e8;
+}
+
+.measurement-live-copy{
+  position:relative;
+  z-index:3;
+  max-width:980px;
+  margin:0 auto 54px;
+}
+
+.measurement-live-copy h2{
+  margin:14px 0 18px;
+  font:500 clamp(58px,7.2vw,112px)/.86 Manrope,sans-serif;
+  letter-spacing:-.07em;
+  color:#fff;
+}
+
+.measurement-live-copy h2 em{
+  display:block;
+  font:400 clamp(62px,7vw,112px)/.83 Instrument Serif,serif;
+  color:#d9b77d;
+  letter-spacing:-.04em;
+}
+
+.measurement-live-copy>p:last-child{
+  max-width:760px;
+  margin:0;
+  font-size:16px;
+  line-height:1.7;
+  color:rgba(255,255,255,.58);
+}
+
+.measurement-live{
+  --mx:50%;
+  --my:46%;
+  position:relative;
+  max-width:1080px;
+  margin:0 auto;
+}
+
+.measurement-tab-input{
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
+}
+
+.measurement-live__scene{
+  position:relative;
+  min-height:760px;
+  overflow:hidden;
+  perspective:1200px;
+  perspective-origin:50% 44%;
+  border:1px solid rgba(214,184,131,.18);
+  background:
+    radial-gradient(circle at var(--mx) var(--my),rgba(219,163,96,.14),transparent 24%),
+    linear-gradient(180deg,#0b0908 0%,#0d0a08 54%,#070605 100%);
+  box-shadow:0 50px 120px rgba(0,0,0,.34);
+  isolation:isolate;
+}
+
+.measurement-live__scene:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.03),transparent 22%,transparent 72%,rgba(181,139,87,.025)),
+    linear-gradient(180deg,transparent 65%,rgba(0,0,0,.34));
+}
+
+.measurement-live__glow{
+  position:absolute;
+  z-index:0;
+  left:50%;
+  top:46%;
+  width:52%;
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle,rgba(213,151,87,.19),rgba(213,151,87,.045) 42%,transparent 70%);
+  filter:blur(34px);
+  animation:measurementSceneGlow 7.6s ease-in-out infinite;
+}
+
+.measurement-live__grid{
+  position:absolute;
+  z-index:0;
+  left:-18%;
+  right:-18%;
+  bottom:-10%;
+  height:52%;
+  transform:perspective(800px) rotateX(68deg);
+  transform-origin:center bottom;
+  background:
+    repeating-linear-gradient(90deg,rgba(214,184,131,.09) 0 1px,transparent 1px 44px),
+    repeating-linear-gradient(0deg,rgba(214,184,131,.065) 0 1px,transparent 1px 44px);
+  mask-image:linear-gradient(to top,rgba(0,0,0,.85),transparent 84%);
+  -webkit-mask-image:linear-gradient(to top,rgba(0,0,0,.85),transparent 84%);
+  opacity:.42;
+}
+
+.metric-card{
+  position:absolute;
+  z-index:4;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:18px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018)),
+    rgba(12,10,8,.82);
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+
+.metric-card:after{
+  content:"";
+  position:absolute;
+  inset:-35% auto -35% -55%;
+  width:44%;
+  transform:skewX(-15deg);
+  pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,237,209,.10),transparent);
+  animation:metricGlassSweep 8.8s ease-in-out infinite;
+}
+
+.metric-card--overview{
+  left:10%;
+  top:14%;
+  width:34%;
+  min-height:265px;
+  padding:20px;
+  transform:rotateY(7deg) rotateX(1deg) translateZ(34px);
+}
+
+.metric-card--engagement{
+  right:12%;
+  top:17%;
+  width:25%;
+  min-height:240px;
+  padding:20px;
+  transform:rotateY(-8deg) translateZ(18px);
+}
+
+.metric-card--conversion{
+  left:34%;
+  top:43%;
+  width:31%;
+  min-height:190px;
+  padding:20px;
+  transform:rotateX(-4deg) translateZ(58px);
+}
+
+.metric-card__head{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  font:500 8px DM Mono,monospace;
+  letter-spacing:.10em;
+  color:rgba(255,255,255,.72);
+}
+
+.metric-card__head small,
+.metric-card__head b,
+.metric-card__delta{
+  color:#d9b77d;
+}
+
+.metric-card__head small{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.metric-card__head small i{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#d9b77d;
+  box-shadow:0 0 14px rgba(217,183,125,.56);
+  animation:metricLivePulse 1.8s ease-in-out infinite;
+}
+
+.metric-line-chart{
+  position:relative;
+  z-index:2;
+  display:block;
+  width:100%;
+  height:110px;
+  margin:14px 0 8px;
+}
+
+.metric-grid-line{
+  fill:none;
+  stroke:rgba(255,255,255,.07);
+  stroke-width:1;
+}
+
+.metric-line-path{
+  fill:none;
+  stroke:#d9b77d;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 0 5px rgba(217,183,125,.30));
+  stroke-dasharray:520;
+  stroke-dashoffset:520;
+  animation:metricLineDraw 3.2s cubic-bezier(.19,1,.22,1) forwards;
+}
+
+.metric-line-dot{
+  fill:#f0c98c;
+  filter:drop-shadow(0 0 7px rgba(240,201,140,.7));
+  animation:metricDotPulse 2s ease-in-out infinite;
+}
+
+.metric-card__value{
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+  position:relative;
+  z-index:2;
+}
+
+.metric-card__value strong{
+  font:500 38px/1 Manrope,sans-serif;
+  letter-spacing:-.055em;
+}
+
+.metric-card__value span{
+  padding-bottom:4px;
+  font:500 7px DM Mono,monospace;
+  letter-spacing:.09em;
+  color:rgba(255,255,255,.42);
+}
+
+.metric-card__delta{
+  position:absolute;
+  right:18px;
+  bottom:16px;
+  z-index:2;
+  font:500 8px DM Mono,monospace;
+}
+
+.metric-ring{
+  position:relative;
+  width:150px;
+  aspect-ratio:1;
+  margin:26px auto 0;
+}
+
+.metric-ring svg{
+  width:100%;
+  height:100%;
+  transform:rotate(-90deg);
+}
+
+.metric-ring circle{
+  fill:none;
+  stroke-width:9;
+}
+
+.metric-ring__track{stroke:rgba(255,255,255,.08)}
+.metric-ring__progress{
+  stroke:#d9b77d;
+  stroke-linecap:round;
+  stroke-dasharray:302;
+  stroke-dashoffset:302;
+  filter:drop-shadow(0 0 7px rgba(217,183,125,.26));
+  animation:metricRingFill 2.7s .35s cubic-bezier(.19,1,.22,1) forwards;
+}
+
+.metric-ring>div{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-content:center;
+  text-align:center;
+}
+
+.metric-ring strong{
+  font:500 32px/1 Manrope,sans-serif;
+}
+
+.metric-ring small{
+  margin-top:5px;
+  font:500 6px DM Mono,monospace;
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.42);
+}
+
+.metric-card__big{
+  display:block;
+  margin-top:26px;
+  font:500 46px/1 Manrope,sans-serif;
+  letter-spacing:-.06em;
+}
+
+.metric-card__sub{
+  display:block;
+  margin-top:8px;
+  font:500 7px DM Mono,monospace;
+  letter-spacing:.1em;
+  color:rgba(255,255,255,.42);
+}
+
+.metric-data-core{
+  position:absolute;
+  z-index:3;
+  right:8%;
+  top:42%;
+  width:142px;
+  height:160px;
+  transform-style:preserve-3d;
+  transform:rotateX(-4deg) rotateY(-12deg) translateZ(30px);
+}
+
+.metric-data-core span{
+  position:absolute;
+  left:50%;
+  width:110px;
+  height:48px;
+  margin-left:-55px;
+  border-radius:50%;
+  border:1px solid rgba(214,184,131,.42);
+  background:linear-gradient(180deg,#231b14,#0b0907);
+  box-shadow:0 10px 22px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+.metric-data-core span:nth-child(1){top:0}
+.metric-data-core span:nth-child(2){top:43px}
+.metric-data-core span:nth-child(3){top:86px}
+
+.metric-data-core i{
+  position:absolute;
+  left:50%;
+  top:132px;
+  width:160px;
+  height:54px;
+  margin-left:-80px;
+  border-radius:50%;
+  border:1px solid rgba(214,184,131,.20);
+  box-shadow:0 0 30px rgba(214,184,131,.05);
+}
+
+.measurement-flow-line{
+  position:absolute;
+  z-index:2;
+  left:4%;
+  right:4%;
+  top:55%;
+  height:180px;
+  opacity:.72;
+  pointer-events:none;
+}
+
+.measurement-flow-line svg{
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+
+.measurement-flow-line path{
+  fill:none;
+  stroke:#d9b77d;
+  stroke-width:1.2;
+  stroke-dasharray:7 8;
+  filter:drop-shadow(0 0 4px rgba(217,183,125,.35));
+  animation:measurementFlowDash 12s linear infinite;
+}
+
+.measurement-steps{
+  position:absolute;
+  z-index:6;
+  left:4%;
+  right:4%;
+  bottom:6%;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.measurement-step{
+  min-height:150px;
+  padding:18px 14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:18px;
+  background:linear-gradient(155deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  transition:
+    transform .48s cubic-bezier(.19,1,.22,1),
+    border-color .3s ease,
+    box-shadow .3s ease,
+    background .3s ease;
+}
+
+.measurement-step__icon{
+  display:grid;
+  place-items:center;
+  width:46px;
+  height:46px;
+  margin-bottom:14px;
+  border-radius:50%;
+  color:#d9b77d;
+  font:400 34px/1 Instrument Serif,serif;
+}
+
+.measurement-step strong{
+  font:600 13px/1 Manrope,sans-serif;
+  letter-spacing:.06em;
+  color:#e9c58f;
+}
+
+.measurement-step small{
+  margin-top:8px;
+  max-width:130px;
+  font-size:10px;
+  line-height:1.4;
+  color:rgba(255,255,255,.48);
+}
+
+#measure-discovery:checked ~ .measurement-live__scene label[for="measure-discovery"],
+#measure-interest:checked ~ .measurement-live__scene label[for="measure-interest"],
+#measure-intent:checked ~ .measurement-live__scene label[for="measure-intent"],
+#measure-action:checked ~ .measurement-live__scene label[for="measure-action"]{
+  transform:translateY(-8px) translateZ(24px);
+  border-color:rgba(217,183,125,.72);
+  background:linear-gradient(155deg,rgba(181,139,87,.18),rgba(255,255,255,.025));
+  box-shadow:0 22px 48px rgba(0,0,0,.28),0 0 28px rgba(217,183,125,.08);
+}
+
+.measurement-insights{
+  position:relative;
+  margin-top:18px;
+  min-height:176px;
+}
+
+.measurement-insight{
+  display:none;
+  min-height:176px;
+  padding:24px 26px;
+  border:1px solid rgba(214,184,131,.18);
+  background:
+    radial-gradient(circle at 95% 15%,rgba(181,139,87,.08),transparent 22%),
+    rgba(255,255,255,.018);
+  animation:measurementInsightIn .42s cubic-bezier(.19,1,.22,1) both;
+}
+
+#measure-discovery:checked ~ .measurement-insights .measurement-insight--discovery,
+#measure-interest:checked ~ .measurement-insights .measurement-insight--interest,
+#measure-intent:checked ~ .measurement-insights .measurement-insight--intent,
+#measure-action:checked ~ .measurement-insights .measurement-insight--action{
+  display:block;
+}
+
+.measurement-insight>span{
+  font:500 7px DM Mono,monospace;
+  letter-spacing:.13em;
+  color:#d9b77d;
+}
+
+.measurement-insight>strong{
+  display:block;
+  margin-top:10px;
+  font:400 clamp(28px,3vw,42px)/1 Instrument Serif,serif;
+  color:#fff7ed;
+}
+
+.measurement-insight>p{
+  max-width:760px;
+  margin:12px 0 16px;
+  font-size:13px;
+  line-height:1.58;
+  color:rgba(255,255,255,.56);
+}
+
+.measurement-insight>small{
+  font:500 7px DM Mono,monospace;
+  letter-spacing:.10em;
+  color:rgba(255,255,255,.36);
+}
+
+.measurement-live__footer{
+  position:relative;
+  min-height:110px;
+  margin-top:18px;
+  display:flex;
+  align-items:center;
+  gap:22px;
+  padding:20px 24px;
+  border:1px solid rgba(214,184,131,.16);
+  background:linear-gradient(90deg,rgba(181,139,87,.08),rgba(255,255,255,.014));
+}
+
+.measurement-orbit{
+  position:relative;
+  width:56px;
+  height:56px;
+  flex:0 0 56px;
+}
+
+.measurement-orbit i{
+  position:absolute;
+  inset:0;
+  border:2px solid rgba(217,183,125,.32);
+  border-radius:50%;
+  border-right-color:#d9b77d;
+  animation:measurementOrbit 5.2s linear infinite;
+}
+
+.measurement-orbit i:nth-child(2){inset:7px;animation-duration:3.9s;animation-direction:reverse}
+.measurement-orbit i:nth-child(3){inset:14px;animation-duration:2.8s}
+
+.measurement-live__footer p{
+  margin:0;
+  display:grid;
+  gap:5px;
+}
+
+.measurement-live__footer strong{
+  font-size:16px;
+  font-weight:500;
+}
+
+.measurement-live__footer em{
+  font:400 22px/1.1 Instrument Serif,serif;
+  color:#d9b77d;
+}
+
+@keyframes measurementSceneGlow{
+  0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(.92)}
+  50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
+}
+@keyframes metricGlassSweep{
+  0%,14%{transform:translateX(-20%) skewX(-15deg);opacity:0}
+  35%{opacity:.55}
+  75%{opacity:.25}
+  100%{transform:translateX(420%) skewX(-15deg);opacity:0}
+}
+@keyframes metricLivePulse{
+  0%,100%{opacity:.45;transform:scale(.8)}
+  50%{opacity:1;transform:scale(1.15)}
+}
+@keyframes metricLineDraw{
+  to{stroke-dashoffset:0}
+}
+@keyframes metricDotPulse{
+  0%,100%{opacity:.65;transform:scale(.85)}
+  50%{opacity:1;transform:scale(1.2)}
+}
+@keyframes metricRingFill{
+  to{stroke-dashoffset:96}
+}
+@keyframes measurementFlowDash{
+  to{stroke-dashoffset:-240}
+}
+@keyframes measurementInsightIn{
+  from{opacity:0;transform:translateY(10px);filter:blur(3px)}
+  to{opacity:1;transform:none;filter:none}
+}
+@keyframes measurementOrbit{
+  to{transform:rotate(360deg)}
+}
+
+/* mobile */
+@media(max-width:720px){
+  .measurement-section--interactive{
+    padding:64px 16px 68px!important;
+  }
+
+  .measurement-live-copy{
+    margin-bottom:30px;
+  }
+
+  .measurement-live-copy h2{
+    font-size:clamp(50px,13.2vw,62px)!important;
+    line-height:.88!important;
+  }
+
+  .measurement-live-copy h2 em{
+    font-size:clamp(52px,13.4vw,64px)!important;
+    line-height:.83!important;
+  }
+
+  .measurement-live-copy>p:last-child{
+    font-size:14px;
+    line-height:1.58;
+  }
+
+  .measurement-live__scene{
+    min-height:820px;
+    border-color:rgba(214,184,131,.16);
+    perspective:760px;
+  }
+
+  .metric-card{
+    border-radius:14px;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
+
+  .metric-card--overview{
+    left:5%;
+    top:7%;
+    width:54%;
+    min-height:224px;
+    padding:14px;
+    transform:rotateY(5deg) translateZ(18px);
+  }
+
+  .metric-card--engagement{
+    right:5%;
+    top:10%;
+    width:35%;
+    min-height:210px;
+    padding:13px;
+    transform:rotateY(-5deg) translateZ(10px);
+  }
+
+  .metric-card--conversion{
+    left:28%;
+    top:34%;
+    width:46%;
+    min-height:155px;
+    padding:14px;
+    transform:rotateX(-2deg) translateZ(28px);
+  }
+
+  .metric-line-chart{
+    height:82px;
+    margin:10px 0 6px;
+  }
+
+  .metric-card__value strong{font-size:28px}
+  .metric-card__value span{font-size:5px}
+  .metric-card__delta{font-size:6px;right:12px;bottom:11px}
+  .metric-card__head{font-size:6px}
+
+  .metric-ring{
+    width:105px;
+    margin-top:24px;
+  }
+  .metric-ring strong{font-size:23px}
+  .metric-ring small{font-size:5px}
+
+  .metric-card__big{
+    margin-top:20px;
+    font-size:34px;
+  }
+
+  .metric-card__sub{font-size:5px}
+
+  .metric-data-core{
+    right:3%;
+    top:38%;
+    width:92px;
+    height:118px;
+    transform:rotateY(-10deg) translateZ(14px);
+  }
+  .metric-data-core span{
+    width:72px;
+    height:32px;
+    margin-left:-36px;
+  }
+  .metric-data-core span:nth-child(2){top:29px}
+  .metric-data-core span:nth-child(3){top:58px}
+  .metric-data-core i{
+    top:90px;
+    width:105px;
+    height:36px;
+    margin-left:-52.5px;
+  }
+
+  .measurement-flow-line{
+    top:52%;
+    left:0;
+    right:0;
+    height:150px;
+  }
+
+  .measurement-steps{
+    left:4%;
+    right:4%;
+    bottom:4%;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+  }
+
+  .measurement-step{
+    min-height:152px;
+    padding:12px 7px;
+    border-radius:14px;
+  }
+
+  .measurement-step__icon{
+    width:36px;
+    height:36px;
+    margin-bottom:9px;
+    font-size:28px;
+  }
+
+  .measurement-step strong{
+    font-size:9px;
+    letter-spacing:.03em;
+  }
+
+  .measurement-step small{
+    margin-top:6px;
+    font-size:7px;
+    line-height:1.35;
+  }
+
+  #measure-discovery:checked ~ .measurement-live__scene label[for="measure-discovery"],
+  #measure-interest:checked ~ .measurement-live__scene label[for="measure-interest"],
+  #measure-intent:checked ~ .measurement-live__scene label[for="measure-intent"],
+  #measure-action:checked ~ .measurement-live__scene label[for="measure-action"]{
+    transform:translateY(-5px);
+  }
+
+  .measurement-insights{
+    margin-top:10px;
+    min-height:222px;
+  }
+
+  .measurement-insight{
+    min-height:222px;
+    padding:18px 16px;
+  }
+
+  .measurement-insight>strong{
+    font-size:29px;
+  }
+
+  .measurement-insight>p{
+    font-size:12px;
+    line-height:1.5;
+  }
+
+  .measurement-live__footer{
+    min-height:104px;
+    gap:15px;
+    padding:16px;
+  }
+
+  .measurement-orbit{
+    width:46px;
+    height:46px;
+    flex-basis:46px;
+  }
+
+  .measurement-live__footer strong{
+    font-size:13px;
+  }
+
+  .measurement-live__footer em{
+    font-size:18px;
+  }
+}
+
+@media(max-width:390px){
+  .measurement-live__scene{min-height:790px}
+  .measurement-step{min-height:145px}
+  .measurement-step small{font-size:6.5px}
+  .measurement-insight{min-height:232px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .measurement-live__glow,
+  .metric-card:after,
+  .metric-card__head small i,
+  .metric-line-path,
+  .metric-line-dot,
+  .metric-ring__progress,
+  .measurement-flow-line path,
+  .measurement-orbit i{
+    animation:none!important;
+  }
+  .metric-line-path{stroke-dashoffset:0}
+  .metric-ring__progress{stroke-dashoffset:96}
+}
