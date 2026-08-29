@@ -47,3 +47,17 @@ assert.match(siteCss,/\.ep3d-panel video/,'3D panel video styling required');
 assert.match(siteJs,/querySelector\('video'\)/,'3D video playback management required');
 
 console.log('3d-video-loop test: PASS');
+
+
+/* V27 — interactive measurement experience */
+assert.match(html,/measurement-section--interactive/);
+assert.match(html,/measurement-live__scene/);
+assert.match(html,/metric-line-chart/);
+assert.match(html,/metric-ring/);
+assert.equal((html.match(/class="measurement-step /g)||[]).length,4,'four native measurement steps required');
+assert.equal((html.match(/class="measurement-insight /g)||[]).length,4,'four measurement insights required');
+assert.ok(!html.includes('measurement-poster'),'static measurement poster must be removed');
+assert.match(css,/@keyframes metricLineDraw/);
+assert.match(css,/@keyframes metricRingFill/);
+assert.match(css,/perspective:1200px/);
+console.log('interactive-measurement test: PASS');
