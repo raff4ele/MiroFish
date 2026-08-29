@@ -26,35 +26,35 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
 const modes={
   site:{
     index:'01 / 04',
-    title:'SITO IMMERSIVO',
-    description:"Un sito costruito intorno all'identità reale del brand: immagini, gerarchia, UI/UX e atmosfera lavorano insieme per far percepire valore prima ancora della visita.",
+    title:'IMMERSIVE WEBSITE',
+    description:"A website built around the brand's real identity: imagery, hierarchy, UI/UX and atmosphere work together to create perceived value before the visit even happens.",
     status:'WEBSITE EXPERIENCE',
     asset:'https://raw.githubusercontent.com/raff4ele/MiroFish/entra-prima-flat-visuals-v5/entra-prima-interactive-v4/assets/site.b64',
-    alt:'Visual pulito di un sito immersivo ENTRA PRIMA'
+    alt:'Clean ENTRA PRIMA immersive website visual'
   },
   ads:{
     index:'02 / 04',
     title:'ADS / ATTENTION',
-    description:"Creative e campagne non vengono trattate come un elemento separato. L'annuncio apre la stessa storia che continua nel sito, con hook, visual e messaggio coerenti.",
+    description:"Creative and campaigns are not treated as a separate layer. The ad opens the same story that continues on the website, with coherent hooks, visuals and messaging.",
     status:'CAMPAIGN EXPERIENCE',
     asset:'https://raw.githubusercontent.com/raff4ele/MiroFish/entra-prima-flat-visuals-v5/entra-prima-interactive-v4/assets/ads.b64',
-    alt:'Visual pulito della sezione ADS ENTRA PRIMA'
+    alt:'Clean ENTRA PRIMA ads visual'
   },
   global:{
     index:'03 / 04',
     title:'GLOBAL PRESENCE',
-    description:"La stessa identità viene adattata a lingua, tono e mercato per presentare il brand fuori dall'Italia senza perdere coerenza, qualità percepita e riconoscibilità.",
+    description:"The same identity is adapted to language, tone and market so the brand can expand internationally without losing consistency, perceived quality or recognizability.",
     status:'GLOBAL PRESENCE',
     asset:'https://raw.githubusercontent.com/raff4ele/MiroFish/entra-prima-flat-visuals-v5/entra-prima-interactive-v4/assets/global.b64',
-    alt:'Visual pulito della presenza internazionale ENTRA PRIMA'
+    alt:'Clean ENTRA PRIMA global presence visual'
   },
   action:{
     index:'04 / 04',
-    title:'AZIONE / BOOKING',
-    description:"Il percorso porta a un gesto concreto: prenotare, chiedere informazioni, entrare in showroom o iniziare una conversazione. La conversione diventa parte naturale dell'esperienza.",
+    title:'ACTION / BOOKING',
+    description:"The journey leads to a concrete action: booking, asking for information, entering the showroom or starting a conversation. Conversion becomes a natural part of the experience.",
     status:'BOOKING EXPERIENCE',
     asset:'https://raw.githubusercontent.com/raff4ele/MiroFish/entra-prima-flat-visuals-v5/entra-prima-interactive-v4/assets/action.b64',
-    alt:'Visual pulito del booking e della conversione ENTRA PRIMA'
+    alt:'Clean ENTRA PRIMA booking and conversion visual'
   }
 };
 
@@ -103,14 +103,14 @@ async function setMode(mode){
       loaderEl?.classList.add('is-hidden');
     }catch(err){
       console.error(err);
-      if(currentMode===requested && loaderEl) loaderEl.textContent='VISUAL NON DISPONIBILE';
+      if(currentMode===requested && loaderEl) loaderEl.textContent='VISUAL UNAVAILABLE';
     }
   }
 }
 document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
 
 const marketData={
-  milano:{code:'IT / MILANO',eyebrow:'UN PRIMO INCONTRO DIGITALE',headline:'Entra prima<br>di arrivare.',copy:"Un'esperienza digitale pensata per far percepire il brand prima della visita.",cta:"SCOPRI L'ESPERIENZA <span>↗</span>",language:'ITALIAN',tone:'EDITORIAL / DIRECT',goal:'DISCOVERY → BOOKING'},
+  milano:{code:'EN / MILAN',eyebrow:'A DIGITAL FIRST IMPRESSION',headline:'Feel the brand<br>before you arrive.',copy:"A digital experience designed to make the brand felt before the visit.",cta:"ENTER EXPERIENCE <span>↗</span>",language:'ENGLISH',tone:'EDITORIAL / DIRECT',goal:'DISCOVERY → BOOKING'},
   london:{code:'EN / LONDON',eyebrow:'A DIGITAL FIRST IMPRESSION',headline:'Feel the brand<br>before you arrive.',copy:'Turn the first online touchpoint into an experience that feels intentional, tactile and memorable.',cta:'ENTER EXPERIENCE <span>↗</span>',language:'ENGLISH / UK',tone:'REFINED / EDITORIAL',goal:'DISCOVERY → APPOINTMENT'},
   newyork:{code:'EN / NEW YORK',eyebrow:'STOP BROWSING. START FEELING.',headline:"Don't browse it.<br>Experience it.",copy:'A sharper creative system designed to turn attention into curiosity, then curiosity into action.',cta:'STEP INSIDE <span>↗</span>',language:'ENGLISH / US',tone:'DIRECT / HIGH-ENERGY',goal:'ATTENTION → ACTION'},
   dubai:{code:'EN / DUBAI',eyebrow:'ITALIAN IDENTITY. GLOBAL PRESENCE.',headline:'Make the first<br>impression travel.',copy:'A premium digital presence adapted for an international audience without losing the original brand identity.',cta:'DISCOVER <span>↗</span>',language:'ENGLISH',tone:'PREMIUM / PRECISE',goal:'DESIRE → INQUIRY'}
@@ -421,31 +421,31 @@ document.querySelectorAll('[data-system-atlas]').forEach(atlas=>{
   const data={
     site:{
       index:'01 / EXPERIENCE',
-      title:'SITO IMMERSIVO',
-      description:'Una presenza digitale costruita intorno al brand, non un template riempito di contenuti. Ogni sezione accompagna lo sguardo, rende immediatamente chiaro cosa offri e fa percepire più valore prima ancora del contatto.',
-      details:['UX mobile-first','Motion & interazioni','Prenotazione integrata','Velocità & chiarezza'],
-      outcome:'Far percepire più valore prima ancora del contatto.'
+      title:'IMMERSIVE WEBSITE',
+      description:'A digital presence built around the brand, not a template filled with content. Every section guides attention, makes the offer immediately clear and increases perceived value before contact even happens.',
+      details:['Mobile-first UX','Motion & interactions','Integrated booking','Speed & clarity'],
+      outcome:'Increase perceived value before contact even happens.'
     },
     attention:{
       index:'02 / ATTENTION',
-      title:'ATTENZIONE CHE RESTA',
-      description:'Non basta pubblicare contenuti. Creo una direzione visiva coerente tra sito, video, social e campagne: hook, ritmo, immagini e tono devono far fermare lo sguardo senza sembrare una pubblicità generica.',
-      details:['Visual direction','Video & creative','Hook nei primi secondi','Coerenza cross-channel'],
-      outcome:'Essere riconosciuti prima ancora di leggere il nome del brand.'
+      title:'ATTENTION THAT STICKS',
+      description:'Publishing content is not enough. I create a coherent visual direction across website, video, social and campaigns: hooks, pacing, imagery and tone must stop attention without feeling like generic advertising.',
+      details:['Visual direction','Video & creative','Hook in the first seconds','Cross-channel consistency'],
+      outcome:'Be recognizable before people even read the brand name.'
     },
     ads:{
       index:'03 / DISTRIBUTION',
-      title:'ADS COERENTI',
-      description:'La campagna non vive separata dal sito. Creatività, promessa, pubblico e landing devono parlare la stessa lingua. Distribuisco l’esperienza verso persone con un intento reale, localmente o su mercati esteri.',
-      details:['Target & intento','Creative testing','Landing coerente','Locale → internazionale'],
-      outcome:'Portare persone più adatte dentro un’esperienza già preparata a convertirle.'
+      title:'COHERENT ADS',
+      description:'The campaign does not live separately from the website. Creative, promise, audience and landing page must speak the same language. I distribute the experience toward people with real intent, locally or across international markets.',
+      details:['Targeting & intent','Creative testing','Coherent landing','Local → international'],
+      outcome:'Bring better-fit people into an experience already designed to convert them.'
     },
     action:{
       index:'04 / CONVERSION',
-      title:'AZIONE NATURALE',
-      description:'Prenotare, chiedere informazioni o acquistare non deve sembrare un salto improvviso. CTA, percorso, messaggi e micro-interazioni riducono la frizione e trasformano l’interesse nel passo successivo.',
-      details:['CTA contestuali','Booking & contatto','Riduzione frizione','Misurazione segnali'],
-      outcome:'Far sembrare il contatto la conclusione naturale dell’esperienza.'
+      title:'NATURAL ACTION',
+      description:'Booking, asking for information or purchasing should not feel like a sudden leap. CTAs, flow, messaging and micro-interactions reduce friction and turn interest into the next step.',
+      details:['Contextual CTAs','Booking & contact','Friction reduction','Signal measurement'],
+      outcome:'Make contact feel like the natural conclusion of the experience.'
     }
   };
 
